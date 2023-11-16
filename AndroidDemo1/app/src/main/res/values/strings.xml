@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidDemo1</string>
+    <string name="text2">Activity!</string>
 </resources>
