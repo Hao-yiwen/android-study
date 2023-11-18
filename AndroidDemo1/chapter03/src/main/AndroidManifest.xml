@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo1">
         <activity
-            android:name=".ViewMarginActivity"
+            android:name=".CalculatorActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
