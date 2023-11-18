@@ -9,10 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo1">
         <activity
-            android:name=".ImageStyleActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ButtonEableActivity"
+            android:name=".CalculatorActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
