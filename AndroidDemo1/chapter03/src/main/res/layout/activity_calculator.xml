@@ -201,7 +201,7 @@
                     android:src="@drawable/lala" />
 
                 <Button
-                    android:id="@+id/btn_backwards"
+                    android:id="@+id/btn_reciprocal"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/button_height"
                     android:layout_columnWeight="1"
@@ -221,7 +221,7 @@
                     android:textSize="@dimen/button_font_size" />
 
                 <Button
-                    android:id="@+id/btn_point"
+                    android:id="@+id/btn_dot"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/button_height"
                     android:layout_columnWeight="1"
