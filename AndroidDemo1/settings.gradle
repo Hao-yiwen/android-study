@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "AndroidDemo1"
 include ':app'
 include ':chapter03'
+include ':chapter04'
