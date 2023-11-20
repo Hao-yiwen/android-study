@@ -15,7 +15,7 @@
             android:name=".JumpSecondActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginInputActivity"
+            android:name=".ActionUriActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

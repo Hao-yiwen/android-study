@@ -2,6 +2,7 @@ package com.example.chapter04;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,8 +21,15 @@ public class ActStartActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-
-        startActivity(new Intent(this, ActFinshActivity.class));
+        // 1.在Intent的构造函数中指定
+        // Intent intent = new Intent(this, ActFinshActivity.class);
+        // 2.调用意图对象的setClass方法指定
+         Intent intent = new Intent();
+        // intent.setClass(this, ActFinshActivity.class);
+        // 3.调用意图对象的setComponnet方法指定
+        ComponentName component = new ComponentName(this, ActFinshActivity.class);
+        intent.setComponent(component);
+        startActivity(intent);
     }
 
     @Override
