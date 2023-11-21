@@ -9,13 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo1">
         <activity
+            android:name=".ActResponseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActReceiveActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginSuccessActivity"
             android:exported="false" />
         <activity
             android:name=".JumpSecondActivity"
             android:exported="false" />
         <activity
-            android:name=".ActionUriActivity"
+            android:name=".ActRequestActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
