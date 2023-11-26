@@ -8,9 +8,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo1">
-<!--        <activity-->
-<!--            android:name=".TimerPickerActivity"-->
-<!--            android:exported="false" />-->
+        <activity
+            android:name=".LoginForgetActivity"
+            android:exported="false" />
+        <!-- <activity -->
+        <!-- android:name=".LoginMainActivity" -->
+        <!-- android:exported="false" /> -->
+        <!-- <activity -->
+        <!-- android:name=".TimerPickerActivity" -->
+        <!-- android:exported="false" /> -->
         <!-- <activity -->
         <!-- android:name=".DatePickerActivity" -->
         <!-- android:exported="false" /> -->
@@ -42,7 +48,7 @@
         <!-- android:name=".DrawableNineActivity" -->
         <!-- android:exported="false" /> -->
         <activity
-            android:name=".TimerPickerActivity"
+            android:name=".LoginMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
