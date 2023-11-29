@@ -75,8 +75,22 @@ public class LoginDBHelper extends SQLiteOpenHelper {
 //        db.execSQL(sql);
     }
 
-    public void save() {
+    public void save(LoginInfo info) {
         // 如果存在则删除 再添加
+        try {
+            mWDB.beginTransaction();
+            delete(info);
+            insert(info);
+            mWDB.setTransactionSuccessful();
+        } catch (Exception e) {
+
+        } finally {
+
+        }
+    }
+
+    public long delete(LoginInfo info) {
+        return mWDB.delete(TABLE_NAME, "phone=?", new String[]{info.phone});
     }
 
     public long insert(LoginInfo info) {
@@ -117,19 +131,31 @@ public class LoginDBHelper extends SQLiteOpenHelper {
         return list;
     }
 
-    public List<User> queryByName(String name) {
-        List<User> list = new ArrayList<>();
-        Cursor cursor = mRDB.query(TABLE_NAME, null, "name=?", new String[]{name}, null, null, "update_time DESC");
-        while (cursor.moveToNext()) {
-            User user = new User();
-            user.id = cursor.getInt(0);
-            user.name = cursor.getString(1);
-            user.age = cursor.getInt(2);
-            user.height = cursor.getLong(3);
-            user.weight = cursor.getFloat(4);
-            user.married = cursor.getInt(5) == 1;
-            list.add(user);
+    public LoginInfo queryTop() {
+        LoginInfo info = null;
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE remember=1 ORDER BY _id DESC LIMIT 1;";
+        Cursor cursor = mRDB.rawQuery(sql, null);
+        if (cursor.moveToNext()) {
+            info = new LoginInfo();
+            info.id = cursor.getInt(0);
+            info.phone = cursor.getString(1);
+            info.password = cursor.getString(2);
+            info.remember = (cursor.getInt(3) == 1);
         }
-        return list;
+        return info;
+    }
+
+    public LoginInfo queryByPhone(String phone) {
+        LoginInfo info = null;
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE phone=? AND remember=1;";
+        Cursor cursor = mRDB.rawQuery(sql, new String[]{phone});
+        if (cursor.moveToNext()) {
+            info = new LoginInfo();
+            info.id = cursor.getInt(0);
+            info.phone = cursor.getString(1);
+            info.password = cursor.getString(2);
+            info.remember = (cursor.getInt(3) == 1);
+        }
+        return info;
     }
 }
