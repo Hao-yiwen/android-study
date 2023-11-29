@@ -21,11 +21,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.chapter06.database.LoginDBHelper;
+import com.example.chapter06.enity.LoginInfo;
 import com.example.chapter06.util.ViewUtil;
 
 import java.util.Random;
 
-public class LoginSQLiteActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener {
+public class LoginSQLiteActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener, View.OnClickListener, View.OnFocusChangeListener {
 
     private TextView tv_password;
     private EditText et_password;
@@ -39,6 +41,7 @@ public class LoginSQLiteActivity extends AppCompatActivity implements RadioGroup
     private String mPassword = "111111";
     private String verfyCode;
     private SharedPreferences config;
+    private LoginDBHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,19 +67,30 @@ public class LoginSQLiteActivity extends AppCompatActivity implements RadioGroup
                 mPassword = data.getStringExtra("new_password");
             }
         });
+        et_password.setOnFocusChangeListener(this);
+    }
 
-        config = getSharedPreferences("config", Context.MODE_PRIVATE);
+    @Override
+    protected void onStart() {
+        super.onStart();
+        helper = LoginDBHelper.getInstance(this);
+        helper.openWriteLink();
+        helper.openReadLink();
         reload();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        helper.closeLink();
+    }
+
     private void reload() {
-        boolean remember = config.getBoolean("remember", false);
-        if(remember) {
-            String phone = config.getString("phone", "");
-            String password = config.getString("password", "");
-            et_phone.setText(phone);
-            et_password.setText(password);
-            ck_remember.setChecked(true);
+        LoginInfo info = helper.queryTop();
+        if (info != null && info.remember) {
+            et_phone.setText(info.phone);
+            et_password.setText(info.password);
+            ck_remember.setChecked(info.remember);
         }
     }
 
@@ -144,11 +158,27 @@ public class LoginSQLiteActivity extends AppCompatActivity implements RadioGroup
         builder.setNegativeButton("取消", null);
         AlertDialog dialog = builder.create();
         dialog.show();
-        SharedPreferences.Editor edit = config.edit();
-        edit.putString("phone", et_phone.getText().toString());
-        edit.putString("password", et_password.getText().toString());
-        edit.putBoolean("remember", ck_remember.isChecked());
-        edit.commit();
+
+        LoginInfo info = new LoginInfo();
+        info.phone = et_phone.getText().toString();
+        info.password = et_password.getText().toString();
+        info.remember = ck_remember.isChecked();
+        helper.save(info);
+    }
+
+    // 当密码输入框获取焦点后，自动填充密码
+    @Override
+    public void onFocusChange(View view, boolean b) {
+        if (view.getId() == R.id.et_password) {
+            LoginInfo info = helper.queryByPhone(et_phone.getText().toString());
+            if (info != null && info.remember) {
+                et_password.setText(info.password);
+                ck_remember.setChecked(info.remember);
+            } else {
+                et_password.setText("");
+                ck_remember.setChecked(false);
+            }
+        }
     }
 
     private class HideTextWatcher1 implements TextWatcher {
