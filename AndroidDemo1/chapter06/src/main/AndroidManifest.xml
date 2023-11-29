@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo1">
         <activity
+            android:name=".LoginSQLiteActivity"
+            android:exported="false" />
+        <activity
             android:name=".SQLiteHelperActivity"
             android:exported="true">
             <intent-filter>
