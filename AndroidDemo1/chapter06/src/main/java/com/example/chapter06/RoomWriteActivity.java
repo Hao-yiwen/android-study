@@ -58,7 +58,14 @@ public class RoomWriteActivity extends AppCompatActivity implements View.OnClick
             b2.setId(1);
             bookDao.delete(b2);
         } else if (v.getId() == R.id.btn_update) {
-
+            BookInfo b3 = new BookInfo();
+            BookInfo b4 = bookDao.queryByName(name);
+            b3.setId(b4.getId());
+            b3.setName(name);
+            b3.setAuthor(author);
+            b3.setPress(press);
+            b3.setPrice(Double.parseDouble(price));
+            bookDao.update(b3);
         } else if (v.getId() == R.id.btn_query) {
             List<BookInfo> list = bookDao.queryAll();
             for (BookInfo bookInfo : list) {
