@@ -15,9 +15,6 @@
         android:theme="@style/Theme.AndroidDemo1">
         <activity
             android:name=".RoomWriteActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AppWriteActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
