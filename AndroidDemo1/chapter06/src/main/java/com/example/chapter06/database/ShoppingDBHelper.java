@@ -157,9 +157,46 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         int count = 0;
         String sql = "select sum(count) from " + TABLE_CART_INFO;
         Cursor cursor = mRDB.rawQuery(sql, null);
-        if(cursor.moveToNext()){
+        if (cursor.moveToNext()) {
             count = cursor.getInt(0);
         }
         return count;
+    }
+
+    //查询购物车中的所有信息表
+    public List<CartInfo> queryAllCartInfo() {
+        List<CartInfo> list = new ArrayList<>();
+        Cursor cursor = mRDB.query(TABLE_CART_INFO, null, null, null, null, null, null);
+        while (cursor.moveToNext()) {
+            CartInfo info = new CartInfo();
+            info.id = cursor.getInt(0);
+            info.goodsId = cursor.getInt(1);
+            info.count = cursor.getInt(2);
+            list.add(info);
+        }
+        return list;
+    }
+
+    // 根据商品id查询商品信息
+    public GoodsInfo queryGoodsInfoById(int goodsId) {
+        GoodsInfo info = null;
+        Cursor cursor = mRDB.query(TABLE_GOODS_INFO, null, "_id=?", new String[]{String.valueOf(goodsId)}, null, null, null);
+        if (cursor.moveToNext()) {
+            info = new GoodsInfo();
+            info.id = cursor.getInt(0);
+            info.name = cursor.getString(1);
+            info.description = cursor.getString(2);
+            info.price = cursor.getFloat(3);
+            info.pic_path = cursor.getString(4);
+        }
+        return info;
+    }
+
+    public void deleteCartInfoByGoodsId(int id) {
+        mWDB.delete(TABLE_CART_INFO, "goods_id=?", new String[]{String.valueOf(id)});
+    }
+
+    public void deleteAllCartInfo() {
+        mWDB.delete(TABLE_CART_INFO, "1=1", null);
     }
 }

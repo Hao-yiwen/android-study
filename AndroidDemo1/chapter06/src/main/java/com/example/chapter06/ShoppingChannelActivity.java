@@ -4,6 +4,7 @@ import static android.provider.CalendarContract.CalendarCache.URI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +23,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class ShoppingChannelActivity extends AppCompatActivity {
+public class ShoppingChannelActivity extends AppCompatActivity implements View.OnClickListener {
     // 声明一个商品数据库的帮助对象
     private ShoppingDBHelper mDBHelper;
     private TextView tv_count;
@@ -37,6 +38,8 @@ public class ShoppingChannelActivity extends AppCompatActivity {
 
         tv_count = findViewById(R.id.tv_count);
         gl_channel = findViewById(R.id.gl_channel);
+        findViewById(R.id.iv_back).setOnClickListener(this);
+        findViewById(R.id.iv_cart).setOnClickListener(this);
         // 获取商品数据库的帮助器对象
         mDBHelper = ShoppingDBHelper.getInstance(this);
         mDBHelper.openReadLink();
@@ -64,6 +67,10 @@ public class ShoppingChannelActivity extends AppCompatActivity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(screenWidth / 2, LinearLayout.LayoutParams.WRAP_CONTENT);
         // 查询数据库中所有的商品记录
         List<GoodsInfo> list = mDBHelper.queryAllGoodsInfo();
+
+        //移除下面的所有子视图
+        gl_channel.removeAllViews();
+
         for (GoodsInfo info : list) {
             // 获取布局文件item_goods.xml的根试图
             View view = LayoutInflater.from(this).inflate(R.layout.item_goods, null);
@@ -78,6 +85,14 @@ public class ShoppingChannelActivity extends AppCompatActivity {
 
             btn_add.setOnClickListener(v -> {
                 addToCart(info.id, info.name);
+            });
+
+            // 点击商品图片 跳转到商品详情页面
+            iv_thumb.setOnClickListener(v -> {
+                Intent intent = new Intent(this, ShoppingDetailActivity.class);
+                intent.putExtra("goods_id", info.id);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             });
             gl_channel.addView(view, params);
         }
@@ -95,5 +110,17 @@ public class ShoppingChannelActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         mDBHelper.closeLink();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.iv_back) {
+            finish();
+        } else if (v.getId() == R.id.iv_cart) {
+            Intent intent = new Intent(this, ShoppingCartActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            // 跳转到购物车页面
+            startActivity(intent);
+        }
     }
 }
