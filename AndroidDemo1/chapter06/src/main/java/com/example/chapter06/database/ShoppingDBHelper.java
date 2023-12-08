@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.chapter06.enity.CartInfo;
 import com.example.chapter06.enity.GoodsInfo;
 import com.example.chapter06.enity.LoginInfo;
 import com.example.chapter06.enity.User;
@@ -121,5 +122,44 @@ public class ShoppingDBHelper extends SQLiteOpenHelper {
         }
         cursor.close();
         return list;
+    }
+
+    // 把商品添加到购物车
+    public void insertGoodsInfos(int goodsId) {
+        CartInfo cartInfo = queryCartInfoByGoodsId(goodsId);
+        ContentValues values = new ContentValues();
+        values.put("goods_id", goodsId);
+        if (cartInfo == null) {
+            // 如果购物车不存在该商品，添加一条信息
+            values.put("count", 1);
+            mWDB.insert(TABLE_CART_INFO, null, values);
+        } else {
+            // 如果购物车存在该商品，更新商品数量
+            values.put("_id", cartInfo.id);
+            values.put("count", cartInfo.count + 1);
+            mWDB.update(TABLE_CART_INFO, values, "_id=?", new String[]{String.valueOf(cartInfo.id)});
+        }
+    }
+
+    private CartInfo queryCartInfoByGoodsId(int goodsId) {
+        Cursor cursor = mRDB.query(TABLE_CART_INFO, null, "goods_id=?", new String[]{String.valueOf(goodsId)}, null, null, null);
+        CartInfo info = null;
+        if (cursor.moveToNext()) {
+            info = new CartInfo();
+            info.id = cursor.getInt(0);
+            info.goodsId = cursor.getInt(1);
+            info.count = cursor.getInt(2);
+        }
+        return info;
+    }
+
+    public int queryCartInfoCount() {
+        int count = 0;
+        String sql = "select sum(count) from " + TABLE_CART_INFO;
+        Cursor cursor = mRDB.rawQuery(sql, null);
+        if(cursor.moveToNext()){
+            count = cursor.getInt(0);
+        }
+        return count;
     }
 }

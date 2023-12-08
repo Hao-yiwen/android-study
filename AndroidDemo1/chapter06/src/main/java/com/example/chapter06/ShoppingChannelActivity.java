@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.chapter06.database.ShoppingDBHelper;
 import com.example.chapter06.enity.GoodsInfo;
+import com.example.chapter06.util.ToastUtil;
 
 import org.w3c.dom.Text;
 
@@ -23,7 +25,7 @@ import java.util.List;
 public class ShoppingChannelActivity extends AppCompatActivity {
     // 声明一个商品数据库的帮助对象
     private ShoppingDBHelper mDBHelper;
-    private View tv_count;
+    private TextView tv_count;
     private GridLayout gl_channel;
 
     @Override
@@ -44,6 +46,18 @@ public class ShoppingChannelActivity extends AppCompatActivity {
         showGoods();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showCartInfoTotal();
+    }
+
+    private void showCartInfoTotal() {
+        int count = mDBHelper.queryCartInfoCount();
+        MyApplication.getInstance().goodsCount = count;
+        tv_count.setText(String.valueOf(count));
+    }
+
     private void showGoods() {
         // 商品条目是一个线性布局，设置布局的宽度为屏幕的一半
         int screenWidth = getResources().getDisplayMetrics().widthPixels;
@@ -56,11 +70,25 @@ public class ShoppingChannelActivity extends AppCompatActivity {
             ImageView iv_thumb = view.findViewById(R.id.iv_thumb);
             TextView tv_name = view.findViewById(R.id.tv_name);
             TextView tv_price = view.findViewById(R.id.tv_price);
+            Button btn_add = view.findViewById(R.id.btn_add);
+
             iv_thumb.setImageURI(Uri.parse(info.pic_path));
             tv_name.setText(info.name);
             tv_price.setText(String.valueOf((int) info.price));
+
+            btn_add.setOnClickListener(v -> {
+                addToCart(info.id, info.name);
+            });
             gl_channel.addView(view, params);
         }
+    }
+
+    // 把指定编号的商品添加到购物车
+    private void addToCart(int id, String name) {
+        int count = ++MyApplication.getInstance().goodsCount;
+        tv_count.setText(String.valueOf(count));
+        mDBHelper.insertGoodsInfos(id);
+        ToastUtil.showMsg(this, "已添加一条" + name + "商品记录");
     }
 
     @Override
