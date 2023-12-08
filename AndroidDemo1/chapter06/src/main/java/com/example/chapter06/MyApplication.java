@@ -30,7 +30,10 @@ public class MyApplication extends Application {
     public HashMap<String, String> infoMap = new HashMap<>();
 
     // 生命一个书籍数据库对象
-    private BookDatabase bookDatabase;
+    public BookDatabase bookDatabase;
+
+    // 购物车中的商品总数量
+    public int goodsCount;
 
     public static MyApplication getInstance() {
         return myApp;
