@@ -37,4 +37,5 @@
 
     <string name="done">确&#160; &#160; &#160;定</string>
 
+    <string name="file_provider">com.example.chapter07_client.fileProvider</string>
 </resources>
