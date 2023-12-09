@@ -1,4 +1,4 @@
-package com.example.chapter06.database;
+package com.example.chapter08.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.chapter06.enity.CartInfo;
-import com.example.chapter06.enity.GoodsInfo;
+import com.example.chapter08.enity.CartInfo;
+import com.example.chapter08.enity.GoodsInfo;
 
 import java.util.ArrayList;
 import java.util.List;
