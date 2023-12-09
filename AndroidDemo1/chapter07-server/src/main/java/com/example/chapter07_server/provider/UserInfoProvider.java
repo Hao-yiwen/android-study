@@ -35,7 +35,8 @@ public class UserInfoProvider extends ContentProvider {
         Log.d("ning", "UserInfoProvider insert");
         if (URI_MATCHER.match(uri) == USERS) {
             SQLiteDatabase writableDatabase = dbHelper.getWritableDatabase();
-            writableDatabase.insert(UserDBHelper.TABLE_NAME, null, values);
+            long rowId = writableDatabase.insert(UserDBHelper.TABLE_NAME, null, values);
+
         }
         return uri;
     }
