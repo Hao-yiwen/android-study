@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.kotlinandroid.page.Home
 import com.example.kotlinandroid.ui.theme.KotlinAndroidTheme
-import com.example.mylibrary.Detail
+import com.example.mylibrary2.Detail
 
 class NavTestActivity:ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,12 +17,12 @@ class NavTestActivity:ComponentActivity() {
             KotlinAndroidTheme {
                 val navController = rememberNavController()
 
-                NavHost(navController = navController, startDestination = "detail"){
+                NavHost(navController = navController, startDestination = "home"){
                     composable("home"){
                         Home(navController)
                     }
                     composable("detail"){
-                        Detail(navController)
+                        Detail()
                     }
                 }
             }

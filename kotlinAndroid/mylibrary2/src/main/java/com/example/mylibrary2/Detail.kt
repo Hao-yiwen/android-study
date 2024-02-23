@@ -1,4 +1,4 @@
-package com.example.mylibrary
+package com.example.mylibrary2
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
