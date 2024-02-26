@@ -7,7 +7,11 @@ fun main(){
 //    println(qs2.answer.equals(16))
     val qs3 = Question<Boolean>("Is the earth round?", true, Difficulty.Medium)
 //    println(qs3.answer.equals(true))
-    println(qs1.toString())
-    println("${Quiz.answer} of ${Quiz.total} answered.")
-    println(Quiz.progressText)
+//    println(qs1.toString())
+//    println("${Quiz.answer} of ${Quiz.total} answered.")
+//    println(Quiz.progressText)
+//    Quiz.printProgressBar()
+    Quiz().apply {
+        printQuiz()
+    }
 }
