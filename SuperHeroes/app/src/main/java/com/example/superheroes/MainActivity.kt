@@ -28,12 +28,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    SuperHeroesTheme {
-        HeroesScreen(modifier = Modifier)
-    }
-}
