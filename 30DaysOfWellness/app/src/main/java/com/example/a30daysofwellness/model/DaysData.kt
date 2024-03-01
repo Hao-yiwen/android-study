@@ -5,13 +5,13 @@ import com.example.a30daysofwellness.R
 object DaysData {
     val list = listOf<Day>(
         Day(
-            "Day 1: Walk 10,000 steps",
+            "Day 1: Walk 10,000 steps, or 30 minutes of exercise, or 3 miles of walking, or 30 minutes of exercise, or 3 miles of walking.",
             1,
             R.drawable.day1,
-            "Walk 10,000 steps"
+            "Walk 10,000 steps, or 30 minutes of exercise, or 3 miles of walking."
         ),
         Day(
-            "Day 2: Drink 8 glasses of water",
+            "Day 2: Drink 8 glasses of water, or 64 ounces of water, or 2 liters of water, or 8 cups of water.",
             2,
             R.drawable.day2,
             "Drink 8 glasses of water"
@@ -23,7 +23,7 @@ object DaysData {
             "Eat 5 servings of fruits and vegetables"
         ),
         Day(
-            "Day 4: Get 8 hours of sleep",
+            "Day 4: Get 8 hours of sleep, or 7 hours of sleep, or 6 hours of sleep, or 5 hours of sleep, or 4 hours of sleep.",
             4,
             R.drawable.day4,
             "Get 8 hours of sleep"
@@ -35,13 +35,13 @@ object DaysData {
             "Meditate for 10 minutes"
         ),
         Day(
-            "Day 6: No added sugar",
+            "Day 6: No added sugar, or no added sugar, or no added sugar, or no added sugar, or no added sugar.",
             6,
             R.drawable.day1,
             "No added sugar"
         ),
         Day(
-            "Day 7: No processed foods",
+            "Day 7: No processed foods, or no processed foods, or no processed foods, or no processed foods, or no processed foods.",
             7,
             R.drawable.day2,
             "No processed foods"
@@ -53,7 +53,7 @@ object DaysData {
             "No caffeine"
         ),
         Day(
-            "Day 9: No alcohol",
+            "Day 9: No alcohol, or no alcohol, or no alcohol, or no alcohol, or no alcohol.",
             9,
             R.drawable.day4,
             "No alcohol"
@@ -65,7 +65,7 @@ object DaysData {
             "No meat"
         ),
         Day(
-            "Day 11: No dairy",
+            "Day 11: No dairy, or no dairy, or no dairy, or no dairy, or no dairy.",
             11,
             R.drawable.day1,
             "No dairy"
