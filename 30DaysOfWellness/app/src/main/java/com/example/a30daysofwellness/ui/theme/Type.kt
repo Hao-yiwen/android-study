@@ -33,7 +33,7 @@ val Typography = Typography(
         letterSpacing = 0.4.sp
     ),
     displayLarge = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = SrirachaFont,
         fontWeight = FontWeight.Normal,
         fontSize = 34.sp,
         lineHeight = 40.sp,
