@@ -3,8 +3,13 @@ package com.example.a30daysofwellness
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -28,6 +33,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -74,12 +83,27 @@ fun DaysApp(name: String, modifier: Modifier = Modifier) {
 
 @Composable
 fun DaysItem(content: Day, modifier: Modifier = Modifier) {
+    var expanded by remember {
+        mutableStateOf(false)
+    }
+    val color by animateColorAsState(targetValue = if (expanded) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.tertiaryContainer)
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable { expanded = !expanded }
     ) {
-        Column(modifier = modifier.padding(8.dp)) {
+        Column(
+            modifier = modifier
+                .background(color)
+                .padding(8.dp)
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioNoBouncy,
+                        stiffness = Spring.StiffnessMedium
+                    )
+                )
+        ) {
             Text(
                 text = "Day" + content.day.toString(),
                 style = MaterialTheme.typography.displayMedium,
@@ -100,11 +124,13 @@ fun DaysItem(content: Day, modifier: Modifier = Modifier) {
                     .clip(MaterialTheme.shapes.medium),
                 contentScale = ContentScale.Crop
             )
-            Text(
-                text = content.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(top = 18.dp)
-            )
+            if (expanded) {
+                Text(
+                    text = content.description,
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(top = 18.dp)
+                )
+            }
         }
     }
 }
