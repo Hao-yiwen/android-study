@@ -86,7 +86,7 @@ fun DaysItem(content: Day, modifier: Modifier = Modifier) {
     var expanded by remember {
         mutableStateOf(false)
     }
-    val color by animateColorAsState(targetValue = if (expanded) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.tertiaryContainer)
+    val color by animateColorAsState(targetValue = if (expanded) MaterialTheme.colorScheme.secondaryContainer else MaterialTheme.colorScheme.tertiaryContainer)
     Card(
         modifier = Modifier
             .fillMaxWidth()
