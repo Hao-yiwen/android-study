@@ -26,3 +26,4 @@
 | kotlinAndroid                                         | compose 入门 app 练习，kotlin 基础练习                                    | 初级 |
 | LifeCycle                                             | 传统 java 生命周期练习                                                    | 初级 |
 | SuperHeroes                                           | 超级英雄 app 自己实现练习                                                 | 初级 |
+| basic-android-kotlin-compose-training-lunch-tray      | compsoe 页面之间导航                                                      | 初级 |
