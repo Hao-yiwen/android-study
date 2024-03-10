@@ -9,17 +9,29 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.mycity.R
 
 @Composable
 fun MyCityApp() {
+    val viewModel: MyCityViewModel = viewModel()
+    val uiState = viewModel.uiState.collectAsState().value
+//    val navController: NavHostController = rememberNavController()
+
     Scaffold(topBar = {
         MyCityTopBar()
     }) { paddingValues ->
-        MyCityScreen(modifier = Modifier.padding(paddingValues))
+        MyCityScreen(
+            myCityUiState = uiState,
+            myCityViewModel = viewModel,
+            modifier = Modifier.padding(paddingValues)
+        )
     }
 }
 
