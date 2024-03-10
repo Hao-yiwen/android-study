@@ -27,3 +27,5 @@
 | LifeCycle                                             | 传统 java 生命周期练习                                                    | 初级 |
 | SuperHeroes                                           | 超级英雄 app 自己实现练习                                                 | 初级 |
 | basic-android-kotlin-compose-training-lunch-tray      | compsoe 页面之间导航                                                      | 初级 |
+| basic-android-kotlin-compose-training-reply-app       | 构建适配多尺寸页面的应用                                                  | 初级 |
+| basic-android-kotlin-compose-training-sports          | 构建适配多尺寸页面联系                                                    | 初级 |
