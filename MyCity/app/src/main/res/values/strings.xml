@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">My City</string>
+    <string name="coffee">咖啡</string>
+    <string name="ice_cream">冰激凌</string>
+    <string name="flower">鲜花</string>
+    <string name="coffee_describe">咖啡是一种广受欢迎的饮料，以其独特的香气、味道和提神效果闻名。它是由咖啡树的种子（通常称为咖啡豆）制成的，经过烘焙、研磨和冲泡过程后制成饮料。</string>
+    <string name="ice_cream_describe">冰激凌是一种冷冻甜点，通常由奶油、糖和香料制成。它通常是在冰淇淋锅中制成的，然后在冰淇淋锅中冷冻。冰淇淋通常是在冰淇淋锅中制成的，然后在冰淇淋锅中冷冻。</string>
+    <string name="flower_describe">鲜花是一种美丽的植物，通常用于装饰和庆祝。它们通常是在花园中种植的，然后在花园中采摘。</string>
+    <string name="cong_cong_na_nian">匆匆那年</string>
+    <string name="cong_cong_na_nian_location">匆匆那年位于海东市洪水区，五四大街19号。</string>
+    <string name="bu_wang_chu_xin">不忘初心</string>
+    <string name="bu_wang_chu_xin_location">不忘初心位于海东市中心区，西关大街37号。</string>
+    <string name="zhi_yi">致一</string>
+    <string name="zhi_yi_location">致一位于海东市中心区，西关大街37号。</string>
+    <string name="flower_shop">鲜花快卖</string>
+    <string name="flower_shop_location">鲜花快卖位于海东市乐都区，滨河大街371号。</string>
 </resources>
