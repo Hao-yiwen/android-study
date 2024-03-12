@@ -31,11 +31,23 @@ fun MyCityScreen(
             }
 
             MyCityPageType.PLACE_OF_FOOD_PAGE -> {
-                PlaceOfFoodScreen(myCityUiState, modifier = modifier)
+                PlaceOfFoodScreen(
+                    myCityViewModel, myCityUiState, modifier = Modifier
+                        .padding(
+                            top = dimensionResource(id = R.dimen.padding_large),
+                        )
+                        .padding(horizontal = dimensionResource(id = R.dimen.padding_large))
+                )
             }
 
             MyCityPageType.PLACE_DETAIL_PAGE -> {
-                PlaceDetailScreen(modifier = modifier)
+                PlaceDetailScreen(
+                    modifier = Modifier
+                        .padding(
+                            top = dimensionResource(id = R.dimen.padding_large),
+                        )
+                        .padding(horizontal = dimensionResource(id = R.dimen.padding_large))
+                )
             }
 
             else -> {
