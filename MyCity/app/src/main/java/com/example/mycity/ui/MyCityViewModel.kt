@@ -31,4 +31,10 @@ class MyCityViewModel : ViewModel() {
             currentShowPage = MyCityPageType.PLACE_OF_FOOD_PAGE
         )
     }
+
+    fun updateCurrentPlace(place: Place){
+        _uiState.value = _uiState.value.copy(
+            currentShowPage = MyCityPageType.PLACE_DETAIL_PAGE
+        )
+    }
 }
