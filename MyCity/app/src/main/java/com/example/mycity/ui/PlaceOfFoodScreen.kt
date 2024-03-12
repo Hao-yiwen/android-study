@@ -1,9 +1,11 @@
 package com.example.mycity.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -26,10 +28,13 @@ import com.example.mycity.model.Place
 fun PlaceOfFoodScreen(
     myCityViewModel: MyCityViewModel, myCityUiState: MyCityUiState, modifier: Modifier
 ) {
+    val currentPlace = myCityUiState.currentPlace
     val currentFoodPlace: List<Place> = myCityUiState.currentFoodPlaces
     LazyColumn(modifier = modifier) {
         items(currentFoodPlace, key = { foodPlace -> foodPlace.id }) {
-            PlaceItem(place = it, modifier = Modifier
+            val isSelected = it == currentPlace
+            PlaceItem(place = it, isSelected = isSelected, modifier = Modifier
+                .fillMaxWidth()
                 .clickable {
                     myCityViewModel.updateCurrentPlace(it)
                 }
@@ -39,9 +44,16 @@ fun PlaceOfFoodScreen(
 }
 
 @Composable
-fun PlaceItem(place: Place, modifier: Modifier) {
+fun PlaceItem(place: Place, isSelected: Boolean, modifier: Modifier) {
     Card(modifier = modifier) {
-        Row(modifier = Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .then(
+                    if (isSelected) Modifier.background(MaterialTheme.colorScheme.primaryContainer) else Modifier
+                )
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 painter = painterResource(id = place.image),
                 contentDescription = null,

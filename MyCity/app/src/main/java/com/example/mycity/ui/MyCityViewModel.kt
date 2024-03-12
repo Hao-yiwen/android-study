@@ -34,7 +34,20 @@ class MyCityViewModel : ViewModel() {
 
     fun updateCurrentPlace(place: Place){
         _uiState.value = _uiState.value.copy(
-            currentShowPage = MyCityPageType.PLACE_DETAIL_PAGE
+            currentShowPage = MyCityPageType.PLACE_DETAIL_PAGE,
+            currentPlace = place
         )
+    }
+
+    fun onClickBack() {
+        if(_uiState.value.currentShowPage == MyCityPageType.PLACE_DETAIL_PAGE){
+            _uiState.value = _uiState.value.copy(
+                currentShowPage = MyCityPageType.PLACE_OF_FOOD_PAGE,
+            )
+        } else if(_uiState.value.currentShowPage == MyCityPageType.PLACE_OF_FOOD_PAGE){
+            _uiState.value = _uiState.value.copy(
+                currentShowPage = MyCityPageType.FOOD_PAGE,
+            )
+        }
     }
 }
