@@ -29,3 +29,5 @@
 | basic-android-kotlin-compose-training-lunch-tray      | compsoe 页面之间导航                                                      | 初级 |
 | basic-android-kotlin-compose-training-reply-app       | 构建适配多尺寸页面的应用                                                  | 初级 |
 | basic-android-kotlin-compose-training-sports          | 构建适配多尺寸页面联系                                                    | 初级 |
+| basic-android-kotlin-compose-training-race-tracker    | 协程初体验                                                                | 初级 |
+| basic-android-kotlin-compose-training-mars-photos     | 使用 retrofit 获取数据                                                    | 初级 |
