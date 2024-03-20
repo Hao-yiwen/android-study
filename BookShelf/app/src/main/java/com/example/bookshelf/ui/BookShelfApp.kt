@@ -10,7 +10,9 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookshelf.R
+import com.example.bookshelf.state.BookShelfViewModel
 import com.example.bookshelf.ui.screen.HomeScreen
 
 @Composable
@@ -18,6 +20,7 @@ fun BookShelfApp() {
     Scaffold(topBar = {
         BookShelfTopBar()
     }) {
+        val viewModel: BookShelfViewModel = viewModel(factory = BookShelfViewModel.Factory)
         HomeScreen(modifier = Modifier.padding(it))
     }
 }
