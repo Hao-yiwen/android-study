@@ -1,6 +1,7 @@
 package com.example.bookshelf.state
 
 import android.text.Spannable.Factory
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -22,7 +23,8 @@ class BookShelfViewModel(val bookShelfRepository: BookShelfRepository) : ViewMod
 
     private fun getBookShelf() {
         viewModelScope.launch {
-
+            val res = bookShelfRepository.getBookShelf("jazz+history")
+            Log.d("BookShelfViewModel", "getBookShelf: $res")
         }
     }
 

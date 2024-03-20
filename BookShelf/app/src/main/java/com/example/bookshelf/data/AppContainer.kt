@@ -9,7 +9,7 @@ interface AppContainer {
 }
 
 class DefaultContainer : AppContainer {
-    val BASE_URL = "https://www.googleapis.com/books/v1/volumes"
+    val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
 
     val retrofit =
         Retrofit.Builder().addConverterFactory(GsonConverterFactory.create()).baseUrl(BASE_URL)
