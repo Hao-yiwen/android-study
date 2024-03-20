@@ -1,4 +1,5 @@
 package com.example.bookshelf.state
 
-class BookShelfViewState {
-}
+import com.example.bookshelf.model.ImageLinks
+
+data class BookShelfViewState(val ImageLinkList: List<ImageLinks>? = null)
