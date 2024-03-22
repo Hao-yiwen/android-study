@@ -10,6 +10,10 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.bookshelf.BookShelfApplication
 import com.example.bookshelf.data.BookShelfRepository
+import com.example.bookshelf.model.ImageLinks
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
@@ -23,8 +27,24 @@ class BookShelfViewModel(val bookShelfRepository: BookShelfRepository) : ViewMod
 
     private fun getBookShelf() {
         viewModelScope.launch {
-            val res = bookShelfRepository.getBookShelf("jazz+history")
-            Log.d("BookShelfViewModel", "getBookShelf: $res")
+            coroutineScope {
+                async {
+                    var imageLinks = mutableListOf<ImageLinks>()
+                    val bookShelf = bookShelfRepository.getBookShelf("jazz+history")
+                    val requests = bookShelf?.items?.map {
+                         async {
+                            Log.d("BookShelfViewModel", "getBookShelf: ${it.volumeInfo.imageLinks.thumbnail}")
+                             bookShelfRepository.getBookShelfById(it.id)
+                        }
+                    }
+                    if (requests != null) {
+                        requests.awaitAll().forEach{
+                            imageLinks.add(it.volumeInfo.imageLinks)
+                        }
+                    }
+                    _uiState.value = BookShelfViewState(ImageLinkList = BookShelfType.Success(imageLinks))
+                }
+            }
         }
     }
 

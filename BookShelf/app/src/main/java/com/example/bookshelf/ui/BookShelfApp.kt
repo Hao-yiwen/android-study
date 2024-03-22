@@ -12,16 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.bookshelf.R
+import com.example.bookshelf.model.Book
 import com.example.bookshelf.state.BookShelfViewModel
 import com.example.bookshelf.ui.screen.HomeScreen
 
 @Composable
 fun BookShelfApp() {
+    val viewModel: BookShelfViewModel = viewModel(factory = BookShelfViewModel.Factory)
     Scaffold(topBar = {
         BookShelfTopBar()
     }) {
         val viewModel: BookShelfViewModel = viewModel(factory = BookShelfViewModel.Factory)
-        HomeScreen(modifier = Modifier.padding(it))
+        HomeScreen(modifier = Modifier.padding(it), viewModel)
     }
 }
 
