@@ -4,8 +4,8 @@ import com.example.bookshelf.model.ImageLinks
 
 sealed interface BookShelfType {
     object Loading : BookShelfType
-    data class Success(val data: ImageLinks) : BookShelfType
+    data class Success(val data: List<ImageLinks>) : BookShelfType
     object Error : BookShelfType
 }
 
-data class BookShelfViewState(val ImageLinkList: List<BookShelfType>? = null)
+data class BookShelfViewState(val ImageLinkList: BookShelfType = BookShelfType.Loading)
