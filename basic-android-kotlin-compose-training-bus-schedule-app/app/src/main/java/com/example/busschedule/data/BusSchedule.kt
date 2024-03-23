@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
+ *      https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.example.busschedule.data
 
-package com.example.inventory.data
-
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
-/**
- * Entity data class represents a single row in the database.
- */
-@Entity(tableName = "items")
-class Item(
+@Entity(tableName = "Schedule")
+data class BusSchedule(
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val name: String,
-    val price: Double,
-    val quantity: Int
+    val id: Int,
+    @NonNull
+    @ColumnInfo(name = "stop_name")
+    val stopName: String,
+    @NonNull
+    @ColumnInfo(name = "arrival_time")
+    val arrivalTimeInMillis: Int
 )
