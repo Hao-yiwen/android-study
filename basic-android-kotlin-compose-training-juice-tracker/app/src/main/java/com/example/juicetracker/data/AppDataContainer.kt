@@ -24,7 +24,7 @@ class AppDataContainer(private val context: Context) : AppContainer {
     /**
      * Implementation for [JuiceRepository]
      */
-    override val trackerRepository: JuiceRepository by lazy {
+    override val juiceRepository: JuiceRepository by lazy {
         RoomJuiceRepository(AppDatabase.getDatabase(context).juiceDao())
     }
 }
