@@ -24,13 +24,9 @@ import com.example.juicetracker.JuiceTrackerApplication
 
 object AppViewModelProvider {
     val Factory = viewModelFactory {
-        // Initializer for ItemEntryViewModel
+        // Initializer for JuiceTrackerViewModel
         initializer {
-            EntryViewModel(juiceTrackerApplication().container.trackerRepository)
-        }
-        // Initializer for TrackerViewModel
-        initializer {
-            TrackerViewModel(juiceTrackerApplication().container.trackerRepository)
+            JuiceTrackerViewModel(juiceTrackerApplication().container.juiceRepository)
         }
     }
 }
