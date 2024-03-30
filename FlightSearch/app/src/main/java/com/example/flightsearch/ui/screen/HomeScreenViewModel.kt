@@ -20,6 +20,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeScreenViewModel(
@@ -30,17 +31,27 @@ class HomeScreenViewModel(
     ViewModel() {
     val _uiState = MutableStateFlow(HomeScreenUiState())
 
-    val uiState: StateFlow<HomeScreenUiState> = flightInputPreferencesRepository.searchStr.map {
-        HomeScreenUiState(it)
-    }.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = HomeScreenUiState()
-    )
+    val uiState: StateFlow<HomeScreenUiState> = _uiState
+
 
     init {
+        processFlightInput()
+    }
+
+    fun processFlightInput() {
         viewModelScope.launch {
-            airportRepository.searchAllAirport()
+            val searchStr = flightInputPreferencesRepository.searchStr.map {
+                HomeScreenUiState(it)
+            }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = HomeScreenUiState()
+            )
+            _uiState.update {
+                _uiState.value.copy(
+                    searchStr = searchStr.value.searchStr
+                )
+            }
         }
     }
 
@@ -65,10 +76,10 @@ class HomeScreenViewModel(
 
 
     fun changeStr(str: String) {
+        _uiState.value = HomeScreenUiState(searchStr = str)
         viewModelScope.launch {
             flightInputPreferencesRepository.saveLayoutPreferences(str)
         }
-        _uiState.value = HomeScreenUiState(searchStr = str)
     }
 
     companion object {

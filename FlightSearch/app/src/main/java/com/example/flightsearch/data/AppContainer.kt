@@ -9,6 +9,8 @@ interface AppContainer {
     val airportRepositoryProvider: AirportRepository
     val favoriteRepositoryProvider: FavoriteRepository
     val flightInputPreferencesRepository: FlightInputPreferencesRepository
+
+    fun initDatabase(): Unit;
 }
 
 private const val FLIGHT_PREFERENCES = "flight_preferences"
@@ -29,5 +31,9 @@ class DefaultAppContainer(
 
     override val flightInputPreferencesRepository: FlightInputPreferencesRepository by lazy {
         FlightInputPreferencesRepository(context.dataStore)
+    }
+
+    override fun initDatabase() {
+        FlightDataBase.getDataBase(context)
     }
 }

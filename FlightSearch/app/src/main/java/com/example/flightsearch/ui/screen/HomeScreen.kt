@@ -16,18 +16,22 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.flightsearch.R
+import kotlinx.coroutines.coroutineScope
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,6 +41,11 @@ fun HomeScreen(
 ) {
     val uiState: HomeScreenUiState = viewModel.uiState.collectAsState().value
     var expanded by remember { mutableStateOf(false) }
+    val focusRequester = remember { FocusRequester() }
+
+    LaunchedEffect(Unit) {
+        focusRequester.requestFocus() // 组件加载时请求焦点
+    }
 
     Column {
         TextField(value = uiState.searchStr,
@@ -47,7 +56,8 @@ fun HomeScreen(
             },
             modifier = modifier
                 .fillMaxWidth()
-                .padding(10.dp),
+                .padding(10.dp)
+                .focusRequester(focusRequester), // 使用FocusRequester,
             shape = RoundedCornerShape(60.dp),
             colors = TextFieldDefaults.colors(
                 cursorColor = Color.Black, // 设置光标颜色
