@@ -10,6 +10,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/java_view_other" />
+            <option value="$PROJECT_DIR$/recyclerviewtest" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

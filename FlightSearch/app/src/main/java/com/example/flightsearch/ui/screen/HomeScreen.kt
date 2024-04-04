@@ -39,7 +39,7 @@ fun HomeScreen(
     modifier: Modifier,
     viewModel: HomeScreenViewModel = viewModel(factory = HomeScreenViewModel.Factory)
 ) {
-    val uiState: HomeScreenUiState = viewModel.uiState.collectAsState().value
+    val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
     val focusRequester = remember { FocusRequester() }
 
