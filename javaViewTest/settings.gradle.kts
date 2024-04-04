@@ -21,3 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "javaViewTest"
 include(":app")
+include(":recyclerviewtest")
+include(":java_view_other")
