@@ -41,23 +41,16 @@ fun HomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
-    val focusRequester = remember { FocusRequester() }
-
-    LaunchedEffect(Unit) {
-        focusRequester.requestFocus() // 组件加载时请求焦点
-    }
 
     Column {
         TextField(value = uiState.searchStr,
             onValueChange = {
-                viewModel.changeStr(it)
-                viewModel.searchAirport(it)
+                viewModel.inputStrChangeHandle(it)
                 expanded = it.isNotEmpty()
             },
             modifier = modifier
                 .fillMaxWidth()
-                .padding(10.dp)
-                .focusRequester(focusRequester), // 使用FocusRequester,
+                .padding(10.dp), // 使用FocusRequester,
             shape = RoundedCornerShape(60.dp),
             colors = TextFieldDefaults.colors(
                 cursorColor = Color.Black, // 设置光标颜色
@@ -77,7 +70,6 @@ fun HomeScreen(
                 DropdownMenuItem(text = {
                     Text(text = item.iataCode)
                 }, onClick = {
-
                 })
             }
         }

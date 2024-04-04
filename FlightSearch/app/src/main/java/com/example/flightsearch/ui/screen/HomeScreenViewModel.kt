@@ -3,6 +3,7 @@ package com.example.flightsearch.ui.screen
 import android.text.Spannable.Factory
 import android.util.Log
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -37,6 +38,21 @@ class HomeScreenViewModel(
 
     init {
         processFlightInput()
+        initDatabase()
+    }
+
+    fun initDatabase() {
+        /**
+         * @description 解决数据库初始化问题
+         * - 在3月份使用数据库的时候发现，初次进入页面无法初始化数据库，经过debugger发现，问题是之前的airportRegistory方法是Flow类型，而Flow类型是冷流，
+         * 只有订阅了才会执行，所以在初次进入页面的时候，没有订阅，导致数据库没有初始化，所以现在我改成Suspend,问题解决了
+         * - 还有一个问题就是uistate的问题，uistate需要委托创建而不是初始化，例如
+         * val uiState by viewModel.uiState.collectAsState()
+         * @date: 2024/4/5 01:00 AM
+         */
+        viewModelScope.launch {
+            airportRepository.searchAllAirportAsync()
+        }
     }
 
     fun processFlightInput() {
@@ -58,20 +74,16 @@ class HomeScreenViewModel(
 
     fun searchAirport(str: String): Unit {
         viewModelScope.launch {
-            val flightList: Flow<List<Airport>> = airportRepository.searchAirport("%" + str + "%")
-            val uiStateFlow: StateFlow<HomeScreenUiState> = flightList
-                .map { flightList ->
-                    HomeScreenUiState(
-                        searchResult = flightList // 假设你的 HomeScreenUiState 支持列表
-                    )
-                }
-                .stateIn(
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5000),
-                    initialValue = HomeScreenUiState()
-                )
-            Log.d("HomeScreenViewModel", "searchAirport: ${uiStateFlow.value.searchResult}")
-            _uiState.value = uiState.value.copy(searchResult = uiStateFlow.value.searchResult)
+            val flightList: List<Airport> = airportRepository.searchAirportAsync("%" + str + "%")
+            Log.d("HomeScreenViewModel", "searchAirport: ${flightList.toMutableStateList()}")
+            _uiState.value = uiState.value.copy(searchResult = flightList.toMutableStateList())
+        }
+    }
+
+    fun inputStrChangeHandle(str: String) {
+        changeStr(str)
+        viewModelScope.launch {
+            searchAirport(str)
         }
     }
 
