@@ -47,8 +47,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (v.getId() == R.id.btn_cardview) {
+            Intent intent = new Intent(this, CardViewActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else if (v.getId() == R.id.btn_list) {
-
+            Intent intent = new Intent(this, ListViewActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 }
