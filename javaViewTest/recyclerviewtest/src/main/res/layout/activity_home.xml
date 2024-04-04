@@ -13,32 +13,42 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginTop="30dp">
 
-        <Button
-            android:id="@+id/btn_recycle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="RecycleView" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_cardview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CardView" />
+            <Button
+                android:id="@+id/btn_recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="RecycleView"
+                android:layout_marginTop="20dp"/>
 
-        <Button
-            android:id="@+id/btn_list"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="ListView" />
+            <Button
+                android:id="@+id/btn_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CardView"
+                android:layout_marginTop="20dp"/>
+
+            <Button
+                android:id="@+id/btn_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="ListView"
+                android:layout_marginTop="20dp"/>
 
 
-    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>
