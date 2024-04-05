@@ -40,6 +40,8 @@ dependencies {
 
     // 引用com.yiwen.recyclerviewtest中的库
     implementation(project(":recyclerviewtest"))
+    // 添加composeviwes
+    implementation(project(":compose_views"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
