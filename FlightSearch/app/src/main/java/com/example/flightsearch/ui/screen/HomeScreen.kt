@@ -2,9 +2,12 @@ package com.example.flightsearch.ui.screen
 
 import android.text.Editable.Factory
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -22,10 +25,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerHoverIcon
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -33,7 +41,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.flightsearch.R
 import kotlinx.coroutines.coroutineScope
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier,
@@ -41,8 +49,18 @@ fun HomeScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var expanded by remember { mutableStateOf(false) }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusManager = LocalFocusManager.current
 
-    Column {
+    Column(modifier = Modifier
+        .pointerInput(Unit) {
+            detectTapGestures(
+                onPress = {
+                    focusManager.clearFocus()
+                    keyboardController?.hide()
+                }
+            )
+        }) {
         TextField(value = uiState.searchStr,
             onValueChange = {
                 viewModel.inputStrChangeHandle(it)
@@ -62,17 +80,11 @@ fun HomeScreen(
             prefix = {
                 Icon(imageVector = Icons.Filled.Search, contentDescription = "Search")
             },
-            placeholder = {
-                Text(text = "请输出搜索关键词")
-            })
-        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-            uiState.searchResult.forEach { item ->
-                DropdownMenuItem(text = {
-                    Text(text = item.iataCode)
-                }, onClick = {
-                })
-            }
+            placeholder = { Text(text = "请输出搜索关键词") })
+        if (uiState.searchStr.isNotEmpty() && uiState.searchResult.size > 0 && uiState.isShowSearchList == true) {
+            SearchResultScreen(uiState = uiState, viewModel)
+        } else {
+            FlightList(modifier = Modifier, uiState = uiState, viewModel)
         }
-        FlightList(modifier = Modifier, uiState = uiState)
     }
 }
