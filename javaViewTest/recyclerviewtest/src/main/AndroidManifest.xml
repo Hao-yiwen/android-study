@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JavaViewTest">
         <activity
+            android:name=".IncludeTestView"
+            android:exported="false" />
+        <activity
             android:name=".ListViewActivity"
             android:exported="false">
             <meta-data

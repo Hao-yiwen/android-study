@@ -12,6 +12,5 @@ class FlightSearchApplication : Application() {
         super.onCreate()
         container = DefaultAppContainer(this)
         Log.d("FlightSearchApplication", "onCreate")
-        container.initDatabase()
     }
 }

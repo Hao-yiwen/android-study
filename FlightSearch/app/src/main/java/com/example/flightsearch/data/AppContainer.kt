@@ -24,7 +24,7 @@ class DefaultAppContainer(
     }
 
     override val favoriteRepositoryProvider: FavoriteRepository by lazy {
-        FavoriteRepositoryProvider(FlightDataBase.getDataBase(context).favoriteDao())
+        FavoriteRepositoryProvider(FlightDataBase.getDataBase(context).favoriteContainerDao())
     }
 
     override val flightInputPreferencesRepository: FlightInputPreferencesRepository by lazy {
