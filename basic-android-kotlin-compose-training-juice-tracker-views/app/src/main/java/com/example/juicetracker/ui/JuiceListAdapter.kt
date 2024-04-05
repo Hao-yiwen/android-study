@@ -52,8 +52,7 @@ import com.example.juicetracker.data.Juice
 import com.example.juicetracker.data.JuiceColor
 
 class JuiceListAdapter(
-    private var onEdit: (Juice) -> Unit,
-    private var onDelete: (Juice) -> Unit
+    private var onEdit: (Juice) -> Unit, private var onDelete: (Juice) -> Unit
 ) : ListAdapter<Juice, JuiceListAdapter.JuiceListViewHolder>(JuiceDiffCallback()) {
 
     class JuiceListViewHolder(
@@ -78,9 +77,7 @@ class JuiceListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JuiceListViewHolder {
         return JuiceListViewHolder(
-            ComposeView(parent.context),
-            onEdit,
-            onDelete
+            ComposeView(parent.context), onEdit, onDelete
         )
     }
 
@@ -102,9 +99,7 @@ class JuiceDiffCallback : DiffUtil.ItemCallback<Juice>() {
 
 @Composable
 fun ListItem(
-    input: Juice,
-    onDelete: (Juice) -> Unit,
-    modifier: Modifier = Modifier
+    input: Juice, onDelete: (Juice) -> Unit, modifier: Modifier = Modifier
 ) {
     Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
         JuiceIcon(input.color)
@@ -120,11 +115,9 @@ fun JuiceIcon(color: String, modifier: Modifier = Modifier) {
     val juiceIconContentDescription = stringResource(R.string.juice_color, color)
 
 
-    Box(
-        modifier.semantics {
-            contentDescription = juiceIconContentDescription
-        }
-    ) {
+    Box(modifier.semantics {
+        contentDescription = juiceIconContentDescription
+    }) {
         Icon(
             painter = painterResource(R.drawable.ic_juice_color),
             contentDescription = null,
@@ -154,8 +147,7 @@ fun RatingDisplay(rating: Int, modifier: Modifier = Modifier) {
         // Content description is added here to support accessibility
         modifier.semantics {
             contentDescription = displayDescription
-        }
-    ) {
+        }) {
         repeat(rating) {
             // Star [contentDescription] is null as the image is for illustrative purpose
             Image(
@@ -170,8 +162,7 @@ fun RatingDisplay(rating: Int, modifier: Modifier = Modifier) {
 @Composable
 fun DeleteButton(onDelete: () -> Unit, modifier: Modifier = Modifier) {
     IconButton(
-        onClick = { onDelete() },
-        modifier = modifier
+        onClick = { onDelete() }, modifier = modifier
     ) {
         Icon(
             painter = painterResource(R.drawable.ic_delete),

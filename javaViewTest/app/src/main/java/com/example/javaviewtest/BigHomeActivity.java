@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.yiwen.compose_views.ComposeActivity;
 import com.yiwen.recyclerviewtest.HomeActivity;
 
 public class BigHomeActivity extends AppCompatActivity {
@@ -35,6 +36,13 @@ public class BigHomeActivity extends AppCompatActivity {
 
         button.setOnClickListener(v -> {
             Intent intent = new Intent(this, HomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+
+        Button btn_compose = findViewById(R.id.btn_jump_compose);
+        btn_compose.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ComposeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
