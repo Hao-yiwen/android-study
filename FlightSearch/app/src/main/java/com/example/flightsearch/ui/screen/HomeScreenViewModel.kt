@@ -13,8 +13,10 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.flightsearch.FlightSearchApplication
 import com.example.flightsearch.data.Airport
 import com.example.flightsearch.data.AirportRepository
+import com.example.flightsearch.data.FavoriteContainer
 import com.example.flightsearch.data.FavoriteRepository
 import com.example.flightsearch.data.FlightInputPreferencesRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -39,6 +41,7 @@ class HomeScreenViewModel(
     init {
         processFlightInput()
         initDatabase()
+        processFavoriteAirports()
     }
 
     fun initDatabase() {
@@ -50,8 +53,18 @@ class HomeScreenViewModel(
          * val uiState by viewModel.uiState.collectAsState()
          * @date: 2024/4/5 01:00 AM
          */
-        viewModelScope.launch {
-            airportRepository.searchAllAirportAsync()
+        viewModelScope.launch(Dispatchers.IO) {
+            var allAirport: List<Airport> = emptyList()
+            airportRepository.searchAllAirport().collect { value ->
+                {
+                    allAirport = value
+                }
+            }
+            _uiState.update {
+                _uiState.value.copy(
+                    allAirport = allAirport
+                )
+            }
         }
     }
 
@@ -72,11 +85,24 @@ class HomeScreenViewModel(
         }
     }
 
+    fun processFavoriteAirports() {
+        viewModelScope.launch {
+            val favoriteAirports = favoriteRepository.getAllFavoriteAsync()
+            _uiState.update {
+                _uiState.value.copy(
+                    favoriteAirports = favoriteAirports.toMutableStateList()
+                )
+            }
+        }
+    }
+
     fun searchAirport(str: String): Unit {
         viewModelScope.launch {
             val flightList: List<Airport> = airportRepository.searchAirportAsync("%" + str + "%")
-            Log.d("HomeScreenViewModel", "searchAirport: ${flightList.toMutableStateList()}")
-            _uiState.value = uiState.value.copy(searchResult = flightList.toMutableStateList())
+            Log.d("HomeScreenViewModel", "searchAirport: ${flightList.toMutableStateList().size}")
+            _uiState.update {
+                _uiState.value.copy(searchResult = flightList.toMutableStateList())
+            }
         }
     }
 
@@ -85,13 +111,49 @@ class HomeScreenViewModel(
         viewModelScope.launch {
             searchAirport(str)
         }
+        _uiState.update {
+            _uiState.value.copy(
+                isShowSearchList = str.isNotEmpty()
+            )
+        }
     }
 
 
     fun changeStr(str: String) {
-        _uiState.value = HomeScreenUiState(searchStr = str)
+        _uiState.update {
+            _uiState.value.copy(
+                searchStr = str
+            )
+        }
         viewModelScope.launch {
             flightInputPreferencesRepository.saveLayoutPreferences(str)
+        }
+    }
+
+    fun updateFavoriteAirport(favoriteContainer: FavoriteContainer) {
+        if (favoriteContainer.isFavorite) {
+            viewModelScope.launch {
+                favoriteRepository.delete(favoriteContainer)
+                processFavoriteAirports()
+            }
+        } else {
+            viewModelScope.launch {
+                favoriteRepository.insert(
+                    favoriteContainer.copy(
+                        isFavorite = true
+                    )
+                )
+                processFavoriteAirports()
+            }
+        }
+    }
+
+    fun selectAirport(airport: Airport) {
+        _uiState.update {
+            _uiState.value.copy(
+                selectAirport = airport,
+                isShowSearchList = false
+            )
         }
     }
 
@@ -108,8 +170,3 @@ class HomeScreenViewModel(
         }
     }
 }
-
-data class HomeScreenUiState(
-    val searchStr: String = "",
-    val searchResult: List<Airport> = emptyList()
-)

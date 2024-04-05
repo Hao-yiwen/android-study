@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.activity.EdgeToEdge;
@@ -38,6 +39,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_list = findViewById(R.id.btn_list);
         btn_list.setOnClickListener(this);
 
+        Button btn_include = findViewById(R.id.btn_include);
+        btn_include.setOnClickListener(this);
+
     }
 
     @Override
@@ -52,6 +56,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v.getId() == R.id.btn_list) {
             Intent intent = new Intent(this, ListViewActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btn_include) {
+            Intent intent = new Intent(this, IncludeTestView.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
