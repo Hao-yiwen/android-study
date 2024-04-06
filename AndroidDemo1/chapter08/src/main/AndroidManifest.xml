@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
         <activity
-            android:name=".BillAddActivity"
+            android:name=".Chapter8BigHomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".ShoppingDetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ShoppingCartActivity"
-            android:exported="false" />
-        <activity
-            android:name=".BillPagerActivity"
-            android:exported="true"
-            android:theme="@style/AppCompatTheme"></activity>
+        <activity android:name=".BaseAdapterActivity" />
+        <activity android:name=".BillAddActivity" />
+        <activity android:name=".BillPagerActivity" />
+        <activity android:name=".FragmentDynamicActivity" />
+        <activity android:name=".FragmentStaticActivity" />
+        <activity android:name=".GridViewActivity" />
+        <activity android:name=".LaunchImproveActivity" />
+        <activity android:name=".LaunchSimpleActivity" />
+        <activity android:name=".ListFocusActivity" />
+        <activity android:name=".ListViewActivity" />
+        <activity android:name=".PageTabActivity" />
+        <activity android:name=".ShoppingCartActivity" />
+        <activity android:name=".ShoppingChannelActivity" />
+        <activity android:name=".ShoppingDetailActivity" />
+        <activity android:name=".SpinnerDialogActivity" />
+        <activity android:name=".SpinnerDropdownActivity" />
+        <activity android:name=".SpinnerIconActivity" />
+        <activity android:name=".ViewPagerActivity" />
     </application>
 
 </manifest>

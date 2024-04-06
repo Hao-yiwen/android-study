@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -9,23 +9,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AndroidDemo1">
+        android:theme="@style/Theme.AndroidDemo1" >
+        <activity
+            android:name=".Chapter9BigHomeActivity"
+            android:exported="false" />
 
         <receiver
             android:name=".receiver.ShockReceiver"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.example.chapter09.shock" />
             </intent-filter>
         </receiver>
 
+        <activity android:name=".AlarmActivity" />
+        <activity android:name=".BroadOrderActivity" />
+        <activity android:name=".BroadStandardActivity" />
+        <activity android:name=".BroadStaticActivity" />
+        <activity android:name=".ChangeDirectionActivity" />
+        <activity android:name=".LifeCycleTestActivity" />
+        <activity android:name=".SystemMinuteActivity" />
+        <activity android:name=".SystemNetworkActivity" />
         <activity
             android:name=".ReturnDesktopActivity"
             android:configChanges="orientation|screenSize|screenLayout"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:supportsPictureInPicture="true">
-        </activity>
+            android:supportsPictureInPicture="true" />
     </application>
 
 </manifest>
