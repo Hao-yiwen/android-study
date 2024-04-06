@@ -33,7 +33,6 @@ dependencies {
     implementation project(":chapter04")
     implementation project(":chapter05")
     implementation project(":chapter06")
-    implementation project(":chapter07-server")
     implementation project(":chapter07-client")
     implementation project(":chapter08")
     implementation project(":chapter09")

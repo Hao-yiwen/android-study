@@ -48,12 +48,6 @@
             android:text="chapter07-client:content Provider client" />
 
         <Button
-            android:id="@+id/chapter07_server"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="chapter07-server:content Provider server" />
-
-        <Button
             android:id="@+id/chapter08"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

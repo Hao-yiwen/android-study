@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button chapter05 = findViewById(R.id.chapter05);
         Button chapter06 = findViewById(R.id.chapter06);
         Button chapter07_client = findViewById(R.id.chapter07_client);
-        Button chapter07_server = findViewById(R.id.chapter07_server);
         Button chapter08 = findViewById(R.id.chapter08);
         Button chapter09 = findViewById(R.id.chapter09);
 
@@ -33,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         chapter05.setOnClickListener(this);
         chapter06.setOnClickListener(this);
         chapter07_client.setOnClickListener(this);
-        chapter07_server.setOnClickListener(this);
         chapter08.setOnClickListener(this);
         chapter09.setOnClickListener(this);
     }
@@ -53,24 +51,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (v.getId() == R.id.chapter06) {
-            Intent intent = new Intent(this, com.example.chapter06.MainActivity.class);
+            Intent intent = new Intent(this, com.example.chapter06.Chapter6BigHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
         } else if (v.getId() == R.id.chapter07_client) {
-            Intent intent = new Intent(this, com.example.chapter07_client.MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } else if (v.getId() == R.id.chapter07_server) {
-            Intent intent = new Intent(this, com.example.chapter07_server.MainActivity.class);
+            Intent intent = new Intent(this, com.example.chapter07_client.Chapter7ClinetBigHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (v.getId() == R.id.chapter08) {
-            Intent intent = new Intent(this, com.example.chapter08.MainActivity.class);
+            Intent intent = new Intent(this, com.example.chapter08.Chapter8BigHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (v.getId() == R.id.chapter09) {
-            Intent intent = new Intent(this, com.example.chapter09.MainActivity.class);
+            Intent intent = new Intent(this, com.example.chapter09.Chapter9BigHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }

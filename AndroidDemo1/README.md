@@ -4,13 +4,13 @@
 
 ## 各个module介绍
 
-| 名称               | 描述                               |
-|------------------|----------------------------------|
-| chapter03        | 组件和布局学习，包含一个计算器练习demo            |
-| chapter04        | 页面跳转以及传参练习                       |
-| chapter05        | 中级组件练习，包含一个登录界面练习                |
-| chapter06        | 数据库，sharePreference练习            |
-| chapter07-client | Content Provider，client，应用之间共享数据 |
-| chapter07-server | Content Provider，server，应用之间共享数据 |
-| chapter08        | 高级组件练习                           |
-| chapter09        | 广播学习及联系                          |
+| 名称               | 描述                                          |
+|------------------|---------------------------------------------|
+| chapter03        | 组件和布局学习，包含一个计算器练习demo                       |
+| chapter04        | 页面跳转以及传参练习                                  |
+| chapter05        | 中级组件练习，包含一个登录界面练习                           |
+| chapter06        | 数据库，sharePreference练习                       |
+| chapter07-client | Content Provider，client，应用之间共享数据            |
+| chapter07-server | Content Provider提供者应用，供chapter07-client查询数据 |
+| chapter08        | 高级组件练习                                      |
+| chapter09        | 广播学习及联系                                     |
