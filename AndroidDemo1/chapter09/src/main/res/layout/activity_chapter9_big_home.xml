@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context=".Chapter9BigHomeActivity">
+
+    <Button
+        android:id="@+id/alarm_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AlarmActivity"></Button>
+
+    <Button
+        android:id="@+id/broad_order_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BroadOrderActivity"></Button>
+
+    <Button
+        android:id="@+id/broad_standard_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BroadStandardActivity"></Button>
+
+    <Button
+        android:id="@+id/broad_static_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BroadStaticActivity"></Button>
+
+    <Button
+        android:id="@+id/change_direction_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ChangeDirectionActivity"></Button>
+
+    <Button
+        android:id="@+id/life_cycle_test_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LifeCycleTestActivity"></Button>
+
+    <Button
+        android:id="@+id/system_minute_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SystemMinuteActivity"></Button>
+
+    <Button
+        android:id="@+id/system_network_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SystemNetworkActivity"></Button>
+
+    <Button
+        android:id="@+id/return_desktop_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ReturnDesktopActivity"></Button>
+
+</LinearLayout>

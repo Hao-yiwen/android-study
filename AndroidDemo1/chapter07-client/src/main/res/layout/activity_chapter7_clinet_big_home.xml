@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Chapter7ClinetBigHomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/content_write_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ContentWriteActivity" />
+
+        <Button
+            android:id="@+id/contact_add_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ContactAddActivity" />
+
+        <Button
+            android:id="@+id/montior_sms_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MonitorSmsActivity" />
+
+        <Button
+            android:id="@+id/permission_hungry_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PermissionHungryActivity" />
+
+        <Button
+            android:id="@+id/permission_lazy_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PermissionLazyActivity" />
+
+        <Button
+            android:id="@+id/provider_apk_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ProviderApkActivity" />
+
+        <Button
+            android:id="@+id/provider_mms_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ProviderMmsActivity" />
+
+        <Button
+            android:id="@+id/send_mms_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SendMmsActivity" />
+
+    </LinearLayout>
+
+</ScrollView>

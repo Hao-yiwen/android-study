@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Chapter8BigHomeActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/base_adapter_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BaseAdapterActivity" />
+
+            <Button
+                android:id="@+id/bill_add_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BillAddActivity" />
+
+            <Button
+                android:id="@+id/bill_pager_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BillPagerActivity" />
+
+            <Button
+                android:id="@+id/fragment_static_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FragmentStaticActivity" />
+
+            <Button
+                android:id="@+id/fragment_dynamic_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FragmentDynamicActivity" />
+
+            <Button
+                android:id="@+id/grid_view_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GridViewActivity" />
+
+            <Button
+                android:id="@+id/launch_improve_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LaunchImproveActivity" />
+
+            <Button
+                android:id="@+id/launch_simple_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LaunchSimpleActivity" />
+
+            <Button
+                android:id="@+id/list_focus_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ListFocusActivity" />
+
+            <Button
+                android:id="@+id/list_view_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ListViewActivity" />
+
+            <Button
+                android:id="@+id/page_tab_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PageTabActivity" />
+
+            <Button
+                android:id="@+id/shopping_cart_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ShoppingCartActivity" />
+
+            <Button
+                android:id="@+id/shopping_channel_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ShoppingChannelActivity" />
+
+            <Button
+                android:id="@+id/shopping_detail_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ShoppingDetailActivity" />
+
+            <Button
+                android:id="@+id/spinner_dialog_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SpinnerDialogActivity" />
+
+            <Button
+                android:id="@+id/spinner_dropdown_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SpinnerDropdownActivity" />
+
+            <Button
+                android:id="@+id/spinner_icon_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SpinnerIconActivity" />
+
+            <Button
+                android:id="@+id/view_pager_activity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ViewPagerActivity" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
