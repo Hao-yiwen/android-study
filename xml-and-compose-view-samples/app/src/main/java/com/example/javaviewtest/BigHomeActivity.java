@@ -46,5 +46,12 @@ public class BigHomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
+        Button btn_jump_thrid_aar = findViewById(R.id.btn_jump_thrid_aar);
+        btn_jump_thrid_aar.setOnClickListener(v -> {
+            Intent intent = new Intent(this, com.example.chapter03.Chapter3BigHome.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
     }
 }
