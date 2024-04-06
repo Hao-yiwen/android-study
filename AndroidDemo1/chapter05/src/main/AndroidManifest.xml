@@ -9,53 +9,47 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidDemo1">
         <activity
+            android:name=".Chapter5BigHomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginForgetActivity"
             android:exported="false" />
-        <!-- <activity -->
-        <!-- android:name=".LoginMainActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".TimerPickerActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".DatePickerActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".AlertDialogActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".EditHideActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".EditFocusActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".EditBorderActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".EditSimpleActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".RadioHorizontalActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".CheckBoxActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".DrawableStateActivity" -->
-        <!-- android:exported="false" /> -->
-        <!-- <activity -->
-        <!-- android:name=".DrawableNineActivity" -->
-        <!-- android:exported="false" /> -->
+        <activity
+            android:name=".TimerPickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DatePickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AlertDialogActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditHideActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditFocusActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditBorderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditSimpleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RadioHorizontalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CheckBoxActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DrawableStateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DrawableNineActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginMainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
