@@ -11,9 +11,20 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
+        maven {
+            url = uri("https://maven.pkg.github.com/Hao-yiwen/android-study")
+            credentials {
+                username = System.getenv("USERNAME") ?: ""
+                password = System.getenv("TOKEN") ?: ""
+            }
+            content {
+                includeGroupByRegex("com\\.example.*")
+            }
+        }
         google()
         mavenCentral()
     }

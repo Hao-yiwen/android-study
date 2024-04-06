@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
 
 android {
@@ -26,6 +27,32 @@ android {
         viewBinding true
     }
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.example'
+            artifactId = 'chapter03'
+            version = '0.0.1'
+
+            // 在 Groovy 中设置 artifact 的方式
+            artifact "$buildDir/outputs/aar/chapter03-release.aar"
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = uri('https://maven.pkg.github.com/Hao-yiwen/android-study')
+
+            credentials {
+                username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
+                password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
+            }
+        }
+    }
+}
+
+
 
 dependencies {
 
