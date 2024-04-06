@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Chapter5BigHomeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/timer_picker_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TimerPickerActivity" />
+
+        <Button
+            android:id="@+id/date_picker_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DatePickerActivity" />
+
+        <Button
+            android:id="@+id/alert_dialog_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AlertDialogActivity" />
+
+        <Button
+            android:id="@+id/edit_hide_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EditHideActivity" />
+
+        <Button
+            android:id="@+id/edit_focus_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EditFocusActivity" />
+
+
+        <Button
+            android:id="@+id/edit_border_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EditBorderActivity" />
+
+        <Button
+            android:id="@+id/edit_simple_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EditSimpleActivity" />
+
+        <Button
+            android:id="@+id/radio_horizontal_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RadioHorizontalActivity" />
+
+        <Button
+            android:id="@+id/check_box_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CheckBoxActivity" />
+
+        <Button
+            android:id="@+id/drawable_state_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DrawableStateActivity" />
+
+        <Button
+            android:id="@+id/drawable_nine_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DrawableNineActivity" />
+
+        <Button
+            android:id="@+id/login_main_activity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LoginMainActivity" />
+
+
+    </LinearLayout>
+</ScrollView>
