@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Chapter4BigHome">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_act_response"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActResponseActivity"></Button>
+
+        <Button
+            android:id="@+id/btn_act_receive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActReceiveActivity"></Button>
+
+        <Button
+            android:id="@+id/jump_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JumpFirstActivity"></Button>
+
+        <Button
+            android:id="@+id/login_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LoginInputActivity"></Button>
+
+        <Button
+            android:id="@+id/act_reponse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MetaDataActivity"></Button>
+
+        <Button
+            android:id="@+id/act_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActStartActivity"></Button>
+
+
+        <Button
+            android:id="@+id/act_finish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActFinshActivity"></Button>
+
+        <Button
+            android:id="@+id/act_uri"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActionUriActivity"></Button>
+
+
+        <Button
+            android:id="@+id/act_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActRequestActivity"></Button>
+
+        <Button
+            android:id="@+id/act_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ActSendActivity"></Button>
+
+        <Button
+            android:id="@+id/read_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ReadStringActivity"></Button>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace 'com.example.androiddemo1'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.androiddemo1"
@@ -29,6 +29,13 @@ android {
 }
 
 dependencies {
+    implementation project(":chapter03")
+    implementation project(":chapter04")
+    implementation project(":chapter05")
+    implementation project(":chapter06")
+    implementation project(":chapter07-client")
+    implementation project(":chapter08")
+    implementation project(":chapter09")
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
