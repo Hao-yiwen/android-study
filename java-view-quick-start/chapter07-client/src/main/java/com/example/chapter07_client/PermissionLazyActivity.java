@@ -13,8 +13,6 @@ import android.view.View;
 import com.example.chapter07_client.util.PermissionUtil;
 import com.example.chapter07_client.util.ToastUtil;
 
-import kotlin.jvm.internal.PropertyReference0Impl;
-
 public class PermissionLazyActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String[] PERMISSIONS_CONTACTS = new String[]{
