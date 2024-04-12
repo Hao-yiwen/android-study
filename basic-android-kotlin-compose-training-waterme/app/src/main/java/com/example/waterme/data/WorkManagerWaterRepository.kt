@@ -46,6 +46,5 @@ class WorkManagerWaterRepository(context: Context) : WaterRepository {
 
     companion object {
         val KEY_PLANTNAME = "KEY_PLANTNAME"
-        val KEY_DURATION = "KEY_DURATION"
     }
 }
