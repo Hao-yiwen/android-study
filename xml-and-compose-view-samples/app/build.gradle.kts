@@ -44,6 +44,8 @@ dependencies {
     implementation(project(":recyclerviewtest"))
     // 添加composeviwes
     implementation(project(":compose_views"))
+    // 添加react-native-container
+    implementation(project(":react-native-container"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

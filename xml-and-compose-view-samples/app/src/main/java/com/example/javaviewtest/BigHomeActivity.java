@@ -1,7 +1,10 @@
 package com.example.javaviewtest;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -15,10 +18,12 @@ import com.yiwen.compose_views.ComposeActivity;
 import com.yiwen.recyclerviewtest.HomeActivity;
 
 public class BigHomeActivity extends AppCompatActivity {
+    private final int OVERLAY_PERMISSION_REQ_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         EdgeToEdge.enable(this);
         setContentView(R.layout.activitu_constraint_layout_view1);
 

@@ -1,23 +1,16 @@
-import groovy.lang.Closure
-
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.jetbrainsKotlinAndroid)
-    id("com.facebook.react")
+    alias(libs.plugins.androidLibrary)
 }
 
 android {
-    namespace = "com.yiwen.recyclerviewtest"
+    namespace = "io.github.haoyiwen.react_native_container"
     compileSdk = 34
 
     defaultConfig {
         minSdk = 24
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -33,23 +26,14 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
-
+    implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:hermes-android")
     implementation(libs.appcompat)
     implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.lifecycle.livedata.ktx)
-    implementation(libs.lifecycle.viewmodel.ktx)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("androidx.cardview:cardview:1.0.0")
 }
