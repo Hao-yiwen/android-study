@@ -8,7 +8,3 @@ buildscript {
 plugins {
     alias(libs.plugins.androidApplication) apply false
 }
-
-project.ext.react = [
-        cliPath: ["node", "-e", "console.log(require('react-native/cli').bin);"].execute([], projectDir).text.trim(),
-]
