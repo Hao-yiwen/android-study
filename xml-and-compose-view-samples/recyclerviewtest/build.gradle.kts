@@ -1,6 +1,9 @@
+import groovy.lang.Closure
+
 plugins {
     id("com.android.library")
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("com.facebook.react")
 }
 
 android {
