@@ -1,0 +1,48 @@
+import com.facebook.react.ReactExtension
+
+plugins {
+    alias(libs.plugins.androidLibrary)
+    id "com.facebook.react"
+}
+
+// 在此处配置react配置无效 在app配置才可以
+//react {
+//    entryFile = file("../rnDemo/index.js")
+//    root = file("../rnDemo")
+//    reactNativeDir = file("../rnDemo/node_modules/react-native")
+//}
+
+
+android {
+    namespace = "io.github.haoyiwen.react_native_container"
+    compileSdk = 34
+
+    defaultConfig {
+        minSdk = 24
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    // react Native
+    api "com.facebook.react:react-android"
+    api "com.facebook.react:hermes-android"
+}

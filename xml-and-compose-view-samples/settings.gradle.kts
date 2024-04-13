@@ -16,7 +16,7 @@ pluginManagement {
 
 
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         maven {
             url = uri("https://maven.pkg.github.com/Hao-yiwen/android-study")
@@ -40,4 +40,4 @@ include(":java_view_other")
 include(":compose_views")
 include(":react-native-container")
 
-includeBuild("$rootDir/rnDemo/node_modules/@react-native/gradle-plugin")
+includeBuild("./rnDemo/node_modules/@react-native/gradle-plugin")

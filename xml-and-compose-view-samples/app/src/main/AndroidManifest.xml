@@ -15,7 +15,7 @@
 
         <activity
             android:name=".BigHomeActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,6 +34,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.javaviewtest.FragmentView" />
         </activity>
+
+        <activity
+            android:name="io.github.haoyiwen.react_native_container.ReactNativeActivity"
+            android:exported="false"></activity>
     </application>
 
 </manifest>

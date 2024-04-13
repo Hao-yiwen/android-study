@@ -1,5 +1,12 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("com.facebook.react")
+}
+
+react {
+    entryFile = file("../rnDemo/index.js")
+    root = file("../rnDemo")
+    reactNativeDir = file("../rnDemo/node_modules/react-native")
 }
 
 android {
@@ -50,4 +57,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    // react Native
+    implementation("com.facebook.react:react-android")
+    implementation("com.facebook.react:hermes-android")
+
 }
