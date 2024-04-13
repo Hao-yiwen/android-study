@@ -10,3 +10,4 @@ buildscript {
         classpath("com.facebook.react:react-native-gradle-plugin")
     }
 }
+
