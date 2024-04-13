@@ -29,8 +29,12 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:hermes-android")
+=======
+
+>>>>>>> 4a02605223a0bdd841f14c6b0f0f62216e168cd5
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
