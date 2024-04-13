@@ -58,5 +58,12 @@ public class BigHomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
+        Button btn_jump_rn = findViewById(R.id.btn_jump_rn);
+        btn_jump_rn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, io.github.haoyiwen.react_native_container.ReactNativeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
     }
 }
