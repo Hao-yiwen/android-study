@@ -1,0 +1,14 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    dependencies {
+        classpath("com.facebook.react:react-native-gradle-plugin")
+    }
+}
+
+plugins {
+    alias(libs.plugins.androidApplication) apply false
+}
+
+project.ext.react = [
+        cliPath: ["node", "-e", "console.log(require('react-native/cli').bin);"].execute([], projectDir).text.trim(),
+]
