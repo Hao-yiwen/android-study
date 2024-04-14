@@ -54,6 +54,8 @@ dependencies {
     implementation(project(":compose_views"))
     // 添加react-native-container
     implementation(project(":react-native-container"))
+    // 添加java_view_other
+    implementation(project(":java_view_other"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
