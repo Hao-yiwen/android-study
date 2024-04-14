@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.ReactRootView;
 import com.facebook.react.common.LifecycleState;
@@ -21,7 +22,6 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 //import com.swmansion.rnscreens.RNScreensPackage;
-import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 
 import java.util.Arrays;
 
@@ -51,22 +51,35 @@ public class ReactNativeActivity extends Activity implements DefaultHardwareBack
         SoLoader.init(this, false);
 
         mReactRootView = new ReactRootView(this);
+        String url = null;
 
-        mReactInstanceManager = ReactInstanceManager.builder()
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            url = extras.getString("url");
+        }
+
+        ReactInstanceManagerBuilder tmp = ReactInstanceManager.builder()
                 .setApplication(getApplication())
                 .setCurrentActivity(this)
                 .setBundleAssetName("index.android.bundle")
-                .setJSMainModulePath("index")
-//                .setJSBundleFile("http://192.168.0.101:8081/index.bundle")
                 .addPackages(Arrays.<ReactPackage>asList(
                         new MainReactPackage(),
                         new RNCWebViewPackage(),
+                        new MyReactPackage()
 //                        new RNScreensPackage()
-                        new SafeAreaContextPackage()
                 ))
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
-                .setJavaScriptExecutorFactory(new HermesExecutorFactory())
+                .setJavaScriptExecutorFactory(new HermesExecutorFactory());
+
+        if (url != null) {
+            tmp = tmp.setJSMainModulePath("index");
+//            tmp = tmp.setJSBundleFile("http://192.168.0.104:8081/index.bundle?platform=android&dev=true&minify=false");
+        } else {
+            tmp = tmp.setJSMainModulePath("index");
+        }
+
+        mReactInstanceManager = tmp
                 .build();
 
         mReactRootView.startReactApplication(mReactInstanceManager, "MyReactNativeApp", null);
