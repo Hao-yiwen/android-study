@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/react-native-container" />
             <option value="$PROJECT_DIR$/recyclerviewtest" />
             <option value="$PROJECT_DIR$/rnDemo/node_modules/@react-native/gradle-plugin" />
+            <option value="$PROJECT_DIR$/rnDemo/node_modules/react-native-safe-area-context/android" />
             <option value="$PROJECT_DIR$/rnDemo/node_modules/react-native-webview/android" />
           </set>
         </option>
