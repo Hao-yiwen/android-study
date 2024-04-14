@@ -45,4 +45,7 @@ dependencies {
     // react Native
     api "com.facebook.react:react-android"
     api "com.facebook.react:hermes-android"
+
+    // react native webview
+    implementation(project(":react-native-webview"))
 }

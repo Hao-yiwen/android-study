@@ -41,3 +41,5 @@ include(":compose_views")
 include(":react-native-container")
 
 includeBuild("./rnDemo/node_modules/@react-native/gradle-plugin")
+include(":react-native-webview")
+project(":react-native-webview").projectDir = file("./rnDemo/node_modules/react-native-webview/android")
