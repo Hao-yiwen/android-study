@@ -1,10 +1,14 @@
 import React from 'react';
 import {AppRegistry, StyleSheet, Text, View} from 'react-native';
+import { WebView } from 'react-native-webview';
 
 const HelloWorld = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.hello}>Hello, World</Text>
+        <WebView
+            source={{ uri: 'http://www.baidu.com' }}
+            style={{ marginTop: 20 }}
+          />
     </View>
   );
 };
