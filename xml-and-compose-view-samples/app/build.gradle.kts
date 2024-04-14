@@ -62,4 +62,7 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:hermes-android")
 
+    // react native webview
+    implementation(project(":react-native-webview"))
+
 }

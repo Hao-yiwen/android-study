@@ -18,6 +18,7 @@ import com.facebook.react.common.LifecycleState;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 
 import java.util.Arrays;
 
@@ -54,7 +55,8 @@ public class ReactNativeActivity extends Activity implements DefaultHardwareBack
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModulePath("index")
                 .addPackages(Arrays.<ReactPackage>asList(
-                        new MainReactPackage()
+                        new MainReactPackage(),
+                        new RNCWebViewPackage()
                 ))
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
