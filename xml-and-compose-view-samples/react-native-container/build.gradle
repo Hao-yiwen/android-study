@@ -53,7 +53,7 @@ dependencies {
 //        exclude(group: "com.facebook.react")
 //    }
 
-    implementation(project(":react-native-safe-area-context")){
-        exclude(group: "com.facebook", module: "io.github.haoyiwen.react_native_container")
-    }
+//    implementation(project(":react-native-safe-area-context")){
+//        exclude(group: "com.facebook", module: "io.github.haoyiwen.react_native_container")
+//    }
 }
