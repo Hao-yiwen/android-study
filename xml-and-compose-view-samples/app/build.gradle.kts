@@ -7,6 +7,7 @@ react {
     entryFile = file("../rnDemo/index.js")
     root = file("../rnDemo")
     reactNativeDir = file("../rnDemo/node_modules/react-native")
+    cliFile = file("../rnDemo/node_modules/react-native/cli.js")
 }
 
 android {
@@ -63,6 +64,14 @@ dependencies {
     implementation("com.facebook.react:hermes-android")
 
     // react native webview
-    implementation(project(":react-native-webview"))
+//    implementation(project(":react-native-webview"))
+
+//    implementation(project(":react-native-screens")) {
+//        exclude(group = "com.facebook.react")
+//    }
+
+//    implementation(project(":react-native-safe-area-context")){
+//        exclude(group = "com.facebook.react")
+//    }
 
 }

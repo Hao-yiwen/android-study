@@ -6,7 +6,7 @@ const HelloWorld = () => {
   return (
     <View style={styles.container}>
         <WebView
-            source={{ uri: 'http://www.baidu.com' }}
+            source={{ uri: 'https://reactnative.cn/docs/integration-with-existing-apps' }}
             style={{ marginTop: 20 }}
           />
     </View>

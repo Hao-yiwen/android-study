@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
 
+import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactPackage;
@@ -19,6 +20,8 @@ import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
+//import com.swmansion.rnscreens.RNScreensPackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 
 import java.util.Arrays;
 
@@ -54,12 +57,16 @@ public class ReactNativeActivity extends Activity implements DefaultHardwareBack
                 .setCurrentActivity(this)
                 .setBundleAssetName("index.android.bundle")
                 .setJSMainModulePath("index")
+//                .setJSBundleFile("http://192.168.0.101:8081/index.bundle")
                 .addPackages(Arrays.<ReactPackage>asList(
                         new MainReactPackage(),
-                        new RNCWebViewPackage()
+                        new RNCWebViewPackage(),
+//                        new RNScreensPackage()
+                        new SafeAreaContextPackage()
                 ))
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
+                .setJavaScriptExecutorFactory(new HermesExecutorFactory())
                 .build();
 
         mReactRootView.startReactApplication(mReactInstanceManager, "MyReactNativeApp", null);
