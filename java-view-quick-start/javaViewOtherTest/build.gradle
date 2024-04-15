@@ -1,19 +1,16 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
 }
 
 android {
-    namespace 'com.example.androiddemo1'
+    namespace 'io.github.haoyiwen.javaviewothertest'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.androiddemo1"
-        minSdk 28
-        targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        minSdk 24
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -29,20 +26,12 @@ android {
 }
 
 dependencies {
-    implementation project(":chapter03")
-    implementation project(":chapter04")
-    implementation project(":chapter05")
-    implementation project(":chapter06")
-    implementation project(":chapter07-client")
-    implementation project(":chapter08")
-    implementation project(":chapter09")
-    implementation project(":javaViewOtherTest")
 
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.activity:activity:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
 }
