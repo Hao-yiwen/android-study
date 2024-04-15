@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         chapter07_client.setOnClickListener(this);
         chapter08.setOnClickListener(this);
         chapter09.setOnClickListener(this);
+
+        findViewById(R.id.java_view_other).setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +67,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v.getId() == R.id.chapter09) {
             Intent intent = new Intent(this, com.example.chapter09.Chapter9BigHomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (v.getId() == R.id.java_view_other) {
+            Intent intent = new Intent(this, io.github.haoyiwen.javaviewothertest.BigHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }

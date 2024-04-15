@@ -1,7 +1,10 @@
 package io.github.haoyiwen.javaviewothertest;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -29,7 +32,7 @@ public class ShareToOtherAppActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.btn_share_image) {
+        if (v.getId() != R.id.btn_share_image) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
@@ -39,7 +42,15 @@ public class ShareToOtherAppActivity extends AppCompatActivity implements View.O
         } else {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, "android.resource://io.github.haoyiwen.javaviewothertest/drawable/android_bot");
+            // 获取资源的ID
+            int imageResourceId = getResources().getIdentifier("android_bot", "drawable", getPackageName());
+
+// 创建Uri
+            Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                    + getResources().getResourcePackageName(imageResourceId) + '/'
+                    + getResources().getResourceTypeName(imageResourceId) + '/'
+                    + getResources().getResourceEntryName(imageResourceId));
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
             shareIntent.setType("image/jpeg");
             Intent chooser = Intent.createChooser(shareIntent, "Share Image");
             if (shareIntent.resolveActivity(getPackageManager()) != null) {

@@ -66,9 +66,9 @@ public class BigHomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        Button btn_qr_code = findViewById(R.id.btn_qr_code);
+        Button btn_qr_code = findViewById(R.id.btn_jump_javaview_other);
         btn_qr_code.setOnClickListener(v -> {
-            Intent intent = new Intent(this, com.yiwen.java_view_other.ScanActivity.class);
+            Intent intent = new Intent(this, com.yiwen.java_view_other.BigHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });

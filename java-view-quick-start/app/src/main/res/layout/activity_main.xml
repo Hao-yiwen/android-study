@@ -59,6 +59,12 @@
             android:layout_height="wrap_content"
             android:text="chapter09广播学习" />
 
+        <Button
+            android:id="@+id/java_view_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="javaviewOther" />
+
     </LinearLayout>
 
 </LinearLayout>
