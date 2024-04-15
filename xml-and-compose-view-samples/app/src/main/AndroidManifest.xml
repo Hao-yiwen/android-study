@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.JavaViewTest"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
 
         <activity
@@ -27,7 +27,7 @@
 
         <activity
             android:name=".FragmentView"
-            android:exported="false" />
+            android:exported="false"></activity>
 
         <activity
             android:name="com.yiwen.recyclerviewtest.HomeActivity"
@@ -36,6 +36,27 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.javaviewtest.FragmentView" />
         </activity>
+
+        <activity
+            android:name="com.yiwen.java_view_other.ShareActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <!-- 此处使用mmietype而不是type-->
+                <!-- <data android:type="*/*" />-->
+                <data android:mimeType="*/*" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.yiwen.java_view_other.BigHomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.yiwen.java_view_other.ColorAndColorsActivity" />
     </application>
 
 </manifest>
