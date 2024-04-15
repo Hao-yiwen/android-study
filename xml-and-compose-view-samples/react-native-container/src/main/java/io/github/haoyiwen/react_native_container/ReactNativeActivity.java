@@ -82,6 +82,7 @@ public class ReactNativeActivity extends Activity implements DefaultHardwareBack
         mReactInstanceManager = tmp
                 .build();
 
+        // rn页面跳转通过moduleName来区分
         mReactRootView.startReactApplication(mReactInstanceManager, "MyReactNativeApp", null);
 
         setContentView(mReactRootView);
