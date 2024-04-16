@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BigHomeActivity">
+
     <Button
         android:id="@+id/btn_intent_filter"
         android:layout_width="wrap_content"
@@ -38,6 +39,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_qr_code" />
 
+    <Button
+        android:id="@+id/btn_jump_viewModel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="跳转到javaview使用viewmodel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_color_colors" />
+
+    <Button
+        android:id="@+id/btn_jump_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="跳转到Animated测试页面"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_jump_viewModel" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

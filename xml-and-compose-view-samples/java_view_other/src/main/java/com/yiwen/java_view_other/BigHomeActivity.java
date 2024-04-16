@@ -28,6 +28,10 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.btn_intent_filter).setOnClickListener(this);
 
         findViewById(R.id.btn_color_colors).setOnClickListener(this);
+
+        findViewById(R.id.btn_jump_viewModel).setOnClickListener(this);
+
+        findViewById(R.id.btn_jump_animation).setOnClickListener(this);
     }
 
     @Override
@@ -39,6 +43,10 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, ShareActivity.class);
         } else if (v.getId() == R.id.btn_color_colors) {
             intent.setClass(this, ColorAndColorsActivity.class);
+        } else if (v.getId() == R.id.btn_jump_viewModel) {
+            intent.setClass(this, ViewModelWithXml.class);
+        } else if (v.getId() == R.id.btn_jump_animation) {
+            intent.setClass(this, AnimationActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
