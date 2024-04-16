@@ -6,11 +6,19 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".AnimationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewModelWithXml"
+            android:exported="false" />
+        <activity
             android:name=".ScanActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
     </application>
