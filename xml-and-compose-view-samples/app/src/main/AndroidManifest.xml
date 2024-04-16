@@ -56,7 +56,8 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.yiwen.java_view_other.ColorAndColorsActivity" />
+            android:name="com.yiwen.java_view_other.ColorAndColorsActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
     </application>
 
 </manifest>

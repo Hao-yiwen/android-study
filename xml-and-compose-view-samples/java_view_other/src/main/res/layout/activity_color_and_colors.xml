@@ -38,13 +38,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="主题颜色测试"
-        android:textColor="?attr/textColorSearchUrl"
-        ></TextView>
+        android:textColor="?attr/textColorSearchUrl"></TextView>
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/android_bot_test_4" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入内容"
+        android:textColor="?android:attr/textColorSecondary"></EditText>
 
     <LinearLayout
         android:layout_width="match_parent"
