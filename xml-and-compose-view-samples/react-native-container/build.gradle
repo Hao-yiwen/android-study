@@ -15,7 +15,7 @@ plugins {
 
 android {
     namespace = "io.github.haoyiwen.react_native_container"
-    compileSdk = 34
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 24
