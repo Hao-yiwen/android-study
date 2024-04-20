@@ -10,13 +10,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.yiwen.java_view_other.databinding.ActivityBigHomeBinding;
+
 public class BigHomeActivity extends AppCompatActivity implements View.OnClickListener {
+    private ActivityBigHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_big_home);
+        binding = ActivityBigHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -32,6 +36,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.btn_jump_viewModel).setOnClickListener(this);
 
         findViewById(R.id.btn_jump_animation).setOnClickListener(this);
+
+        binding.btnJumpViewbinding.setOnClickListener(this);
     }
 
     @Override
@@ -47,6 +53,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, ViewModelWithXml.class);
         } else if (v.getId() == R.id.btn_jump_animation) {
             intent.setClass(this, AnimationActivity.class);
+        } else if (v.getId() == R.id.btn_jump_viewbinding) {
+            intent.setClass(this, ViewBindingActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
