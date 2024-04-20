@@ -38,6 +38,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.btn_jump_animation).setOnClickListener(this);
 
         binding.btnJumpViewbinding.setOnClickListener(this);
+
+        binding.btnLiveData.setOnClickListener(this);
     }
 
     @Override
@@ -55,6 +57,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, AnimationActivity.class);
         } else if (v.getId() == R.id.btn_jump_viewbinding) {
             intent.setClass(this, ViewBindingActivity.class);
+        } else if (v.getId() == R.id.btn_live_data) {
+            intent.setClass(this, LiveDataActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
