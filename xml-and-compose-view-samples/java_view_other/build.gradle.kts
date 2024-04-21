@@ -45,6 +45,8 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.7.0")
     implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
+    implementation("androidx.navigation:navigation-fragment:2.7.7")
+    implementation("androidx.navigation:navigation-ui:2.7.7")
 
     implementation(project(":react-native-container"))
 }
