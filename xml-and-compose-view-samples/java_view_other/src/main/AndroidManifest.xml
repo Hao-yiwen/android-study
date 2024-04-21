@@ -6,6 +6,9 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".NavigationFragmentActivity"
+            android:exported="false" />
+        <activity
             android:name=".LiveDataActivity"
             android:exported="false" />
         <activity
