@@ -30,6 +30,9 @@
         <!--app:popExitAnim="@anim/slide_out_right" />-->
         <!-- TODO END STEP 7.1 -->
 
+        <action
+            android:id="@+id/next_action"
+            app:destination="@id/flow_step_one_dest" />
     </fragment>
 
     <fragment
@@ -65,13 +68,11 @@
             app:popUpTo="@id/home_dest"></action>
     </fragment>
 
-    <!-- TODO STEP 4 Create a new navigation destination pointing to SettingsFragment -->
-    <!--<fragment-->
-    <!--android:id="@+id/settings_dest"-->
-    <!--android:name="com.example.android.codelabs.navigation.SettingsFragment"-->
-    <!--android:label="@string/settings"-->
-    <!--tools:layout="@layout/settings_fragment" />-->
-    <!-- TODO END STEP 4 -->
+    <fragment
+        android:id="@+id/settings_dest"
+        android:name="com.example.android.codelabs.navigation.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/settings_fragment" />
 
     <fragment
         android:id="@+id/deeplink_dest"
@@ -85,9 +86,4 @@
 
         <deepLink app:uri="www.example.com/{myarg}" />
     </fragment>
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.android.codelabs.navigation.SettingsFragment"
-        android:label="settings_fragment"
-        tools:layout="@layout/settings_fragment" />
 </navigation>
