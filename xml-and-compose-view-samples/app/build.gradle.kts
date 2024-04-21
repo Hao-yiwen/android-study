@@ -56,6 +56,8 @@ dependencies {
     implementation(project(":react-native-container"))
     // 添加java_view_other
     implementation(project(":java_view_other"))
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
