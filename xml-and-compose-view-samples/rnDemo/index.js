@@ -7,7 +7,11 @@ import WebViewPage from "./src/pages/WebViewPage";
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+const isHermes = () => !!global.HermesInternal;
+console.log("isHermes", isHermes());
+
+function App(props) {
+  console.log("AppProps", props);
   return (
     <NavigationContainer>
       <Stack.Navigator>
