@@ -16,6 +16,15 @@ android {
     namespace = "com.example.javaviewtest"
     compileSdk = 34
 
+    signingConfigs {
+        create("release") {
+            storeFile = file(project.property("MYAPP_RELEASE_STORE_FILE") as String)
+            storePassword = project.property("MYAPP_RELEASE_STORE_PASSWORD") as String
+            keyAlias = project.property("MYAPP_RELEASE_KEY_ALIAS") as String
+            keyPassword = project.property("MYAPP_RELEASE_KEY_PASSWORD") as String
+        }
+    }
+
     defaultConfig {
         applicationId = "com.example.javaviewtest"
         minSdk = 28
@@ -33,6 +42,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            getByName("release") {
+                signingConfig = signingConfigs.getByName("release")
+            }
         }
     }
     compileOptions {

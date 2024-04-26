@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.facebook.hermes.intl.DateTimeFormat;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
@@ -26,6 +27,9 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 //import com.swmansion.rnscreens.RNScreensPackage;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Arrays;
 
 
@@ -88,8 +92,17 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
         mReactInstanceManager = tmp
                 .build();
 
+        Bundle initialProperties = new Bundle();
+        initialProperties.putString("os", "android");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // 获取系统时间
+            LocalTime time = LocalTime.now();
+            initialProperties.putString("startTime", String.valueOf(time));
+        }
+
+
         // rn页面跳转通过moduleName来区分
-        mReactRootView.startReactApplication(mReactInstanceManager, "MyReactNativeApp", null);
+        mReactRootView.startReactApplication(mReactInstanceManager, "MyReactNativeApp", initialProperties);
 
         setContentView(mReactRootView);
     }
