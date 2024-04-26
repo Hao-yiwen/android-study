@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.view.KeyEvent;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
@@ -21,12 +22,14 @@ import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
+import com.swmansion.rnscreens.RNScreensPackage;
+import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 //import com.swmansion.rnscreens.RNScreensPackage;
 
 import java.util.Arrays;
 
 
-public class ReactNativeActivity extends Activity implements DefaultHardwareBackBtnHandler {
+public class ReactNativeActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
 
     private ReactRootView mReactRootView;
 
@@ -36,7 +39,7 @@ public class ReactNativeActivity extends Activity implements DefaultHardwareBack
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);
         /**
          * @description 为开发错误叠加层配置权限
          */
@@ -65,12 +68,15 @@ public class ReactNativeActivity extends Activity implements DefaultHardwareBack
                 .addPackages(Arrays.<ReactPackage>asList(
                         new MainReactPackage(),
                         new RNCWebViewPackage(),
-                        new MyReactPackage()
+                        new MyReactPackage(),
+                        new RNScreensPackage(),
+                        new SafeAreaContextPackage()
 //                        new RNScreensPackage()
                 ))
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED)
                 .setJavaScriptExecutorFactory(new HermesExecutorFactory());
+
 
         if (url != null) {
             tmp = tmp.setJSMainModulePath("index");

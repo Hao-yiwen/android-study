@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.serialization.builtins.main
+
 plugins {
     alias(libs.plugins.androidApplication)
     id("com.facebook.react")
@@ -39,6 +41,11 @@ android {
     }
 }
 
+//repositories{
+//    flatDir(){
+//        dir("libs")
+//    }
+//}
 
 dependencies {
     implementation("com.example:chapter03:0.0.1")
@@ -66,6 +73,9 @@ dependencies {
     // react Native
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:hermes-android")
+
+//    implementation(name: 'react-native-webview-debug', ext: 'aar')
+    implementation(files("./libs/react-native-webview-debug.aar"))
 
     // react native webview
 //    implementation(project(":react-native-webview"))

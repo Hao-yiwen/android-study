@@ -35,6 +35,12 @@ android {
     }
 }
 
+//repositories {
+//    flatDir {
+//        dirs 'libs'
+//    }
+//}
+
 dependencies {
     implementation libs.appcompat
     implementation libs.material
@@ -46,8 +52,13 @@ dependencies {
     api "com.facebook.react:react-android"
     api "com.facebook.react:hermes-android"
 
+    implementation(files("${rootDir}/app/libs/react-native-webview-debug.aar"))
+    implementation(files("${rootDir}/app/libs/react-native-screens-debug.aar"))
+    implementation(files("${rootDir}/app/libs/react-native-safe-area-context-debug.aar"))
+
+
     // react native webview
-    implementation(project(":react-native-webview"))
+//    implementation(project(":react-native-webview"))
 
 //    implementation(project(":react-native-screens")){
 //        exclude(group: "com.facebook.react")

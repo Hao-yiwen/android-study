@@ -1,40 +1,21 @@
 import React, { useEffect } from "react";
 import { AppRegistry, StyleSheet, Text, View } from "react-native";
-import { WebView } from "react-native-webview";
-import { NativeModules } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Home from "./src/pages/Home";
+import WebViewPage from "./src/pages/WebViewPage";
 
-const HelloWorld = () => {
-  useEffect(() => {
-    NativeModules.IntentModule.dataToJS(
-      (data) => {
-        console.log(data);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }, []);
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <WebView
-        source={{
-          uri: "https://reactnative.cn/docs/integration-with-existing-apps",
-        }}
-        style={{ marginTop: 20 }}
-      />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="WebView" component={WebViewPage} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  hello: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10,
-  },
-});
+}
 
-AppRegistry.registerComponent("MyReactNativeApp", () => HelloWorld);
+AppRegistry.registerComponent("MyReactNativeApp", () => App);
