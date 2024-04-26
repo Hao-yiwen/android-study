@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -26,6 +27,11 @@ public class BigHomeActivity extends AppCompatActivity {
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activitu_constraint_layout_view1);
+
+        // 打印activity context
+        Log.d("BigHomeActivity", "onCreate: " + this);
+        // 打印application context
+        Log.d("BigHomeActivity", "onCreate: " + getApplicationContext());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
