@@ -66,5 +66,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_jump_rn" />
 
+    <Button
+        android:id="@+id/btn_jump_rn_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="跳转到rnFragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_jump_javaview_other" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

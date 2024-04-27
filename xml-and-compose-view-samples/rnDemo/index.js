@@ -22,4 +22,14 @@ function App(props) {
   );
 }
 
+function HelloWorld(){
+    return(
+    <View>
+        <Text>
+            1232
+        </Text>
+    </View>)
+}
+
 AppRegistry.registerComponent("MyReactNativeApp", () => App);
+AppRegistry.registerComponent("HelloWorld", () => HelloWorld);
