@@ -87,7 +87,6 @@ dependencies {
     implementation("com.facebook.react:hermes-android")
 
 //    implementation(name: 'react-native-webview-debug', ext: 'aar')
-    implementation(files("./libs/react-native-webview-debug.aar"))
 
     // react native webview
 //    implementation(project(":react-native-webview"))
