@@ -41,9 +41,10 @@
 | basic-android-kotlin-compose-training-waterme          | workmanager 练习                                                                  | 初级 |
 | rnIntegation                                           | Android 集成 rn 容器练习                                                          | 初级 |
 | codelab-android-navigation                             | Android navigation grph 学习，使用与 view 的导航组件                              | 初级 |
+| rnAndroidDynamicImport                                 | Android 加载远程 rnbundle,rn 动态化最小 demo                                      | 高级 |
 
 ## 问题
 
 1. 在 android 和 rn 代码分离后，如果 rn 要引入第三方依赖，需要手动链接引入，但是引入出现报错怎么办?
 
-- 待解决。。。
+- 直接引入 aar 包，不要尝试引用 node_modules 中的 android 项目，否则管理依赖会累死
