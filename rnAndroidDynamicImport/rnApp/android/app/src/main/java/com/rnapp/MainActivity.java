@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+        initView();
+        featchData();
     }
 
     /**
@@ -71,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
         Request request = new Request.Builder().url(API.MODULES).method("GET", null).build();
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
-
             @Override
             public void onFailure(Call call, IOException e) {
                 System.out.println("数据获取失败");
@@ -92,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
                         adapter.addModules(moduleItem.data);
                     }
                 });
-
-
             }
         });
     }

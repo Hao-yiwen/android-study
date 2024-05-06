@@ -1,6 +1,7 @@
 package com.rnapp;
 
 import android.app.Activity;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -47,6 +48,7 @@ public class DispatchDelegate extends ReactActivityDelegate {
             protected String getJSBundleFile() {
                 // 读取已经解压的bundle文件
                 String file = activity.getFilesDir().getAbsolutePath() + "/" + bundleName + "/" + bundleName + ".bundle";
+                Log.d("DispatchDelegate", "getJSBundleFile: " + file);
                 return file;
             }
 

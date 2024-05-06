@@ -26,3 +26,4 @@ public class RNDynamicActivity extends ReactActivity {
     }
 }
 
+
