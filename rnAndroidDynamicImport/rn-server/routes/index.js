@@ -5,13 +5,14 @@ const router = express.Router();
  * 返回对应module信息
  */
 router.get("/modules", function(req, res, next) {
+  console.log("get modules");
   res.json({
     data: [
       {
-        name: "module_1"
+        name: "rnModule1"
       },
       {
-        name: "module_2"
+        name: "rnModule2"
       }
     ]
   });
