@@ -71,6 +71,9 @@ public class MyReactNativeApplication extends Application implements ReactApplic
         }
     };
 
+
+
+    // todo多实例化
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
