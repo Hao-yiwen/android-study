@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.serialization.builtins.main
+import org.jetbrains.kotlin.util.profile
 
 plugins {
     alias(libs.plugins.androidApplication)
@@ -32,10 +33,19 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        ndk {
+            abiFilters.add("armeabi-v7a")
+            abiFilters.add("arm64-v8a")
+            abiFilters.add("x86_64")
+        }
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+
+
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -85,6 +95,11 @@ dependencies {
     // react Native
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:hermes-android")
+
+    debugImplementation("com.example.my_flutter:flutter_debug:1.0")
+//    profileImplementation("com.example.my_flutter:flutter_profile:1.0")
+    releaseImplementation("com.example.my_flutter:flutter_release:1.0")
+
 
 //    implementation(name: 'react-native-webview-debug', ext: 'aar')
 
