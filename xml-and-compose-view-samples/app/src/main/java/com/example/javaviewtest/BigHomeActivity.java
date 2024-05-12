@@ -18,6 +18,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.yiwen.compose_views.ComposeActivity;
 import com.yiwen.recyclerviewtest.HomeActivity;
 
+import io.flutter.embedding.android.FlutterActivity;
+
 public class BigHomeActivity extends AppCompatActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
 
@@ -87,6 +89,13 @@ public class BigHomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, com.example.javaviewtest.ReactNativeFragmentActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        });
+
+        Button btn_jump_flutter = findViewById(R.id.btn_jump_flutter);
+        btn_jump_flutter.setOnClickListener(v -> {
+            startActivity(
+                    FlutterActivity.createDefaultIntent(this)
+            );
         });
     }
 }

@@ -115,12 +115,10 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
                     }
 
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
                     }
 
                     @Override
@@ -140,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-
                     }
 
                     @Override
