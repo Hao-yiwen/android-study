@@ -4,12 +4,14 @@
  * This generated file contains a sample Java application project to get you started.
  * For more details on building Java & JVM projects, please refer to https://docs.gradle.org/8.7/userguide/building_java_projects.html in the Gradle documentation.
  */
+// build.gradle
 
 plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     id 'application'
     id 'maven-publish'
 }
+apply from: "$rootProject.projectDir/gradles/tasks.gradle"
 
 tasks.register("hello") {
     doLast {
@@ -46,6 +48,22 @@ repositories {
     mavenCentral()
 }
 
+println 'build.gradle'
+
+tasks.register('configured') {
+    println 'This is also executed during the configuration phase, because :configured is used in the build.'
+}
+
+tasks.register('testBoth') {
+    doFirst {
+        println 'This is executed first during the execution phase.'
+    }
+    doLast {
+        println 'This is executed last during the execution phase.'
+    }
+    println 'This is executed during the configuration phase as well, because :testBoth is used in the build.'
+}
+
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation libs.junit.jupiter
@@ -72,4 +90,24 @@ application {
 tasks.named('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+    doLast {
+        println 'This is executed during the execution phase.'
+    }
 }
+
+
+tasks.register('executeJavaScript') {
+    doLast {
+        def engine = new javax.script.ScriptEngineManager().getEngineByName("nashorn")
+        def jsCode = '''
+            function greet(name) {
+                return "Hello, " + name;
+            }
+            greet("Gradle")
+        '''
+        def result = engine.eval(jsCode)
+        println "JavaScript Result: " + result
+    }
+}
+
+build.dependsOn executeJavaScript
