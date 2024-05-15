@@ -33,6 +33,12 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        externalNativeBuild {
+            cmake {
+                cppFlags("-std=c++11")
+            }
+        }
+
         ndk {
             abiFilters.add("armeabi-v7a")
             abiFilters.add("arm64-v8a")
@@ -40,6 +46,12 @@ android {
         }
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    externalNativeBuild {
+        cmake {
+            path = file("./CMakeLists.txt")
+        }
     }
 
     buildTypes {
