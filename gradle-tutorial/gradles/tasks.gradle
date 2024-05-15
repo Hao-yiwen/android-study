@@ -1,0 +1,17 @@
+task customJs(type: Exec) {
+    commandLine 'node', "$rootProject.projectDir/gradles/scripts.js"
+    standardOutput = System.out
+    errorOutput = System.err
+    ignoreExitValue = true
+}
+
+build.dependsOn customJs
+
+task executePython(type: Exec) {
+    commandLine 'python', "$rootProject.projectDir/gradles/scripts.py"
+    standardOutput = System.out
+    errorOutput = System.err
+    ignoreExitValue = true
+}
+
+build.dependsOn executePython
