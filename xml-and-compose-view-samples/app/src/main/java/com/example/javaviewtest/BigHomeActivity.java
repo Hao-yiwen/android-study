@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +24,18 @@ import io.flutter.embedding.android.FlutterActivity;
 public class BigHomeActivity extends AppCompatActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
 
+    static {
+        System.loadLibrary("native-lib");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activitu_constraint_layout_view1);
+        TextView tv = findViewById(R.id.tv_title);
+        tv.setText(stringFromJNI());
 
         // 打印activity context
         Log.d("BigHomeActivity", "onCreate: " + this);
@@ -98,4 +105,6 @@ public class BigHomeActivity extends AppCompatActivity {
             );
         });
     }
+
+    public native String stringFromJNI();
 }
