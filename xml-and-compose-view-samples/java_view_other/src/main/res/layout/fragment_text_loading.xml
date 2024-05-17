@@ -6,6 +6,7 @@
     tools:context=".TextLoadingFragment">
 
     <TextView
+        android:id="@+id/text_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
