@@ -1,6 +1,7 @@
 package com.example.javaviewtest;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +48,17 @@ public class BigHomeActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
+            // Night mode is not active, we're using the light theme
+            Log.d("BigHomeActivity", "onCreate: light theme");
+            setTheme(R.style.AppTheme);
+        } else if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
+            // Night mode is active, we're using dark theme
+            Log.d("BigHomeActivity", "onCreate: dark theme");
+            setTheme(R.style.AppTheme_Dark);
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("大首页");
@@ -103,6 +115,13 @@ public class BigHomeActivity extends AppCompatActivity {
             startActivity(
                     FlutterActivity.createDefaultIntent(this)
             );
+        });
+
+        Button btn_jump_baseloading = findViewById(R.id.btn_jump_base_loading);
+        btn_jump_baseloading.setOnClickListener(v -> {
+            Intent intent = new Intent(this, BaseLoadingTestActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
     }
 
