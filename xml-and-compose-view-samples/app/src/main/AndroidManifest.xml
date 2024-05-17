@@ -16,6 +16,13 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
+            android:name=".BaseLoadingTestActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="false" />
+        <activity
+            android:name=".BaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReactNativeFragmentActivity"
             android:exported="false" />
         <activity
@@ -57,7 +64,6 @@
         <activity
             android:name="com.yiwen.java_view_other.ColorAndColorsActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden" />
-
         <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

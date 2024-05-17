@@ -112,6 +112,9 @@ dependencies {
 //    profileImplementation("com.example.my_flutter:flutter_profile:1.0")
     releaseImplementation("com.example.my_flutter:flutter_release:1.0")
 
+    // lottie
+    implementation(libs.lottie.android)
+
 
 //    implementation(name: 'react-native-webview-debug', ext: 'aar')
 

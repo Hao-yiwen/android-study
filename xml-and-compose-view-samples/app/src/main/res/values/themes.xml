@@ -9,12 +9,14 @@
 <!--        粉色-->
         <item name="colorPrimary">#FFC0CB</item>
         <item name="textColorSearchUrl">#FFC0CB</item>
+        <item name="backgroundColor">#ffffff</item>
     </style>
 
-    <style name="AppTheme.Night" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="AppTheme.Dark" parent="Theme.Material3.DayNight.NoActionBar">
         <!--        粉色-->
         <item name="colorPrimary">#000000</item>
         <item name="textColorSearchUrl">#000000</item>
+        <item name="backgroundColor">#000000</item>
     </style>
 
 <!--    <style name="Theme.JavaViewTest" parent="Base.Theme.JavaViewTest" />-->

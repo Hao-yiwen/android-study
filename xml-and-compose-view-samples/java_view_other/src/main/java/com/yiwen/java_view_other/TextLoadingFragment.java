@@ -1,5 +1,6 @@
 package com.yiwen.java_view_other;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +61,9 @@ public class TextLoadingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_text_loading, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_text_loading, container, false);
+        TextView textView = inflate.findViewById(R.id.text_loading);
+        textView.setTextColor(Color.BLACK);
+        return inflate;
     }
 }
