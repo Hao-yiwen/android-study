@@ -42,6 +42,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         binding.btnLiveData.setOnClickListener(this);
 
         binding.btnJumpNavhost.setOnClickListener(this);
+
+        binding.btnJumpWebview.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +65,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, LiveDataActivity.class);
         } else if (v.getId() == R.id.btn_jump_navhost) {
             intent.setClass(this, NavigationFragmentActivity.class);
+        } else if(v.getId() == R.id.btn_jump_webview){
+            intent.setClass(this, WebviewActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
