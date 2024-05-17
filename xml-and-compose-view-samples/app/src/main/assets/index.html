@@ -1,0 +1,24 @@
+<!-- assets/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebView Bridge</title>
+    <script type="text/javascript">
+        window.onload = function() {
+            function showToast() {
+                console.log("Button clicked");
+                if(window.Android){
+                    Android.showToast("Hello from JavaScript!");
+                } else {
+                    alert("Android object not found. Make sure you are running in WebView.");
+                }
+            }
+            document.getElementById("button").addEventListener("click", showToast);
+        }
+    </script>
+</head>
+<body>
+<h1>WebView Bridge Example</h1>
+<button type="button" id="button">Show Toast</button>
+</body>
+</html>
