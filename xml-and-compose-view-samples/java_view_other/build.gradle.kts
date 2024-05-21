@@ -50,5 +50,7 @@ dependencies {
     // lottie
     implementation(libs.lottie.android)
 
+    implementation("org.greenrobot:eventbus:3.3.1")
+
     implementation(project(":react-native-container"))
 }
