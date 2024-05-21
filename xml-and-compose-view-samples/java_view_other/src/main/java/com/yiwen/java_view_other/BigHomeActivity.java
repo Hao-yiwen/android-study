@@ -3,6 +3,8 @@ package com.yiwen.java_view_other;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.yiwen.java_view_other.databinding.ActivityBigHomeBinding;
+import com.yiwen.java_view_other.model.MessageEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 public class BigHomeActivity extends AppCompatActivity implements View.OnClickListener {
     private ActivityBigHomeBinding binding;
@@ -46,6 +53,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         binding.btnJumpWebview.setOnClickListener(this);
 
         binding.btnJumpLoading.setOnClickListener(this);
+
+        binding.btnJumpEventbus.setOnClickListener(this);
     }
 
     @Override
@@ -71,8 +80,32 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, WebviewActivity.class);
         } else if(v.getId() == R.id.btn_jump_loading){
             intent.setClass(this, LoadingActivity.class);
+        } else if(v.getId() == R.id.btn_jump_eventbus){
+            intent.setClass(this, EventBusActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MessageEvent event) {
+        Button btn = (Button)findViewById(R.id.btn_jump_eventbus);
+        if (btn != null) {
+            btn.setText(event.message);
+        }
+        // 移除Sticky事件，以避免多次处理
+        EventBus.getDefault().removeStickyEvent(event);
     }
 }

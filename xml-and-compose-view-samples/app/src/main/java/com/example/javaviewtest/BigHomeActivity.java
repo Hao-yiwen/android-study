@@ -20,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.yiwen.compose_views.ComposeActivity;
 import com.yiwen.recyclerviewtest.HomeActivity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import io.flutter.embedding.android.FlutterActivity;
 
 public class BigHomeActivity extends AppCompatActivity {
@@ -123,6 +125,11 @@ public class BigHomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     public native String stringFromJNI();
