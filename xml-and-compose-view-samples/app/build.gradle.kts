@@ -114,6 +114,7 @@ dependencies {
 
     // lottie
     implementation(libs.lottie.android)
+    implementation("org.greenrobot:eventbus:3.3.1")
 
 
 //    implementation(name: 'react-native-webview-debug', ext: 'aar')
