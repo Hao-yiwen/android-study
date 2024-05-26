@@ -125,6 +125,13 @@ public class BigHomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
+        Button btn_third_sdk = findViewById(R.id.btn_jump_third_sdk);
+        btn_third_sdk.setOnClickListener(v -> {
+            Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.SDKHomeActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
     }
 
     @Override
