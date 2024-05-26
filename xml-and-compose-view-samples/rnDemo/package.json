@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start"
+    "start": "react-native start",
+    "build:home": "react-native bundle --platform android --dev false --entry-file home.js --bundle-output home_build/home.android.bundle --assets-dest home_build/assets",
+    "build:index": "react-native bundle --platform android --dev false --entry-file home.js --bundle-output index_build/index.android.bundle --assets-dest index_build/assets"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.17",

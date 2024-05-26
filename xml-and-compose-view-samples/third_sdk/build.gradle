@@ -34,4 +34,5 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    api 'com.tencent.mm.opensdk:wechat-sdk-android:+'
 }
