@@ -1,9 +1,11 @@
 package io.github.haoyiwen.react_native_container;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.Nullable;
 
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
@@ -15,6 +17,7 @@ import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -23,6 +26,7 @@ public class MyReactNativeApplication extends Application implements ReactApplic
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, false);
+        initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
     }
 
     private final ReactNativeHost mReactNativeHost = new DefaultReactNativeHost(this) {
@@ -72,11 +76,30 @@ public class MyReactNativeApplication extends Application implements ReactApplic
     };
 
 
-
     // todo多实例化
     @Override
     public ReactNativeHost getReactNativeHost() {
         return mReactNativeHost;
+    }
+
+
+    public static void initializeFlipper(Context context, ReactInstanceManager reactInstanceManager) {
+        if (BuildConfig.DEBUG) {
+            try {
+                Class<?> aClass = Class.forName("io.github.haoyiwen.react_native_container.ReactNativeFlipper");
+                aClass
+                        .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
+                        .invoke(null, context, reactInstanceManager);
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }
