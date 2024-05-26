@@ -148,6 +148,12 @@
                 android:value="com.yiwen.recyclerviewtest.HomeActivity" />
         </activity>
         <!-- ========分割线=================       -->
+        <activity
+            android:name="io.github.haoyiwen.third_sdk.NavigateWXActivity"
+            android:exported="false" />
+        <activity
+            android:name="io.github.haoyiwen.third_sdk.SDKHomeActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
