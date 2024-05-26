@@ -19,7 +19,7 @@ import com.facebook.react.modules.network.NetworkingModule;
 import okhttp3.OkHttpClient;
 
 public class ReactNativeFlipper {
-    public static void initializeFlipper(Context context, ReactInstanceManager reactInstanceManager) {
+    public static void initializeFlipper(Context context) {
         if (FlipperUtils.shouldEnableFlipper(context)) {
             final FlipperClient client = AndroidFlipperClient.getInstance(context);
 

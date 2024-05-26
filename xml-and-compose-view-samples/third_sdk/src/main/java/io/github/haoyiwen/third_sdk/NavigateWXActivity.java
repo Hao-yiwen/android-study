@@ -1,5 +1,6 @@
 package io.github.haoyiwen.third_sdk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -42,6 +43,13 @@ public class NavigateWXActivity extends AppCompatActivity {
             req.userName = "gh_72a4eb2d4324"; // 小程序原始ID
             req.miniprogramType = WXLaunchMiniProgram.Req.MINIPTOGRAM_TYPE_RELEASE; // 打开正式版
             api.sendReq(req);
+        });
+
+        Button new_activity = findViewById(R.id.new_activity);
+        new_activity.setOnClickListener(v -> {
+            Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.NavigateWXActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
     }
 }
