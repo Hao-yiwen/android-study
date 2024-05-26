@@ -19,7 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
--keep class com.facebook.flipper.** { *; }
--keep class com.facebook.fresco.** { *; }
--keep class com.facebook.react.** { *; }
--keep class com.facebook.soloader.** { *; }

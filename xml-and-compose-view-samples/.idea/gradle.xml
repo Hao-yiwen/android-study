@@ -26,6 +26,7 @@
             <option value="$PROJECT_DIR$/react-native-container" />
             <option value="$PROJECT_DIR$/recyclerviewtest" />
             <option value="$PROJECT_DIR$/rnDemo/node_modules/@react-native/gradle-plugin" />
+            <option value="$PROJECT_DIR$/third_sdk" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

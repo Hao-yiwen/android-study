@@ -97,6 +97,8 @@ dependencies {
     implementation(project(":react-native-container"))
     // 添加java_view_other
     implementation(project(":java_view_other"))
+    // 添加third_sdk
+    implementation(project(":third_sdk"))
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
