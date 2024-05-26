@@ -1,6 +1,8 @@
 package io.github.haoyiwen.third_sdk;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +21,13 @@ public class SDKHomeActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        Button button = findViewById(R.id.sdk_button);
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.NavigateWXActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         });
     }
 }
