@@ -47,6 +47,7 @@ include(":recyclerviewtest")
 include(":java_view_other")
 include(":compose_views")
 include(":react-native-container")
+include(":third_sdk")
 
 includeBuild("./rnDemo/node_modules/@react-native/gradle-plugin")
 //include(":react-native-webview")
