@@ -10,6 +10,7 @@ import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.common.LifecycleState;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
@@ -21,75 +22,59 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
-public class MyReactNativeApplication extends Application implements ReactApplication {
+public class MyReactNativeApplication extends Application {
+    private ReactInstanceManager mReactInstanceManager;
     @Override
     public void onCreate() {
         super.onCreate();
         SoLoader.init(this, false);
-        initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+        // 添加flipper插件
+        this.initializeFlipper(this);
     }
 
-    private final ReactNativeHost mReactNativeHost = new DefaultReactNativeHost(this) {
-        @Override
-        public boolean getUseDeveloperSupport() {
-            return BuildConfig.DEBUG;
+    public List<ReactPackage> getReactPackages() {
+        return Arrays.<ReactPackage>asList(
+                new MainReactPackage(),
+                new RNCWebViewPackage(),
+                new MyReactPackage(),
+                new RNScreensPackage(),
+                new SafeAreaContextPackage()
+        );
+    }
+
+    // 在你的 MyReactNativeApplication 类中添加
+    public ReactInstanceManager createReactInstanceManager(String bundlePath) {
+        // 检查是否需要创建新的实例或重用现有的
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.destroy();
+            mReactInstanceManager = null;
         }
-
-        protected List<ReactPackage> getPackages() {
-            List<ReactPackage> packages = Arrays.<ReactPackage>asList(
-                    new MainReactPackage(),
-                    new RNCWebViewPackage(),
-                    new MyReactPackage(),
-                    new RNScreensPackage(),
-                    new SafeAreaContextPackage()
-            );
-            // Packages that cannot be autolinked yet can be added manually here
-            return packages;
+        if (mReactInstanceManager == null) {
+            mReactInstanceManager = ReactInstanceManager.builder()
+                    .setApplication(this)
+                    .setBundleAssetName(bundlePath)
+                    .setJSMainModulePath("index")
+                    .addPackages(Arrays.asList(
+                            new MainReactPackage(),
+                            new RNCWebViewPackage(),
+                            new RNScreensPackage(),
+                            new SafeAreaContextPackage()))
+                    .setUseDeveloperSupport(BuildConfig.DEBUG)
+                    .setInitialLifecycleState(LifecycleState.BEFORE_CREATE)
+                    .build();
         }
-
-        @Override
-        protected String getJSMainModuleName() {
-            return "index";
-        }
-
-        @Override
-        protected boolean isNewArchEnabled() {
-            return false;
-        }
-
-        @Nullable
-        @Override
-        protected Boolean isHermesEnabled() {
-            return true;
-        }
-
-        @Nullable
-        @Override
-        protected String getBundleAssetName() {
-            return "index.android.bundle";
-        }
-
-        @Override
-        protected ReactInstanceManager createReactInstanceManager() {
-            return super.createReactInstanceManager();
-        }
-    };
-
-
-    // todo多实例化
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
+        return mReactInstanceManager;
     }
 
 
-    public static void initializeFlipper(Context context, ReactInstanceManager reactInstanceManager) {
+    // 通过反射添加flipper插件
+    public static void initializeFlipper(Context context) {
         if (BuildConfig.DEBUG) {
             try {
                 Class<?> aClass = Class.forName("io.github.haoyiwen.react_native_container.ReactNativeFlipper");
                 aClass
                         .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
-                        .invoke(null, context, reactInstanceManager);
+                        .invoke(null, context);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (NoSuchMethodException e) {
