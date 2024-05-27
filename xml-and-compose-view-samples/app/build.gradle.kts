@@ -55,7 +55,9 @@ android {
     }
 
     buildTypes {
-
+//        debug {
+//            isMinifyEnabled = false
+//        }
 
 
         release {

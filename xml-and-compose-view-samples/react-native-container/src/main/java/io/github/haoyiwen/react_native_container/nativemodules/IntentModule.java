@@ -10,6 +10,8 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
+import io.github.haoyiwen.react_native_container.ReactNativeActivity;
+
 public class IntentModule extends ReactContextBaseJavaModule {
     final static String name = "IntentModule";
 
@@ -28,9 +30,27 @@ public class IntentModule extends ReactContextBaseJavaModule {
         try {
             Activity currentActivity = getCurrentActivity();
             if (null != currentActivity) {
-                Class toActivity = Class.forName(name);
-                Intent intent = new Intent(currentActivity, toActivity);
-                intent.putExtra("param", param);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @ReactMethod
+    public void startActivityFromJS(String name, String path, Boolean isRN) {
+        try {
+            Activity currentActivity = getCurrentActivity();
+            if (null != currentActivity) {
+                Intent intent = null;
+                if(isRN) {
+                    intent = ReactNativeActivity.createIntent(currentActivity, name, path);
+                } else {
+                    Class toActivity = Class.forName(name);
+                    intent = new Intent(currentActivity, toActivity);
+                    intent.putExtra("param", path);
+                    currentActivity.startActivity(intent);
+                }
                 currentActivity.startActivity(intent);
             }
         } catch (Exception e) {
