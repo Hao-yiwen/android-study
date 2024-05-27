@@ -44,20 +44,24 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!Settings.canDrawOverlays(this)) {
-                Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                        Uri.parse("package:" + getPackageName()));
-                startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
-            }
+        checkOverlayPermission();
+        setupReactNativeView();
+    }
+
+    private void checkOverlayPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
         }
+    }
+
+    private void setupReactNativeView() {
         String componentName = getIntent().getStringExtra(COMPONENT_NAME_KEY);
         String bundlePath = getIntent().getStringExtra(BUNDLE_PATH_KEY);
         SoLoader.init(this, false);
         mReactRootView = new ReactRootView(this);
 
         mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath);
-
         mReactRootView.startReactApplication(mReactInstanceManager, componentName, null);
         setContentView(mReactRootView);
     }
