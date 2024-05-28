@@ -42,8 +42,10 @@ import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import java.util.Arrays;
 import java.util.List;
 
+import io.github.haoyiwen.test.core.activity.BaseActivity;
 
-public class ReactNativeActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
+
+public class ReactNativeActivity extends BaseActivity implements DefaultHardwareBackBtnHandler {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private ReactRootView mReactRootView;
 
