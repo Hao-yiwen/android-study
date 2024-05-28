@@ -22,6 +22,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/compose_views" />
+            <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/flutter" />
+            <option value="$PROJECT_DIR$/hybird" />
             <option value="$PROJECT_DIR$/java_view_other" />
             <option value="$PROJECT_DIR$/react-native-container" />
             <option value="$PROJECT_DIR$/recyclerviewtest" />

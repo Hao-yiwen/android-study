@@ -18,11 +18,13 @@ import java.util.Arrays;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MyReactNativeApplication extends Application {
+    private static MyReactNativeApplication instance;
     private ConcurrentHashMap<String, ReactInstanceManager> mReactInstanceManagers = new ConcurrentHashMap<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         SoLoader.init(this, false);
         initializeFlipper(this);
     }
@@ -60,5 +62,9 @@ public class MyReactNativeApplication extends Application {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static MyReactNativeApplication getInstance(){
+        return instance;
     }
 }
