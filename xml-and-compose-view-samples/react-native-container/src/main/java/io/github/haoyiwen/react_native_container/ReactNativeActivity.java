@@ -3,11 +3,21 @@ package io.github.haoyiwen.react_native_container;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.graphics.Outline;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewOutlineProvider;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +54,7 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_rnbase);
         checkOverlayPermission();
         setupReactNativeView();
     }
@@ -63,7 +74,89 @@ public class ReactNativeActivity extends AppCompatActivity implements DefaultHar
 
         mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath);
         mReactRootView.startReactApplication(mReactInstanceManager, componentName, null);
-        setContentView(mReactRootView);
+        FrameLayout mainContainer = findViewById(R.id.main_container);
+        mainContainer.addView(mReactRootView);
+
+        if (BuildConfig.DEBUG) {
+            addDebugIcon(mainContainer);
+        }
+    }
+
+    private void addDebugIcon(FrameLayout mainContainer) {
+        ImageView debugIcon = new ImageView(this);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
+                100, // Width
+                100  // Height
+        );
+        layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+        layoutParams.setMargins(16, 16, 16, 16);
+        debugIcon.setPadding(10, 10, 10, 10);
+        debugIcon.setLayoutParams(layoutParams);
+        debugIcon.setBackgroundResource(R.drawable.rounded_corner); // Set your rounded corner background
+        debugIcon.setImageResource(R.drawable.react); // Set your debug icon image
+        debugIcon.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        debugIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle debug icon click
+                Toast.makeText(ReactNativeActivity.this, "Debug icon clicked", Toast.LENGTH_SHORT).show();
+                showDebugPopup(v);
+            }
+        });
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            debugIcon.setOutlineProvider(new ViewOutlineProvider() {
+                @Override
+                public void getOutline(View view, Outline outline) {
+                    outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), 20f);
+                }
+            });
+            debugIcon.setClipToOutline(true);
+        }
+
+        mainContainer.addView(debugIcon);
+    }
+
+    private void showDebugPopup(View anchorView) {
+        View popupView = LayoutInflater.from(this).inflate(R.layout.debug_popup, null);
+        PopupWindow popupWindow = new PopupWindow(popupView, FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        Button btnPageReturn = popupView.findViewById(R.id.btn_page_return);
+        Button btnPageUrl = popupView.findViewById(R.id.btn_page_url);
+        Button btnRnDebug = popupView.findViewById(R.id.btn_rn_debug);
+
+        btnPageReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle page return
+                finish(); // Finish the activity
+                popupWindow.dismiss();
+            }
+        });
+
+        btnPageUrl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle show page URL
+                Toast.makeText(ReactNativeActivity.this, "Current URL: " + "your_page_url_here", Toast.LENGTH_SHORT).show();
+                popupWindow.dismiss();
+            }
+        });
+
+        btnRnDebug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle open RN debug menu
+                if (mReactInstanceManager != null) {
+                    mReactInstanceManager.showDevOptionsDialog();
+                }
+                popupWindow.dismiss();
+            }
+        });
+
+        popupWindow.setFocusable(true);
+        popupWindow.showAsDropDown(anchorView, -anchorView.getWidth(), -anchorView.getHeight());
     }
 
     public static Intent createIntent(Context context, String componentName, String bundlePath) {
