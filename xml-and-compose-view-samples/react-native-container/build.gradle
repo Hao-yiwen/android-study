@@ -58,6 +58,8 @@ dependencies {
     implementation(files("${rootDir}/app/libs/react-native-screens-release.aar"))
     implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
 
+    implementation(project(":core"))
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }

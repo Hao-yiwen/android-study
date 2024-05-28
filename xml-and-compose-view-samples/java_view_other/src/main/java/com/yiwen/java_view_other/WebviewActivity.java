@@ -1,5 +1,6 @@
 package com.yiwen.java_view_other;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
@@ -13,7 +14,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.yiwen.java_view_other.webviewInterface.WebAppInterface;
 
-public class WebviewActivity extends AppCompatActivity {
+import org.greenrobot.eventbus.Subscribe;
+
+import io.github.haoyiwen.test.core.activity.BaseActivity;
+import io.github.haoyiwen.test.core.bus.events.URLEvent;
+import io.github.haoyiwen.test.core.router.URLRouter;
+
+public class WebviewActivity extends BaseActivity {
     private WebView webView;
 
     @Override
@@ -31,5 +38,13 @@ public class WebviewActivity extends AppCompatActivity {
         webView.loadUrl("file:///android_asset/index.html");
 
         webView.addJavascriptInterface(new WebAppInterface(this), "Android");
+    }
+
+    @Subscribe
+    public void onURLEvent(URLEvent event) {
+        Uri uri = Uri.parse(event.url);
+        if(uri.getScheme().equals("http") || uri.getScheme().equals("https")) {
+            webView.loadUrl(event.url);
+        }
     }
 }
