@@ -124,6 +124,7 @@ dependencies {
     // lottie
     implementation(libs.lottie.android)
     implementation("org.greenrobot:eventbus:3.3.1")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
 
 

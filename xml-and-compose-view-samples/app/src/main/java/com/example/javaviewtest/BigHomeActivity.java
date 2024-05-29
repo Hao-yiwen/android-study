@@ -9,15 +9,20 @@ import android.provider.Settings;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
 import com.yiwen.compose_views.ComposeActivity;
+import com.yiwen.java_view_other.ScanActivity;
 import com.yiwen.recyclerviewtest.HomeActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -31,6 +36,16 @@ public class BigHomeActivity extends AppCompatActivity {
     static {
         System.loadLibrary("native-lib");
     }
+
+    private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
+            result -> {
+                if (result.getContents() == null) {
+                    Toast.makeText(BigHomeActivity.this, "Cancelled", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(BigHomeActivity.this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+                    URLRouter.openURL(BigHomeActivity.this, result.getContents());
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +81,18 @@ public class BigHomeActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("大首页");
         setSupportActionBar(toolbar);
+
+        Button btn_scan = findViewById(R.id.btn_scan);
+        btn_scan.setOnClickListener(v -> {
+            ScanOptions options = new ScanOptions();
+            options.setDesiredBarcodeFormats(ScanOptions.ALL_CODE_TYPES);
+            options.setPrompt("Scan a barcode");
+            options.setCameraId(0);  // Use a specific camera of the device
+            options.setBeepEnabled(true);
+            options.setBarcodeImageEnabled(true);
+            options.setOrientationLocked(true);
+            barcodeLauncher.launch(options);
+        });
 
         Button button = findViewById(R.id.btn_jump_home);
 
@@ -138,6 +165,12 @@ public class BigHomeActivity extends AppCompatActivity {
         btn_jump_h5.setOnClickListener(v -> {
             URLRouter.openURL(this, "http://www.baidu.com");
         });
+
+        Button openurl_rn = findViewById(R.id.openurl_rn);
+        openurl_rn.setOnClickListener(v -> {
+            URLRouter.openURL(this, "http://127.0.0.1:8081/index.bundle?platform=android&isRN=true&moduleName=splitRn_0736");
+        });
+
     }
 
     @Override
