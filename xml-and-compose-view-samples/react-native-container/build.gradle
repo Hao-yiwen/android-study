@@ -59,6 +59,9 @@ dependencies {
     implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
 
     implementation(project(":core"))
+    implementation(project(":hybird"))
+
+    implementation("org.greenrobot:eventbus:3.3.1")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
