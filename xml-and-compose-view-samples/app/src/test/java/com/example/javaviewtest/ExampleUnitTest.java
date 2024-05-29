@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.function.IntUnaryOperator;
 
 /**
@@ -42,5 +44,21 @@ public class ExampleUnitTest {
         };
 
         System.out.println(test.myMethod(10));
+    }
+
+    @Test
+    public void testLambda3() {
+        String url = "/rn_test?moduleName=test&params";
+        try {
+            URI uri = new URI(url);
+            System.out.println("Scheme: " + uri.getScheme());
+            System.out.println("Host: " + uri.getHost());
+            System.out.println("Path: " + uri.getPath());
+            System.out.println("Query: " + uri.getQuery());
+            System.out.println(uri.getQuery());
+            System.out.println(uri.getFragment());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 }

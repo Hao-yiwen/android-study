@@ -18,6 +18,8 @@ import com.google.zxing.integration.android.IntentResult;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import io.github.haoyiwen.test.core.router.URLRouter;
+
 public class ScanActivity extends AppCompatActivity {
 
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
@@ -26,11 +28,7 @@ public class ScanActivity extends AppCompatActivity {
                     Toast.makeText(ScanActivity.this, "Cancelled", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(ScanActivity.this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
-                    if (result.getContents().indexOf("http") == 0) {
-                        Intent intent = new Intent(ScanActivity.this, io.github.haoyiwen.react_native_container.ReactNativeActivity.class);
-                        intent.putExtra("url", result.getContents());
-                        startActivity(intent);
-                    }
+                    URLRouter.openURL(ScanActivity.this, result.getContents());
                 }
             });
 

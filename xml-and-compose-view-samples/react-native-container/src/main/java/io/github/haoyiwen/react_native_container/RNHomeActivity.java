@@ -36,6 +36,12 @@ public class RNHomeActivity extends BaseActivity {
             Intent intent = ReactNativeActivity.createIntent(this, "MyReactNativeApp", "index.android.bundle");
             startActivity(intent);
         });
+
+        Button online = findViewById(R.id.btn1);
+        online.setOnClickListener(v -> {
+            Intent intent = ReactNativeActivity.createIntent(this, "splitRn_0736", "index.android.bundle", "http://127.0.0.1:8081/index.bundle?platform=android");
+            startActivity(intent);
+        });
     }
 
     @Override

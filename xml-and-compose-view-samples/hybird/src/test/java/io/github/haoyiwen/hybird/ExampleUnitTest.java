@@ -4,6 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.sql.SQLOutput;
+
 /**
  * Example local unit test, which will execute on the development machine (host).
  *

@@ -8,6 +8,8 @@ import android.util.Log;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
+import com.facebook.react.ReactInstanceManagerBuilder;
+import com.facebook.react.bridge.JSBundleLoader;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -25,6 +27,7 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.haoyiwen.hybird.handler.WebViewHandler;
+import io.github.haoyiwen.react_native_container.handler.RNHandler;
 import io.github.haoyiwen.test.core.bus.EventBusManager;
 import io.github.haoyiwen.test.core.bus.events.URLEvent;
 import io.github.haoyiwen.test.core.router.URLHandler;
@@ -48,14 +51,14 @@ public class MyReactNativeApplication extends Application {
         // URL处理handler添加
         EventBusManager.getInstance().register(this);
         handlers.add(new WebViewHandler());
+        handlers.add(new RNHandler());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onURLEvent(URLEvent event) {
-        Uri uri = Uri.parse(event.url);
         for (URLHandler handler : handlers) {
-            if (handler.canHandle(uri)) {
-                handler.handle(event.context, uri);
+            if (handler.canHandle(event.url)) {
+                handler.handle(event.context, event.url);
                 return;
             }
         }
@@ -64,13 +67,11 @@ public class MyReactNativeApplication extends Application {
         Log.e("MyReactNativeApplication", "onURLEvent: " + event.url + " not handled");
     }
 
-    public synchronized ReactInstanceManager createReactInstanceManager(String bundlePath) {
-        ReactInstanceManager instanceManager = mReactInstanceManagers.get(bundlePath);
+    public synchronized ReactInstanceManager createReactInstanceManager(String bundlePath, String devUrl, String componentName) {
+        ReactInstanceManager instanceManager = mReactInstanceManagers.get(componentName);
         if (instanceManager == null) {
-            instanceManager = ReactInstanceManager.builder()
-                    .setApplication(this)
-                    .setBundleAssetName(bundlePath)
-                    .setJSMainModulePath("index")
+            ReactInstanceManagerBuilder builder = ReactInstanceManager.builder();
+            builder.setApplication(this)
                     .addPackages(Arrays.asList(
                             new MyReactPackage(),
                             new MainReactPackage(),
@@ -79,10 +80,21 @@ public class MyReactNativeApplication extends Application {
                             new SafeAreaContextPackage()))
                     .setUseDeveloperSupport(BuildConfig.DEBUG)
                     .setInitialLifecycleState(LifecycleState.BEFORE_CREATE)
-                    .setJavaScriptExecutorFactory(new HermesExecutorFactory())
+                    .setJavaScriptExecutorFactory(new HermesExecutorFactory());
+
+            if (BuildConfig.DEBUG && devUrl != null && !devUrl.isEmpty()) {
+                // 开发模式下并且有 devUrl 时，从远程服务器加载
+                builder.setJSMainModulePath("index");
+                builder.setJSBundleLoader(JSBundleLoader.createRemoteDebuggerBundleLoader(devUrl, "index"));
+            } else {
+                builder.setJSMainModulePath(null);
+                // 没有 devUrl 时，从本地文件加载
+                builder.setBundleAssetName(bundlePath);
+            }
+            instanceManager = builder
                     .build();
             instanceManager.createReactContextInBackground();
-            mReactInstanceManagers.put(bundlePath, instanceManager);
+            mReactInstanceManagers.put(componentName, instanceManager);
         }
         return instanceManager;
     }
@@ -96,6 +108,21 @@ public class MyReactNativeApplication extends Application {
                      InvocationTargetException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void destroyReactInstanceManager(String componentName) {
+        ReactInstanceManager instanceManager = mReactInstanceManagers.get(componentName);
+        if (instanceManager != null) {
+            instanceManager.onHostDestroy();
+            instanceManager.destroy();
+            mReactInstanceManagers.remove(componentName);
+        }
+    }
+
+    public void destroyAllReactInstanceManagers() {
+        for (String componentName : mReactInstanceManagers.keySet()) {
+            destroyReactInstanceManager(componentName);
         }
     }
 
