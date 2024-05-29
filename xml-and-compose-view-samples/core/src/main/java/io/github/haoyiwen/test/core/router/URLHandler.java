@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 
 public interface URLHandler {
-    boolean canHandle(Uri uri);
+    boolean canHandle(String url);
 
-    void handle(Context context, Uri uri);
+    void handle(Context context, String url);
 }
