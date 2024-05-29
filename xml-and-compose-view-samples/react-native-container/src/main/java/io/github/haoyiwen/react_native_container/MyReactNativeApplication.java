@@ -2,6 +2,8 @@ package io.github.haoyiwen.react_native_container;
 
 import android.app.Application;
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
@@ -13,13 +15,25 @@ import com.swmansion.rnscreens.RNScreensPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 import com.facebook.soloader.SoLoader;
 
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
+
+import io.github.haoyiwen.hybird.handler.WebViewHandler;
+import io.github.haoyiwen.test.core.bus.EventBusManager;
+import io.github.haoyiwen.test.core.bus.events.URLEvent;
+import io.github.haoyiwen.test.core.router.URLHandler;
 
 public class MyReactNativeApplication extends Application {
     private static MyReactNativeApplication instance;
     private ConcurrentHashMap<String, ReactInstanceManager> mReactInstanceManagers = new ConcurrentHashMap<>();
+
+    private ArrayList<URLHandler> handlers = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -27,6 +41,27 @@ public class MyReactNativeApplication extends Application {
         instance = this;
         SoLoader.init(this, false);
         initializeFlipper(this);
+        addHandlers();
+    }
+
+    public void addHandlers() {
+        // URL处理handler添加
+        EventBusManager.getInstance().register(this);
+        handlers.add(new WebViewHandler());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onURLEvent(URLEvent event) {
+        Uri uri = Uri.parse(event.url);
+        for (URLHandler handler : handlers) {
+            if (handler.canHandle(uri)) {
+                handler.handle(event.context, uri);
+                return;
+            }
+        }
+        // 处理没有匹配的URL
+        // 可以添加一个默认的处理或者显示错误信息
+        Log.e("MyReactNativeApplication", "onURLEvent: " + event.url + " not handled");
     }
 
     public synchronized ReactInstanceManager createReactInstanceManager(String bundlePath) {
@@ -64,7 +99,7 @@ public class MyReactNativeApplication extends Application {
         }
     }
 
-    public static MyReactNativeApplication getInstance(){
+    public static MyReactNativeApplication getInstance() {
         return instance;
     }
 }
