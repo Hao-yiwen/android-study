@@ -9,6 +9,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import io.github.haoyiwen.test.core.activity.BaseActivity;
+
 public class BaseLoadingTestActivity extends BaseActivity {
 
     @Override
@@ -31,5 +33,10 @@ public class BaseLoadingTestActivity extends BaseActivity {
     @Override
     protected int getLayoutResId() {
         return R.layout.activity_base_loading_test;
+    }
+
+    @Override
+    protected String setTitle() {
+        return "BaseLoadingTestActivity";
     }
 }

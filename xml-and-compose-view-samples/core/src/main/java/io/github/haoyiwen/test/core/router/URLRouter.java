@@ -9,6 +9,7 @@ public class URLRouter {
 
     /**
      * 打开URL
+     *
      * @param context
      * @param url
      * @decription 使用总线将url发送到对应的模块处理
@@ -18,6 +19,6 @@ public class URLRouter {
         // 如果url是以/rn_开头，则使用rn模块处理
         // 如果url是以/flutter_开头，则在flutter模块处理
         // 如果url是以/app开头，则跳转至对应的activity
-        EventBusManager.getInstance().post(new URLEvent(url));
+        EventBusManager.getInstance().post(new URLEvent(context, url));
     }
 }
