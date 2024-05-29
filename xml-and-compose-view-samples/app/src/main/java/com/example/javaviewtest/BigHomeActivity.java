@@ -23,6 +23,7 @@ import com.yiwen.recyclerviewtest.HomeActivity;
 import org.greenrobot.eventbus.EventBus;
 
 import io.flutter.embedding.android.FlutterActivity;
+import io.github.haoyiwen.test.core.router.URLRouter;
 
 public class BigHomeActivity extends AppCompatActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
@@ -131,6 +132,11 @@ public class BigHomeActivity extends AppCompatActivity {
             Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.SDKHomeActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+        });
+
+        Button btn_jump_h5 = findViewById(R.id.jump_h5);
+        btn_jump_h5.setOnClickListener(v -> {
+            URLRouter.openURL(this, "http://www.baidu.com");
         });
     }
 

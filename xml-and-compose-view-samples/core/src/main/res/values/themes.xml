@@ -1,0 +1,40 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+<!--    <style name="Base.Theme.JavaViewTest" parent="Theme.Material3.DayNight.NoActionBar">-->
+<!--        &lt;!&ndash; Customize your light theme here. &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="colorPrimary">@color/my_light_primary</item> &ndash;&gt;-->
+<!--        <item name="android:colorPrimary">#ffffff</item> &lt;!&ndash; 浅灰色 &ndash;&gt;-->
+<!--    </style>-->
+    <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
+<!--        粉色-->
+        <item name="colorPrimary">#FFC0CB</item>
+        <item name="textColorSearchUrl">#FFC0CB</item>
+        <item name="backgroundColor">#ffffff</item>
+    </style>
+
+    <style name="AppTheme.Dark" parent="Theme.Material3.DayNight.NoActionBar">
+        <!--        粉色-->
+        <item name="colorPrimary">#000000</item>
+        <item name="textColorSearchUrl">#000000</item>
+        <item name="backgroundColor">#000000</item>
+    </style>
+
+<!--    <style name="Theme.JavaViewTest" parent="Base.Theme.JavaViewTest" />-->
+
+<!--    <style name="Theme.JavaViewTest.Night" parent="Base.Theme.JavaViewTest">-->
+<!--        &lt;!&ndash; Customize your dark theme here. &ndash;&gt;-->
+<!--        &lt;!&ndash; <item name="colorPrimary">@color/my_dark_primary</item> &ndash;&gt;-->
+<!--        <item name="android:colorPrimary">#000000</item> &lt;!&ndash; 深灰色 &ndash;&gt;-->
+<!--    </style>-->
+
+    <!-- 白天主题 -->
+<!--    <style name="AppTheme" parent="Theme.AppCompat.Light">-->
+<!--        <item name="colorPrimary">#ffffff</item> &lt;!&ndash; 浅灰色 &ndash;&gt;-->
+<!--    </style>-->
+
+<!--    &lt;!&ndash; 夜间主题 &ndash;&gt;-->
+<!--    <style name="AppTheme.Night" parent="Theme.AppCompat">-->
+<!--        <item name="colorPrimary">#000000</item> &lt;!&ndash; 深灰色 &ndash;&gt;-->
+<!--    </style>-->
+
+</resources>

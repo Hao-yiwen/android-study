@@ -20,12 +20,13 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.List;
 
-public class ReactNativeFragmentActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
+import io.github.haoyiwen.test.core.activity.BaseActivity;
+
+public class ReactNativeFragmentActivity extends BaseActivity implements DefaultHardwareBackBtnHandler {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_react_native_fragment);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -41,6 +42,16 @@ public class ReactNativeFragmentActivity extends AppCompatActivity implements De
                     .add(R.id.reactNativeFragment, reactNativeFragment)
                     .commit();
         });
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_react_native_fragment;
+    }
+
+    @Override
+    protected String setTitle() {
+        return "React Native Fragment";
     }
 
     private Bundle getLaunchOptions(String message) {

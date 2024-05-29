@@ -101,6 +101,11 @@ dependencies {
     implementation(project(":java_view_other"))
     // 添加third_sdk
     implementation(project(":third_sdk"))
+
+    implementation(project(":hybird"))
+    implementation(project(":flutter"))
+    implementation(project(":core"))
+
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
@@ -119,6 +124,7 @@ dependencies {
     // lottie
     implementation(libs.lottie.android)
     implementation("org.greenrobot:eventbus:3.3.1")
+
 
 
 //    implementation(name: 'react-native-webview-debug', ext: 'aar')
