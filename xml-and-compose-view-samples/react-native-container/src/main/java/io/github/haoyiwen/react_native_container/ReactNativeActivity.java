@@ -38,6 +38,8 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
     private static final String COMPONENT_NAME_KEY = "componentName";
     private static final String BUNDLE_PATH_KEY = "bundlePath";
 
+    private static final String DEV_URL = "devUrl";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +67,11 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
     private void setupReactNativeView() {
         String componentName = getIntent().getStringExtra(COMPONENT_NAME_KEY);
         String bundlePath = getIntent().getStringExtra(BUNDLE_PATH_KEY);
+        String devUrl = getIntent().getStringExtra(DEV_URL);
         SoLoader.init(this, false);
         mReactRootView = new ReactRootView(this);
 
-        mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath);
+        mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath, devUrl, componentName);
         mReactRootView.startReactApplication(mReactInstanceManager, componentName, null);
         FrameLayout mainContainer = findViewById(R.id.main_container);
         mainContainer.addView(mReactRootView);
@@ -162,6 +165,14 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         return intent;
     }
 
+    public static Intent createIntent(Context context, String componentName, String bundlePath, String url) {
+        Intent intent = new Intent(context, ReactNativeActivity.class);
+        intent.putExtra(COMPONENT_NAME_KEY, componentName);
+        intent.putExtra(BUNDLE_PATH_KEY, bundlePath);
+        intent.putExtra(DEV_URL, url);
+        return intent;
+    }
+
     @Override
     public void invokeDefaultOnBackPressed() {
         super.onBackPressed();
@@ -197,6 +208,7 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
             mReactRootView.unmountReactApplication();
             mReactRootView = null;  // 清理 ReactRootView
         }
+        MyReactNativeApplication.getInstance().destroyReactInstanceManager(getIntent().getStringExtra(COMPONENT_NAME_KEY));
     }
 
 

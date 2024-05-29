@@ -9,14 +9,14 @@ import io.github.haoyiwen.test.core.router.URLHandler;
 
 public class WebViewHandler implements URLHandler {
     @Override
-    public boolean canHandle(Uri uri) {
-        return uri.getScheme() != null && (uri.getScheme().equals("http") || uri.getScheme().equals("https"));
+    public boolean canHandle(String url) {
+        return (url.startsWith("http") || url.startsWith("https")) && !url.contains("isRN=true");
     }
 
     @Override
-    public void handle(Context context, Uri uri) {
+    public void handle(Context context, String url) {
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra("url", uri.toString());
+        intent.putExtra("url", url);
         context.startActivity(intent);
     }
 }
