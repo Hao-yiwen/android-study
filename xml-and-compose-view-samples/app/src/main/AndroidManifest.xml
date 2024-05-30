@@ -171,6 +171,10 @@
         <activity
             android:name="io.github.haoyiwen.hybird.WebViewActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".url.HistoryUrlActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -20,11 +21,15 @@ import androidx.core.view.WindowInsetsCompat;
 import com.airbnb.lottie.LottieAnimationView;
 
 import io.github.haoyiwen.test.core.R;
+import io.github.haoyiwen.test.core.storage.Storage;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
     LottieAnimationView lottieAnimationView;
-    LinearLayout loadingLayout;
+    LinearLayout pageLayout;
+    TextView page_title;
+
+    Storage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             Log.d("BigHomeActivity", "onCreate: dark theme");
             setTheme(R.style.AppTheme_Dark);
         }
+
+        storage = Storage.getInstance(this);
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_base);
@@ -65,7 +72,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         LayoutInflater.from(this).inflate(getLayoutResId(), findViewById(R.id.container), true);
 
         lottieAnimationView = findViewById(R.id.lottieAnimationView);
-        loadingLayout = findViewById(R.id.loadingLayout);
+        page_title = findViewById(R.id.page_title);
+        pageLayout = findViewById(R.id.pageLayout);
     }
 
     protected abstract int getLayoutResId();
@@ -74,7 +82,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void showLoading() {
         if (lottieAnimationView != null) {
-            loadingLayout.setVisibility(View.VISIBLE);
+            pageLayout.setVisibility(View.VISIBLE);
             lottieAnimationView.playAnimation();
         }
     }
@@ -82,14 +90,30 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void hideLoading() {
         if (lottieAnimationView != null) {
             // 搞点动画小时时候的动画效果
-            loadingLayout.animate()
+            pageLayout.animate()
                     .alpha(0f)
                     .setDuration(500)
                     .withEndAction(() -> {
-                        loadingLayout.setVisibility(View.GONE);
+                        pageLayout.setVisibility(View.GONE);
                         lottieAnimationView.cancelAnimation();
                     })
                     .start();
+        }
+    }
+
+    protected void showErrorPage(String message) {
+        if (lottieAnimationView != null) {
+            pageLayout.setVisibility(View.VISIBLE);
+            lottieAnimationView.setAnimation(R.raw.error_page);
+            lottieAnimationView.playAnimation();
+            page_title.setText(message);
+        }
+    }
+
+    protected void hideErrorPage() {
+        if (lottieAnimationView != null) {
+            pageLayout.setVisibility(View.GONE);
+            lottieAnimationView.cancelAnimation();
         }
     }
 

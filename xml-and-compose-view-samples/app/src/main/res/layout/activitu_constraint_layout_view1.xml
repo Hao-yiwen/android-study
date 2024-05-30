@@ -31,12 +31,41 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="66dp"
+                android:layout_marginTop="30dp"
                 android:text="占位~"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.497"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:id="@+id/url_edit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.497"
+                app:layout_constraintStart_toStartOf="parent"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="@+id/tv_title">
+
+                <EditText
+                    android:id="@+id/url_edit"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="请输入URL"
+                    android:inputType="text"
+                    android:padding="10dp" />
+
+                <Button
+                    android:id="@+id/btn_jump_url"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="跳转" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_scan"
@@ -46,7 +75,17 @@
                 android:text="扫描二维码"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+                app:layout_constraintTop_toBottomOf="@+id/url_edit_layout" />
+
+            <Button
+                android:id="@+id/btn_url_history"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="历史跳转"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_scan" />
 
             <Button
                 android:id="@+id/btn_jump_home"
@@ -56,7 +95,7 @@
                 android:text="跳转至ScrollViewActivity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_scan" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_url_history" />
 
             <Button
                 android:id="@+id/btn_jump_compose"

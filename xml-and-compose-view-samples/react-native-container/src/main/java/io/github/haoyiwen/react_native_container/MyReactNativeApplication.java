@@ -10,6 +10,8 @@ import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.bridge.JSBundleLoader;
+import com.facebook.react.bridge.NotThreadSafeBridgeIdleDebugListener;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.common.LifecycleState;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
@@ -20,6 +22,7 @@ import com.facebook.soloader.SoLoader;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,19 +87,50 @@ public class MyReactNativeApplication extends Application {
 
             if (BuildConfig.DEBUG && devUrl != null && !devUrl.isEmpty()) {
                 // 开发模式下并且有 devUrl 时，从远程服务器加载
-                builder.setJSMainModulePath("index");
-                builder.setJSBundleLoader(JSBundleLoader.createRemoteDebuggerBundleLoader(devUrl, "index"));
+                try {
+                    builder.setJSMainModulePath("index");
+                    builder.setJSBundleLoader(JSBundleLoader.createRemoteDebuggerBundleLoader(devUrl, "index"));
+                    instanceManager = builder
+                            .build();
+                    instanceManager.createReactContextInBackground();
+                    instanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
+                        @Override
+                        public void onReactContextInitialized(ReactContext context) {
+                            Log.d("ReactNative", "React context initialized");
+                        }
+                    });
+                } catch (Exception e) {
+                    Log.e("MyReactNativeApplication", "createReactInstanceManager: ", e);
+                    return null;
+                }
             } else {
                 builder.setJSMainModulePath(null);
                 // 没有 devUrl 时，从本地文件加载
                 builder.setBundleAssetName(bundlePath);
+                instanceManager = builder
+                        .build();
+                instanceManager.createReactContextInBackground();
             }
-            instanceManager = builder
-                    .build();
-            instanceManager.createReactContextInBackground();
-            mReactInstanceManagers.put(componentName, instanceManager);
+
+
+            if (instanceManager != null) {
+                mReactInstanceManagers.put(componentName, instanceManager);
+            }
         }
         return instanceManager;
+    }
+
+    /**
+     * 判断是否应该从本地加载
+     * @param jsBundleFile
+     * @param mReactInstanceManager
+     * @return
+     */
+    private boolean shouldLoadFromLocal(File jsBundleFile, ReactInstanceManager mReactInstanceManager) {
+        // 检查ReactContext是否为空
+        ReactContext currentReactContext = mReactInstanceManager != null ? mReactInstanceManager.getCurrentReactContext() : null;
+        // 仅当ReactContext为空且本地文件存在时返回true
+        return currentReactContext == null && jsBundleFile.exists();
     }
 
     public static void initializeFlipper(Context context) {
