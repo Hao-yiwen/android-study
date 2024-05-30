@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
 import com.facebook.soloader.SoLoader;
 
+import io.github.haoyiwen.react_native_container.utils.DevURL;
 import io.github.haoyiwen.test.core.activity.BaseActivity;
 //import com.swmansion.rnscreens.RNScreensPackage;
 
@@ -43,6 +45,7 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.showLoading();
         checkOverlayPermission();
         setupReactNativeView();
     }
@@ -72,7 +75,27 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         mReactRootView = new ReactRootView(this);
 
         mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath, devUrl, componentName);
-        mReactRootView.startReactApplication(mReactInstanceManager, componentName, null);
+        if(mReactInstanceManager == null){
+            hideLoading();
+            showErrorPage("url有误~");
+            return;
+        }
+
+        try {
+            mReactRootView.startReactApplication(mReactInstanceManager, componentName, null);
+            mReactRootView.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+                if (bottom != oldBottom) {
+                    hideLoading();
+                }
+            });
+        }catch (Exception e){
+            Log.e("ReactNativeActivity", "setupReactNativeView: ", e);
+            Toast.makeText(this, "ReactNativeActivity setupReactNativeView error", Toast.LENGTH_SHORT).show();
+            MyReactNativeApplication.getInstance().destroyReactInstanceManager(componentName);
+            hideLoading();
+            showErrorPage("页面未加载~");
+        }
+
         FrameLayout mainContainer = findViewById(R.id.main_container);
         mainContainer.addView(mReactRootView);
 
@@ -84,8 +107,8 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
     private void addDebugIcon(FrameLayout mainContainer) {
         ImageView debugIcon = new ImageView(this);
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
-                100, // Width
-                100  // Height
+                100,
+                100
         );
         layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
         layoutParams.setMargins(16, 16, 16, 16);
