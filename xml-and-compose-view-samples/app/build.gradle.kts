@@ -126,6 +126,10 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 
+    implementation("androidx.lifecycle:lifecycle-livedata:2.7.0")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
 
 
 //    implementation(name: 'react-native-webview-debug', ext: 'aar')

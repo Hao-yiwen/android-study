@@ -24,6 +24,7 @@ public class BaseLoadingTestActivity extends BaseActivity {
         });
 
         showLoading();
+//        showErrorPage("test");
 
         new Handler().postDelayed(() -> {
             hideLoading();
