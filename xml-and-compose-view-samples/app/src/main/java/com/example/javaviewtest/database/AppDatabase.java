@@ -8,7 +8,7 @@ import android.content.Context;
 import com.example.javaviewtest.url.History;
 import com.example.javaviewtest.url.dao.HistoryDao;
 
-@Database(entities = {History.class}, version = 1)
+@Database(entities = {History.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract HistoryDao historyDao();
 
