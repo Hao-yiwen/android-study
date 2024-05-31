@@ -10,9 +10,12 @@ import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.bridge.JSBundleLoader;
+import com.facebook.react.bridge.JSExceptionHandler;
 import com.facebook.react.bridge.NotThreadSafeBridgeIdleDebugListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.common.LifecycleState;
+import com.facebook.react.devsupport.interfaces.BundleLoadCallback;
+import com.facebook.react.devsupport.interfaces.DevSplitBundleCallback;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
@@ -89,7 +92,12 @@ public class MyReactNativeApplication extends Application {
                 // 开发模式下并且有 devUrl 时，从远程服务器加载
                 try {
                     builder.setJSMainModulePath("index");
-                    builder.setJSBundleLoader(JSBundleLoader.createRemoteDebuggerBundleLoader(devUrl, "index"));
+                    builder.setJSExceptionHandler(new JSExceptionHandler() {
+                        @Override
+                        public void handleException(Exception e) {
+                            Log.e("MyReactNative", "JSExceptionHandler: ", e);
+                        }
+                    });
                     instanceManager = builder
                             .build();
                     instanceManager.createReactContextInBackground();
@@ -97,6 +105,13 @@ public class MyReactNativeApplication extends Application {
                         @Override
                         public void onReactContextInitialized(ReactContext context) {
                             Log.d("ReactNative", "React context initialized");
+                        }
+                    });
+
+                    instanceManager.getDevSupportManager().reloadJSFromServer(devUrl, new BundleLoadCallback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d("MyReactNative", "loadSplitBundleFromServer onSuccess");
                         }
                     });
                 } catch (Exception e) {
@@ -122,6 +137,7 @@ public class MyReactNativeApplication extends Application {
 
     /**
      * 判断是否应该从本地加载
+     *
      * @param jsBundleFile
      * @param mReactInstanceManager
      * @return
