@@ -73,6 +73,8 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         String devUrl = getIntent().getStringExtra(DEV_URL);
         SoLoader.init(this, false);
         mReactRootView = new ReactRootView(this);
+        // 不使用新架构
+        mReactRootView.setIsFabric(false);
 
         mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath, devUrl, componentName);
         if(mReactInstanceManager == null){

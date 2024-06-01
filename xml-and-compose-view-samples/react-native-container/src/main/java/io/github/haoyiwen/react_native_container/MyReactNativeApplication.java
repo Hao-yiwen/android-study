@@ -5,8 +5,11 @@ import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 
+import androidx.annotation.Nullable;
+
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.BuildConfig;
+import com.facebook.react.JSEngineResolutionAlgorithm;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactInstanceManagerBuilder;
 import com.facebook.react.bridge.JSBundleLoader;
@@ -14,8 +17,20 @@ import com.facebook.react.bridge.JSExceptionHandler;
 import com.facebook.react.bridge.NotThreadSafeBridgeIdleDebugListener;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.common.LifecycleState;
+import com.facebook.react.common.SurfaceDelegateFactory;
+import com.facebook.react.devsupport.DefaultDevSupportManagerFactory;
+import com.facebook.react.devsupport.DevSupportManagerFactory;
+import com.facebook.react.devsupport.ReactInstanceDevHelper;
 import com.facebook.react.devsupport.interfaces.BundleLoadCallback;
+import com.facebook.react.devsupport.interfaces.DevBundleDownloadListener;
+import com.facebook.react.devsupport.interfaces.DevLoadingViewManager;
+import com.facebook.react.devsupport.interfaces.DevOptionHandler;
 import com.facebook.react.devsupport.interfaces.DevSplitBundleCallback;
+import com.facebook.react.devsupport.interfaces.DevSupportManager;
+import com.facebook.react.devsupport.interfaces.RedBoxHandler;
+import com.facebook.react.modules.debug.interfaces.DeveloperSettings;
+import com.facebook.react.packagerconnection.PackagerConnectionSettings;
+import com.facebook.react.packagerconnection.RequestHandler;
 import com.facebook.react.shell.MainReactPackage;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
@@ -30,6 +45,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.haoyiwen.hybird.handler.WebViewHandler;
@@ -85,8 +101,13 @@ public class MyReactNativeApplication extends Application {
                             new RNScreensPackage(),
                             new SafeAreaContextPackage()))
                     .setUseDeveloperSupport(BuildConfig.DEBUG)
+                    .setJSEngineResolutionAlgorithm(JSEngineResolutionAlgorithm.HERMES)
                     .setInitialLifecycleState(LifecycleState.BEFORE_CREATE)
                     .setJavaScriptExecutorFactory(new HermesExecutorFactory());
+            builder.setDevSupportManagerFactory(new DefaultDevSupportManagerFactory(){
+
+            });
+
 
             if (BuildConfig.DEBUG && devUrl != null && !devUrl.isEmpty()) {
                 // 开发模式下并且有 devUrl 时，从远程服务器加载
@@ -101,6 +122,39 @@ public class MyReactNativeApplication extends Application {
                     instanceManager = builder
                             .build();
                     instanceManager.createReactContextInBackground();
+                    instanceManager.getDevSupportManager().setRemoteJSDebugEnabled(true);
+                    instanceManager.getDevSupportManager().setDevSupportEnabled(true);
+                    ReactInstanceManager finalInstanceManager = instanceManager;
+                    instanceManager.getDevSupportManager().setPackagerLocationCustomizer(new DevSupportManager.PackagerLocationCustomizer() {
+                        @Override
+                        public void run(Runnable runnable) {
+                            runnable.run();
+                        }
+
+
+                        public void customize(PackagerConnectionSettings packagerConnectionSettings) {
+                            packagerConnectionSettings.setDebugServerHost("localhost");
+                        }
+                    });
+                    instanceManager.getDevSupportManager().setPackagerLocationCustomizer(new DevSupportManager.PackagerLocationCustomizer() {
+                        @Override
+                        public void run(Runnable runnable) {
+
+                            runnable.run();
+                        }
+                    });
+                    instanceManager.getDevSupportManager().addCustomDevOption("reload", new DevOptionHandler() {
+                        @Override
+                        public void onOptionSelected() {
+                            finalInstanceManager.getDevSupportManager().handleReloadJS();
+                        }
+                    });
+                    instanceManager.getDevSupportManager().addCustomDevOption("refresh", new DevOptionHandler() {
+                        @Override
+                        public void onOptionSelected() {
+                            finalInstanceManager.getDevSupportManager().reloadSettings();
+                        }
+                    });
                     instanceManager.addReactInstanceEventListener(new ReactInstanceManager.ReactInstanceEventListener() {
                         @Override
                         public void onReactContextInitialized(ReactContext context) {
@@ -108,12 +162,9 @@ public class MyReactNativeApplication extends Application {
                         }
                     });
 
-                    instanceManager.getDevSupportManager().reloadJSFromServer(devUrl, new BundleLoadCallback() {
-                        @Override
-                        public void onSuccess() {
-                            Log.d("MyReactNative", "loadSplitBundleFromServer onSuccess");
-                        }
-                    });
+                    instanceManager.getDevSupportManager().getDevSettings();
+
+
                 } catch (Exception e) {
                     Log.e("MyReactNativeApplication", "createReactInstanceManager: ", e);
                     return null;
@@ -142,7 +193,8 @@ public class MyReactNativeApplication extends Application {
      * @param mReactInstanceManager
      * @return
      */
-    private boolean shouldLoadFromLocal(File jsBundleFile, ReactInstanceManager mReactInstanceManager) {
+    private boolean shouldLoadFromLocal(File jsBundleFile, ReactInstanceManager
+            mReactInstanceManager) {
         // 检查ReactContext是否为空
         ReactContext currentReactContext = mReactInstanceManager != null ? mReactInstanceManager.getCurrentReactContext() : null;
         // 仅当ReactContext为空且本地文件存在时返回true
