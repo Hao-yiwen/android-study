@@ -2,7 +2,9 @@ package io.github.haoyiwen.react_native_container;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -42,6 +44,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
@@ -104,9 +108,22 @@ public class MyReactNativeApplication extends Application {
                     .setJSEngineResolutionAlgorithm(JSEngineResolutionAlgorithm.HERMES)
                     .setInitialLifecycleState(LifecycleState.BEFORE_CREATE)
                     .setJavaScriptExecutorFactory(new HermesExecutorFactory());
-            builder.setDevSupportManagerFactory(new DefaultDevSupportManagerFactory(){
 
-            });
+            // 设置开发服务器host和端口
+            try {
+                URL url = new URL(devUrl);
+                String host = url.getHost();
+                int port = url.getPort() == -1 ? url.getDefaultPort() : url.getPort();
+                String debugServerHost = host + ":" + port;
+
+                PackagerConnectionSettings packagerConnectionSettings = new PackagerConnectionSettings(this);
+                packagerConnectionSettings.setDebugServerHost(debugServerHost);
+
+                Log.d("DebugServerHost", "Setting debug server host to: " + debugServerHost);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                Log.e("DebugServerHost", "Invalid URL: " + devUrl);
+            }
 
 
             if (BuildConfig.DEBUG && devUrl != null && !devUrl.isEmpty()) {
@@ -122,20 +139,8 @@ public class MyReactNativeApplication extends Application {
                     instanceManager = builder
                             .build();
                     instanceManager.createReactContextInBackground();
-                    instanceManager.getDevSupportManager().setRemoteJSDebugEnabled(true);
                     instanceManager.getDevSupportManager().setDevSupportEnabled(true);
                     ReactInstanceManager finalInstanceManager = instanceManager;
-                    instanceManager.getDevSupportManager().setPackagerLocationCustomizer(new DevSupportManager.PackagerLocationCustomizer() {
-                        @Override
-                        public void run(Runnable runnable) {
-                            runnable.run();
-                        }
-
-
-                        public void customize(PackagerConnectionSettings packagerConnectionSettings) {
-                            packagerConnectionSettings.setDebugServerHost("localhost");
-                        }
-                    });
                     instanceManager.getDevSupportManager().setPackagerLocationCustomizer(new DevSupportManager.PackagerLocationCustomizer() {
                         @Override
                         public void run(Runnable runnable) {
