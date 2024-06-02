@@ -22,8 +22,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false65rf4ed3wq2  098765432
-            
+            minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -52,9 +52,13 @@ dependencies {
     implementation("com.facebook.react:react-android:0.74.1")
     implementation("com.facebook.react:hermes-android:0.74.1")
 
-    implementation(files("${rootDir}/app/libs/react-native-webview-release.aar"))
-    implementation(files("${rootDir}/app/libs/react-native-screens-release.aar"))
-    implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
+//    implementation(files("${rootDir}/app/libs/react-native-webview-release.aar"))
+//    implementation(files("${rootDir}/app/libs/react-native-screens-release.aar"))
+//    implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
+    // 从github packages获取
+    implementation("yw.reactnative:react-native-webview:0.0.1")
+    implementation("yw.reactnative:react-native-screens:0.0.1")
+    implementation("yw.reactnative:react-native-safe-area-context:0.0.1")
 
     implementation(project(":core"))
     implementation(project(":hybird"))

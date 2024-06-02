@@ -19,6 +19,9 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         maven {
+            url = uri("https://storage.googleapis.com/download.flutter.io")
+        }
+        maven {
             url = uri("https://maven.pkg.github.com/Hao-yiwen/android-study")
             credentials {
                 username = System.getenv("USERNAME") ?: ""
@@ -26,6 +29,7 @@ dependencyResolutionManagement {
             }
             content {
                 includeGroupByRegex("com\\.example.*")
+                includeGroupByRegex("yw.*")
             }
         }
         google()
