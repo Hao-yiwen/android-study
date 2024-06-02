@@ -13,6 +13,7 @@ plugins {
 //    cliFile = file("../rnDemo/node_modules/react-native/cli.js")
 //}
 
+
 android {
     namespace = "com.example.javaviewtest"
     compileSdk = 34
