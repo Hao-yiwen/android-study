@@ -3,15 +3,15 @@ import org.jetbrains.kotlin.util.profile
 
 plugins {
     alias(libs.plugins.androidApplication)
-    id("com.facebook.react")
+//    id("com.facebook.react")
 }
 
-react {
-    entryFile = file("../rnDemo/index.js")
-    root = file("../rnDemo")
-    reactNativeDir = file("../rnDemo/node_modules/react-native")
-    cliFile = file("../rnDemo/node_modules/react-native/cli.js")
-}
+//react {
+//    entryFile = file("../rnDemo/index.js")
+//    root = file("../rnDemo")
+//    reactNativeDir = file("../rnDemo/node_modules/react-native")
+//    cliFile = file("../rnDemo/node_modules/react-native/cli.js")
+//}
 
 android {
     namespace = "com.example.javaviewtest"
@@ -114,8 +114,9 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     // react Native
-    implementation("com.facebook.react:react-android")
-    implementation("com.facebook.react:hermes-android")
+    implementation("com.facebook.react:react-android:0.74.1")
+    implementation("com.facebook.react:hermes-android:0.74.1")
+
 
     debugImplementation("com.example.my_flutter:flutter_debug:1.0")
 //    profileImplementation("com.example.my_flutter:flutter_profile:1.0")

@@ -53,7 +53,7 @@ include(":core")
 include(":flutter")
 include(":hybird")
 
-includeBuild("./rnDemo/node_modules/@react-native/gradle-plugin")
+//includeBuild("./rnDemo/node_modules/@react-native/gradle-plugin")
 
 // rn源码编译
 //includeBuild("./rnDemo/node_modules/react-native") {
