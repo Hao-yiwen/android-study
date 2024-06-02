@@ -1,8 +1,6 @@
-import com.facebook.react.ReactExtension
 
 plugins {
     alias(libs.plugins.androidLibrary)
-    id "com.facebook.react"
 }
 
 // 在此处配置react配置无效 在app配置才可以
@@ -26,6 +24,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -51,12 +50,16 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     // react Native
-    api "com.facebook.react:react-android"
-    api "com.facebook.react:hermes-android"
+    implementation("com.facebook.react:react-android:0.74.1")
+    implementation("com.facebook.react:hermes-android:0.74.1")
 
-    implementation(files("${rootDir}/app/libs/react-native-webview-release.aar"))
-    implementation(files("${rootDir}/app/libs/react-native-screens-release.aar"))
-    implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
+//    implementation(files("${rootDir}/app/libs/react-native-webview-release.aar"))
+//    implementation(files("${rootDir}/app/libs/react-native-screens-release.aar"))
+//    implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
+    // 从github packages获取
+    implementation("yw.reactnative:react-native-webview:0.0.1")
+    implementation("yw.reactnative:react-native-screens:0.0.1")
+    implementation("yw.reactnative:react-native-safe-area-context:0.0.1")
 
     implementation(project(":core"))
     implementation(project(":hybird"))
@@ -64,11 +67,11 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.fbjni'
+        exclude group: 'com.facebook.fbjni'
     }
 
     debugImplementation("com.facebook.flipper:flipper-network-plugin:${FLIPPER_VERSION}") {
-        exclude group:'com.facebook.flipper'
+        exclude group: 'com.facebook.flipper'
     }
 //    debugImplementation "com.facebook.flipper:flipper-fresco-plugin:${FLIPPER_VERSION}"
     releaseImplementation "com.facebook.flipper:flipper-noop:${FLIPPER_VERSION}"

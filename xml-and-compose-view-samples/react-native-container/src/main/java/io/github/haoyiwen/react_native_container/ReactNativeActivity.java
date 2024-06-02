@@ -61,7 +61,7 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
     }
 
     private void checkOverlayPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
+        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
         }
@@ -77,7 +77,7 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         mReactRootView.setIsFabric(false);
 
         mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath, devUrl, componentName);
-        if(mReactInstanceManager == null){
+        if (mReactInstanceManager == null) {
             hideLoading();
             showErrorPage("url有误~");
             return;
@@ -90,7 +90,7 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
                     hideLoading();
                 }
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.e("ReactNativeActivity", "setupReactNativeView: ", e);
             Toast.makeText(this, "ReactNativeActivity setupReactNativeView error", Toast.LENGTH_SHORT).show();
             MyReactNativeApplication.getInstance().destroyReactInstanceManager(componentName);
