@@ -2,7 +2,9 @@ package io.github.haoyiwen.react_native_container;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Outline;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -42,9 +45,21 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
 
     private static final String DEV_URL = "devUrl";
 
+    private static final String RN_URL = "rnUrl";
+
+    public String getRNUrl() {
+        return RNUrl;
+    }
+
+    public void setRNUrl(String RNUrl) {
+        this.RNUrl = RNUrl;
+    }
+
+    private String RNUrl = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(null);
         this.showLoading();
         checkOverlayPermission();
         setupReactNativeView();
@@ -71,10 +86,14 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         String componentName = getIntent().getStringExtra(COMPONENT_NAME_KEY);
         String bundlePath = getIntent().getStringExtra(BUNDLE_PATH_KEY);
         String devUrl = getIntent().getStringExtra(DEV_URL);
+        String rnUrl = getIntent().getStringExtra(RN_URL);
         SoLoader.init(this, false);
         mReactRootView = new ReactRootView(this);
         // 不使用新架构
         mReactRootView.setIsFabric(false);
+        if (rnUrl != null) {
+            setRNUrl(rnUrl);
+        }
 
         mReactInstanceManager = ((MyReactNativeApplication) getApplication()).createReactInstanceManager(bundlePath, devUrl, componentName);
         if (mReactInstanceManager == null) {
@@ -143,6 +162,7 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
     }
 
     private void showDebugPopup(View anchorView) {
+        Context self = this;
         View popupView = LayoutInflater.from(this).inflate(R.layout.debug_popup, null);
         PopupWindow popupWindow = new PopupWindow(popupView, FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
 
@@ -162,9 +182,22 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         btnPageUrl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Handle show page URL
-                Toast.makeText(ReactNativeActivity.this, "Current URL: " + "your_page_url_here", Toast.LENGTH_SHORT).show();
+                View popupView1 = LayoutInflater.from(self).inflate(R.layout.popup_url, null);
+                PopupWindow popupWindow1 = new PopupWindow(popupView1, FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+                TextView text = popupView1.findViewById(R.id.url_text_view);
+                String url = getRNUrl();
+                text.setText("url: " + (url != null ? url : "null"));
+
+                // Ensure the new popup window is focusable and dismissible
+                popupWindow1.setFocusable(true);
+                popupWindow1.setOutsideTouchable(true);
+                popupWindow1.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                // Close the original popup window
                 popupWindow.dismiss();
+
+                // Show the new popup window
+                popupWindow1.showAtLocation(v, Gravity.CENTER, 0, 0);
             }
         });
 
@@ -183,18 +216,20 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
         popupWindow.showAsDropDown(anchorView, -anchorView.getWidth(), -anchorView.getHeight());
     }
 
-    public static Intent createIntent(Context context, String componentName, String bundlePath) {
+    public static Intent createIntent(Context context, String componentName, String bundlePath, String rnurl) {
         Intent intent = new Intent(context, ReactNativeActivity.class);
         intent.putExtra(COMPONENT_NAME_KEY, componentName);
         intent.putExtra(BUNDLE_PATH_KEY, bundlePath);
+        intent.putExtra(RN_URL, rnurl);
         return intent;
     }
 
-    public static Intent createIntent(Context context, String componentName, String bundlePath, String url) {
+    public static Intent createIntent(Context context, String componentName, String bundlePath, String url, String rnurl) {
         Intent intent = new Intent(context, ReactNativeActivity.class);
         intent.putExtra(COMPONENT_NAME_KEY, componentName);
         intent.putExtra(BUNDLE_PATH_KEY, bundlePath);
         intent.putExtra(DEV_URL, url);
+        intent.putExtra(RN_URL, rnurl);
         return intent;
     }
 

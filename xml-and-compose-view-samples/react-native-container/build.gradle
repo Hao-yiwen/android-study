@@ -57,9 +57,9 @@ dependencies {
 //    implementation(files("${rootDir}/app/libs/react-native-screens-release.aar"))
 //    implementation(files("${rootDir}/app/libs/react-native-safe-area-context-release.aar"))
     // 从github packages获取
-    implementation("yw.reactnative:react-native-webview:0.0.1")
-    implementation("yw.reactnative:react-native-screens:0.0.1")
-    implementation("yw.reactnative:react-native-safe-area-context:0.0.1")
+    implementation("yw.reactnative:react-native-webview:0.0.2")
+    implementation("yw.reactnative:react-native-screens:0.0.2")
+    implementation("yw.reactnative:react-native-safe-area-context:0.0.2")
 
     implementation(project(":core"))
     implementation(project(":hybird"))

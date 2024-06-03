@@ -33,9 +33,10 @@ public class RNHandler implements URLHandler {
             context.startActivity(intent);
         } else {
             // 静态url
-            String moduleName = url.substring(url.indexOf("/rn_") + 4, url.indexOf("/"));
-            String bundleName = url.substring(url.indexOf("/") + 1, url.indexOf("?"));
-            Intent intent = ReactNativeActivity.createIntent(context, moduleName, bundleName);
+            // /rn_xrn_0741/xrn_0741.android.bundle?platform=android&isRN=true&moduleName=splitRn_0736
+            String moduleName = url.substring(url.indexOf("/rn_") + 4, url.lastIndexOf("/"));
+            String bundleName = url.substring(url.lastIndexOf("/") + 1, url.indexOf("?"));
+            Intent intent = ReactNativeActivity.createIntent(context, moduleName, bundleName, url);
             context.startActivity(intent);
         }
     }

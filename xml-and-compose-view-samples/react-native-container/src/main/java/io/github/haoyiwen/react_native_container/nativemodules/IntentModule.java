@@ -44,7 +44,7 @@ public class IntentModule extends ReactContextBaseJavaModule {
             if (null != currentActivity) {
                 Intent intent = null;
                 if(isRN) {
-                    intent = ReactNativeActivity.createIntent(currentActivity, name, path);
+                    intent = ReactNativeActivity.createIntent(currentActivity, name, path, null);
                 } else {
                     Class toActivity = Class.forName(name);
                     intent = new Intent(currentActivity, toActivity);
