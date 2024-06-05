@@ -29,7 +29,7 @@ public class RNHandler implements URLHandler {
         // 本地url
         if (url.startsWith("http")) {
             String moduleName = Uri.parse(url).getQueryParameter("moduleName");
-            Intent intent = ReactNativeActivity.createIntent(context, moduleName, null, url);
+            Intent intent = ReactNativeActivity.createIntent(context, moduleName, null, url, url);
             context.startActivity(intent);
         } else {
             // 静态url

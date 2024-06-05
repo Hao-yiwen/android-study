@@ -28,6 +28,8 @@ import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+import com.facebook.react.modules.core.PermissionAwareActivity;
+import com.facebook.react.modules.core.PermissionListener;
 import com.facebook.soloader.SoLoader;
 
 import io.github.haoyiwen.react_native_container.utils.DevURL;
@@ -35,7 +37,7 @@ import io.github.haoyiwen.test.core.activity.BaseActivity;
 //import com.swmansion.rnscreens.RNScreensPackage;
 
 
-public class ReactNativeActivity extends BaseActivity implements DefaultHardwareBackBtnHandler {
+public class ReactNativeActivity extends BaseActivity implements DefaultHardwareBackBtnHandler, PermissionAwareActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private ReactRootView mReactRootView;
 
@@ -288,5 +290,22 @@ public class ReactNativeActivity extends BaseActivity implements DefaultHardware
             return true;
         }
         return super.onKeyUp(keyCode, event);
+    }
+
+    private PermissionListener listener;
+
+    @Override
+    public void requestPermissions(String[] permissions, int requestCode, PermissionListener listener) {
+        this.listener = listener;
+        requestPermissions(permissions, requestCode);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (listener != null) {
+            listener.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            listener = null;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 }
