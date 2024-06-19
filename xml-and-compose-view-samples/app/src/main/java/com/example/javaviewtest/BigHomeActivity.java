@@ -22,6 +22,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.javaviewtest.cpp.MyCppWrapper;
 import com.example.javaviewtest.database.AppDatabase;
 import com.example.javaviewtest.url.History;
 import com.example.javaviewtest.url.HistoryCheckCallback;
@@ -54,7 +55,7 @@ public class BigHomeActivity extends AppCompatActivity {
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     static {
-        System.loadLibrary("native-lib");
+        System.loadLibrary("MyCppProject");
     }
 
     private final ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
@@ -86,6 +87,12 @@ public class BigHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Log.d("BigHomeActivity", "==============");
+        // 打印一下来自so库的日志
+        MyCppWrapper myCppWrapper = new MyCppWrapper();
+        myCppWrapper.printMessage();
+        Log.d("BigHomeActivity", "==============");
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activitu_constraint_layout_view1);

@@ -70,6 +70,7 @@ public class MyReactNativeApplication extends Application {
         instance = this;
         SoLoader.init(this, false);
         initializeFlipper(this);
+        // url handler添加 eventbus响应者
         addHandlers();
     }
 
