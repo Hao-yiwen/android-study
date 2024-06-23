@@ -1,0 +1,7 @@
+{
+  "homePage": "com.example.javaviewtest.BigHomeActivity",
+  "loadingPage": "com.example.javaviewtest.BaseLoadingTestActivity",
+  "flutterPage": "io.flutter.embedding.android.FlutterActivity",
+  "scanPage": "com.yiwen.java_view_other.ScanActivity",
+  "scanHistoryPage": "com.example.javaviewtest.url.HistoryUrlActivity"
+}

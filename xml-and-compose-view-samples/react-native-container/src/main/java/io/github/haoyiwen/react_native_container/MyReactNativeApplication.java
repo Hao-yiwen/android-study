@@ -53,6 +53,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import io.github.haoyiwen.hybird.handler.WebViewHandler;
+import io.github.haoyiwen.react_native_container.handler.AppUrlHandler;
 import io.github.haoyiwen.react_native_container.handler.RNHandler;
 import io.github.haoyiwen.test.core.bus.EventBusManager;
 import io.github.haoyiwen.test.core.bus.events.URLEvent;
@@ -79,6 +80,7 @@ public class MyReactNativeApplication extends Application {
         EventBusManager.getInstance().register(this);
         handlers.add(new WebViewHandler());
         handlers.add(new RNHandler());
+        handlers.add(new AppUrlHandler());
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
