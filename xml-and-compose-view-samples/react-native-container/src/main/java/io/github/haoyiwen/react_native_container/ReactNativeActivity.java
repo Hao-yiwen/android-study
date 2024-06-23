@@ -35,7 +35,17 @@ import com.facebook.soloader.SoLoader;
 import io.github.haoyiwen.test.core.activity.BaseActivity;
 //import com.swmansion.rnscreens.RNScreensPackage;
 
-
+/**
+ * 处理RN的URL
+ *
+ * @param context
+ * @param url
+ * @decription 本地url 例如 http://localhost:8081/index.bundle?platform=android&isRN=true&moduleName=xxx
+ * @decription 静态url 例如 /rn_xxx/yyyy.jsbundle?isRN=true
+ * 解释: xxx是component的名字
+ * index.jsbundle是静态资源名字
+ * isRN=true表示是RN的URL
+ */
 public class ReactNativeActivity extends BaseActivity implements DefaultHardwareBackBtnHandler, PermissionAwareActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private ReactRootView mReactRootView;
