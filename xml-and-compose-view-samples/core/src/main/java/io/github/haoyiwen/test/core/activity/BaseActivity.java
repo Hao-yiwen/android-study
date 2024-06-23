@@ -2,6 +2,8 @@ package io.github.haoyiwen.test.core.activity;
 
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +35,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import org.json.JSONObject;
+
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 import io.github.haoyiwen.test.core.R;
 import io.github.haoyiwen.test.core.storage.Storage;
 import io.github.haoyiwen.test.core.BuildConfig;
@@ -46,6 +53,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     Storage storage;
 
     ConstraintLayout mainContainer;
+
+    String appUrl = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,10 +102,37 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 添加app几倍debug按钮
         addDebugIcon();
+
+        // 获取appurl
+        this.appUrl = getAppUrl(this);
     }
 
-    private void addDebugIcon(){
-        if(BuildConfig.DEBUG){
+    private String getAppUrl(Context context) {
+        // 获取appurl
+        String moduleName = this.getClass().getName();
+        // 读取 JSON 文件
+        String jsonString = loadJSONFromAssets(context, "yiwen_app_activities.json");
+        if (jsonString != null && moduleName != null) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonString);
+                String keyByValue = JsonUtils.getKeyByValue(jsonObject, moduleName);
+                if (keyByValue == null) {
+                    Toast.makeText(context, "className not found", Toast.LENGTH_LONG).show();
+                    return null;
+                } else {
+                    return "yiwen://app?moduleName=" + keyByValue;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(context, "activities.json not found", Toast.LENGTH_LONG).show();
+        }
+        return null;
+    }
+
+    private void addDebugIcon() {
+        if (BuildConfig.DEBUG) {
             // 初始化 mainContainer
             mainContainer = findViewById(R.id.main);
 
@@ -158,8 +194,9 @@ public abstract class BaseActivity extends AppCompatActivity {
                 View popupView1 = LayoutInflater.from(self).inflate(R.layout.popup_url, null);
                 PopupWindow popupWindow1 = new PopupWindow(popupView1, FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
                 TextView text = popupView1.findViewById(R.id.url_text_view);
-                String url = "";
-                text.setText("url: " + (url != null ? url : "null"));
+                String url = "url: " + appUrl;
+                url = url + "\n" + "currentActivity: " + self.getClass().getPackage().getName() + self.getClass().getSimpleName();
+                text.setText(url);
 
                 // Ensure the new popup window is focusable and dismissible
                 popupWindow1.setFocusable(true);
@@ -226,5 +263,22 @@ public abstract class BaseActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private String loadJSONFromAssets(Context context, String fileName) {
+        String json = null;
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStream inputStream = assetManager.open(fileName);
+            int size = inputStream.available();
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 }
