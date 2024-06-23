@@ -32,7 +32,6 @@ import com.facebook.react.modules.core.PermissionAwareActivity;
 import com.facebook.react.modules.core.PermissionListener;
 import com.facebook.soloader.SoLoader;
 
-import io.github.haoyiwen.react_native_container.utils.DevURL;
 import io.github.haoyiwen.test.core.activity.BaseActivity;
 //import com.swmansion.rnscreens.RNScreensPackage;
 

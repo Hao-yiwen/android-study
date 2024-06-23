@@ -1,6 +1,7 @@
 package com.example.javaviewtest.url;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -83,5 +84,19 @@ public class HistoryUrlActivity extends BaseActivity implements AdapterView.OnIt
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this, "点击了第" + position + "项", Toast.LENGTH_SHORT).show();
         URLRouter.openURL(this, items.get(position).getUrl());
+    }
+
+    public void deleteHistory(History history) {
+        Log.d("HistoryUrlActivity", "deleteHistory: " + history);
+        // 从数据库读取数据并更新 ListView
+        executorService.execute(() -> {
+            historyDao.deleteHistory(history.getUrl());
+            List<History> histories = historyDao.getAllHistories();
+            runOnUiThread(() -> {
+                items.clear();
+                items.addAll(histories);
+                adapter.notifyDataSetChanged();
+            });
+        });
     }
 }

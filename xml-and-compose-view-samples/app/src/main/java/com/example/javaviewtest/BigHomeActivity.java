@@ -43,10 +43,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import io.flutter.embedding.android.FlutterActivity;
+import io.github.haoyiwen.test.core.activity.BaseActivity;
 import io.github.haoyiwen.test.core.router.URLRouter;
 import io.github.haoyiwen.test.core.storage.Storage;
 
-public class BigHomeActivity extends AppCompatActivity {
+public class BigHomeActivity extends BaseActivity {
     private final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private String scanUrl;
     EditText url_edit;
@@ -95,7 +96,6 @@ public class BigHomeActivity extends AppCompatActivity {
         Log.d("BigHomeActivity", "==============");
 
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activitu_constraint_layout_view1);
 
         // 初始化 Room 数据库
         db = AppDatabase.getDatabase(this);
@@ -146,10 +146,6 @@ public class BigHomeActivity extends AppCompatActivity {
             Log.d("BigHomeActivity", "onCreate: dark theme");
             setTheme(R.style.AppTheme_Dark);
         }
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("大首页");
-        setSupportActionBar(toolbar);
 
         Button btn_jump_url = findViewById(R.id.btn_jump_url);
         btn_jump_url.setOnClickListener(v -> {
@@ -261,6 +257,16 @@ public class BigHomeActivity extends AppCompatActivity {
         openurl_rn.setOnClickListener(v -> {
             URLRouter.openURL(this, "http://127.0.0.1:8081/index.bundle?platform=android&isRN=true&moduleName=splitRn_0736");
         });
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activitu_constraint_layout_view1;
+    }
+
+    @Override
+    protected String setTitle() {
+        return "大首页";
     }
 
 

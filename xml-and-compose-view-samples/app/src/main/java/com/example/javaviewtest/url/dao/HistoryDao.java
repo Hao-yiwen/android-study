@@ -15,4 +15,7 @@ public interface HistoryDao {
 
     @Query("SELECT * FROM history")
     List<History> getAllHistories();
+
+    @Query("DELETE FROM history WHERE url = :url")
+    void deleteHistory(String url);
 }

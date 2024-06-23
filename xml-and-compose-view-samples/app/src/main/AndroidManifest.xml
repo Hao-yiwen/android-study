@@ -20,9 +20,6 @@
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="false" />
         <activity
-            android:name=".BaseActivity"
-            android:exported="false" />
-        <activity
             android:name=".ReactNativeFragmentActivity"
             android:exported="false" />
         <activity
