@@ -99,4 +99,10 @@ public class HistoryUrlActivity extends BaseActivity implements AdapterView.OnIt
             });
         });
     }
+
+    public void jumpURL(History history) {
+        Log.d("HistoryUrlActivity", "deleteHistory: " + history);
+        // 从数据库读取数据并更新 ListView
+        URLRouter.openURL(this, history.getUrl());
+    }
 }

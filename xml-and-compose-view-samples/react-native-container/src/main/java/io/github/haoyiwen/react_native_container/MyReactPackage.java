@@ -11,14 +11,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import io.github.haoyiwen.react_native_container.nativemodules.IntentModule;
+import io.github.haoyiwen.react_native_container.nativemodules.URLModule;
 
 public class MyReactPackage implements ReactPackage {
     @NonNull
     @Override
     public List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactApplicationContext) {
         return Arrays.<NativeModule>asList(
-                new IntentModule(reactApplicationContext)
+                new URLModule(reactApplicationContext)
         );
     }
 
