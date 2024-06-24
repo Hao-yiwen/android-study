@@ -35,6 +35,7 @@ public class HistoryAdapter extends ArrayAdapter<History> {
         TextView titleTextView = convertView.findViewById(R.id.title);
         TextView dateTextView = convertView.findViewById(R.id.date);
         Button delete_btn = convertView.findViewById(R.id.delete_btn);
+        Button jump_btn = convertView.findViewById(R.id.jump_btn);
 
         // Populate the data into the template view using the data object
         urlTextView.setText(history.getUrl());
@@ -45,6 +46,13 @@ public class HistoryAdapter extends ArrayAdapter<History> {
             // 传递给 Activity 处理
             if (getContext() instanceof HistoryUrlActivity) {
                 ((HistoryUrlActivity) getContext()).deleteHistory(history);
+            }
+        });
+
+        jump_btn.setOnClickListener(v -> {
+            // 传递给 Activity 处理
+            if (getContext() instanceof HistoryUrlActivity) {
+                ((HistoryUrlActivity) getContext()).jumpURL(history);
             }
         });
 
