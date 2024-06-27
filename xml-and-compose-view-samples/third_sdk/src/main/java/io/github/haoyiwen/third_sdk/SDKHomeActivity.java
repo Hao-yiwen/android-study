@@ -6,9 +6,12 @@ import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.button.MaterialButton;
 
 public class SDKHomeActivity extends AppCompatActivity {
 
@@ -29,5 +32,22 @@ public class SDKHomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
+
+        MaterialButton mapBtn = new MaterialButton(this);
+        mapBtn.setText("打开地图");
+        mapBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.MapsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        });
+
+        ConstraintLayout layout = findViewById(R.id.main);
+        layout.addView(mapBtn);
+        ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.topMargin = 40;
+        layoutParams.topToBottom = button.getId();
+        layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
+        layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;
+        mapBtn.setLayoutParams(layoutParams);
     }
 }
