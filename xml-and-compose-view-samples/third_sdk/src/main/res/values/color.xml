@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="colorSecondary">#03DAC5</color>
+    <color name="colorSecondaryVariant">#018786</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorSurface">#FFFFFF</color>
+    <color name="colorError">#B00020</color>
+    <color name="colorOnPrimary">#FFFFFF</color>
+    <color name="colorOnSecondary">#000000</color>
+    <color name="colorOnBackground">#000000</color>
+    <color name="colorOnSurface">#000000</color>
+    <color name="colorOnError">#FFFFFF</color>
+    <color name="colorPrimaryDarkVariant">#3700B3</color>
+    <color name="colorPrimaryLightVariant">#BB86FC</color>
+    <color name="colorSecondaryDarkVariant">#018786</color>
+    <color name="colorSecondaryLightVariant">#03DAC5</color>
+    <color name="colorBackgroundVariant">#F2F2F2</color>
+    <color name="colorSurfaceVariant">#F2F2F2</color>
+    <color name="colorErrorVariant">#CF6679</color>
+    <color name="colorOnPrimaryVariant">#FFFFFF</color>
+    <color name="colorOnSecondaryVariant">#000000</color>
+    <color name="colorOnBackgroundVariant">#000000</color>
+    <color name="colorOnSurfaceVariant">#000000</color>
+    <color name="colorOnErrorVariant">#FFFFFF</color>
+    <color name="colorPrimaryDarkVariant2">#3700B3</color>
+    <color name="colorPrimaryLightVariant2">#BB86FC</color>
+    <color name="colorSecondaryDarkVariant2">#018786</color>
+    <color name="colorSecondaryLightVariant2">#03DAC5</color>
+    <color name="colorBackgroundVariant2">#F2F2F2</color>
+    <color name="colorSurfaceVariant2">#F2F2F2</color>
+    <color name="colorErrorVariant2">#CF6679</color>
+</resources>
