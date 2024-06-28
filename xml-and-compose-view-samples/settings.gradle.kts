@@ -1,5 +1,8 @@
 import groovy.lang.Closure
 
+include(":ctrip")
+
+
 pluginManagement {
     repositories {
         google {
