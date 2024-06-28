@@ -66,7 +66,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         MaterialButton modalBtn1 = new MaterialButton(this);
         FrameLayout.LayoutParams layoutParams1 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams1.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        layoutParams1.topMargin = 150;
+        layoutParams1.topMargin = (int)(100 * getResources().getDisplayMetrics().density);
         modalBtn1.setText("打开弹窗1");
         modalBtn1.setLayoutParams(layoutParams1);
         frameLayout.addView(modalBtn1);

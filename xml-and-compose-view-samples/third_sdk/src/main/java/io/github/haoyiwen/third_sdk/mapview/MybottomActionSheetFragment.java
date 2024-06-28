@@ -36,15 +36,10 @@ public class MybottomActionSheetFragment extends BottomSheetDialogFragment {
         Dialog dialog = getDialog();
         if (dialog != null) {
             View bottomSheet = dialog.findViewById(R.id.bottom_sheet_layout);
-            bottomSheet.getLayoutParams().height = 900;
+            bottomSheet.getLayoutParams().height = (int)getResources().getDimension(R.dimen.bottom_sheet_height);
+            bottomSheet.findViewById(R.id.btn_close_bottom_sheet).setOnClickListener(v -> {
+                dismiss();
+            });
         }
-        View view = getView();
-        view.post(() -> {
-            View parent = (View) view.getParent();
-            CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) (parent).getLayoutParams();
-            CoordinatorLayout.Behavior behavior = params.getBehavior();
-            BottomSheetBehavior bottomSheetBehavior = (BottomSheetBehavior) behavior;
-            bottomSheetBehavior.setPeekHeight(view.getMeasuredHeight());
-        });
     }
 }
