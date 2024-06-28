@@ -18,6 +18,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -95,8 +96,6 @@ public class BigHomeActivity extends BaseActivity {
         myCppWrapper.printMessage();
         Log.d("BigHomeActivity", "==============");
 
-        EdgeToEdge.enable(this);
-
         // 初始化 Room 数据库
         db = AppDatabase.getDatabase(this);
         historyDao = db.historyDao();
@@ -129,23 +128,6 @@ public class BigHomeActivity extends BaseActivity {
         Log.d("BigHomeActivity", "onCreate: " + this);
         // 打印application context
         Log.d("BigHomeActivity", "onCreate: " + getApplicationContext());
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
-            // Night mode is not active, we're using the light theme
-            Log.d("BigHomeActivity", "onCreate: light theme");
-            setTheme(R.style.AppTheme);
-        } else if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
-            // Night mode is active, we're using dark theme
-            Log.d("BigHomeActivity", "onCreate: dark theme");
-            setTheme(R.style.AppTheme_Dark);
-        }
 
         Button btn_jump_url = findViewById(R.id.btn_jump_url);
         btn_jump_url.setOnClickListener(v -> {

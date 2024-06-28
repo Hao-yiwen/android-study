@@ -7,12 +7,15 @@ import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -27,6 +30,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -60,17 +64,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
-            // Night mode is not active, we're using the light theme
-            Log.d("BigHomeActivity", "onCreate: light theme");
-            setTheme(R.style.AppTheme);
-        } else if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
-            // Night mode is active, we're using dark theme
-            Log.d("BigHomeActivity", "onCreate: dark theme");
-            setTheme(R.style.AppTheme_Dark);
-        }
-
         storage = Storage.getInstance(this);
 
         EdgeToEdge.enable(this);
@@ -81,6 +74,10 @@ public abstract class BaseActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // 这是 rgba
+        int statusBarColor = ContextCompat.getColor(this, R.color.md_theme_primary);
+        Log.d("BaseActivity", "Status bar color: " + Integer.toHexString(statusBarColor));
+        this.getWindow().setStatusBarColor(statusBarColor);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         String title = setTitle();

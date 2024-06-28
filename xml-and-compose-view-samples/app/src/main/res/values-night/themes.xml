@@ -1,5 +1,5 @@
 <resources>
-    <style name="AppTheme" parent="Theme.Material3.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -49,9 +49,8 @@
         <item name="materialButtonStyle">@style/MyButtonStyle</item>
     </style>
 
-    <!-- Custom button style -->
     <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
-        <item name="cornerRadius">8dp</item> <!-- 设置圆角半径 -->
+        <item name="cornerRadius">8dp</item>
         <item name="android:padding">10dp</item> <!-- 可选：设置按钮内边距 -->
     </style>
 </resources>

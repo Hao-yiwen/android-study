@@ -5,14 +5,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -28,29 +20,28 @@
 
             <Button
                 android:id="@+id/btn_recycle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="RecycleView" />
 
             <Button
                 android:id="@+id/btn_cardview"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="CardView" />
 
             <Button
                 android:id="@+id/btn_list"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginTop="20dp"
                 android:text="ListView" />
 
             <Button
                 android:id="@+id/btn_include"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="IncludeTestView" />

@@ -38,12 +38,6 @@ public class HistoryUrlActivity extends BaseActivity implements AdapterView.OnIt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
         ListView listView = findViewById(R.id.list_view);
         // 初始化 Room 数据库
         db = AppDatabase.getDatabase(this);

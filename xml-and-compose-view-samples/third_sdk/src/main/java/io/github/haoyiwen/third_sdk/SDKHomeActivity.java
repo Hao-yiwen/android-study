@@ -13,20 +13,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 
-public class SDKHomeActivity extends AppCompatActivity {
+import io.github.haoyiwen.test.core.activity.BaseActivity;
+
+public class SDKHomeActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_sdkhome);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        ConstraintLayout layout = findViewById(R.id.sdk_root);
 
-        Button button = findViewById(R.id.sdk_button);
+        Button button = layout.findViewById(R.id.sdk_button);
         button.setOnClickListener(v -> {
             Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.NavigateWXActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -40,14 +36,23 @@ public class SDKHomeActivity extends AppCompatActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-
-        ConstraintLayout layout = findViewById(R.id.main);
         layout.addView(mapBtn);
+
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.topMargin = 40;
         layoutParams.topToBottom = button.getId();
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;
         mapBtn.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_sdkhome;
+    }
+
+    @Override
+    protected String setTitle() {
+        return "SDKHomeActivity";
     }
 }
