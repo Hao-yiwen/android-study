@@ -21,10 +21,9 @@ public class SDKHomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ConstraintLayout layout = findViewById(R.id.sdk_root);
 
-        ConstraintLayout rootLayout = findViewById(getLayoutResId());
-
-        Button button = rootLayout.findViewById(R.id.sdk_button);
+        Button button = layout.findViewById(R.id.sdk_button);
         button.setOnClickListener(v -> {
             Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.NavigateWXActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -38,9 +37,8 @@ public class SDKHomeActivity extends BaseActivity {
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
-
-        ConstraintLayout layout = rootLayout.findViewById(R.id.sdk_home);
         layout.addView(mapBtn);
+
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.topMargin = (int) getResources().getDimension(R.dimen.margin_40);
         layoutParams.topToBottom = button.getId();
@@ -56,6 +54,6 @@ public class SDKHomeActivity extends BaseActivity {
 
     @Override
     protected String setTitle() {
-        return "SDK Home";
+        return "SDKHomeActivity";
     }
 }

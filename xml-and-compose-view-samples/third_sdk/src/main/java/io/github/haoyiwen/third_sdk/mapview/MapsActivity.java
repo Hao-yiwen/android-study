@@ -48,26 +48,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         FrameLayout frameLayout = findViewById(R.id.map_layout);
 
-        MaterialButton modalBtn = new MaterialButton(this);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-        modalBtn.setText("打开弹窗");
-        modalBtn.setLayoutParams(layoutParams);
-        frameLayout.addView(modalBtn);
-
-        modalBtn.setOnClickListener(v -> {
-            bottomSheetDialog = new BottomSheetDialog(this, R.style.BottomSheetDialog);
-            bottomSheetLayout = (ConstraintLayout) LayoutInflater.from(this).inflate(R.layout.bottom_sheet_layout, null, false);
-            bottomSheetDialog.setContentView(bottomSheetLayout);
-            bottomSheetDialog.show();
-            bottomSheetLayout.findViewById(R.id.btn_close_bottom_sheet).setOnClickListener(v1 -> bottomSheetDialog.dismiss());
-        });
-
         MaterialButton modalBtn1 = new MaterialButton(this);
         FrameLayout.LayoutParams layoutParams1 = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         layoutParams1.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
         layoutParams1.topMargin = (int)(100 * getResources().getDisplayMetrics().density);
-        modalBtn1.setText("打开弹窗1");
+        modalBtn1.setText("打开弹窗");
         modalBtn1.setLayoutParams(layoutParams1);
         frameLayout.addView(modalBtn1);
 

@@ -128,7 +128,6 @@ public class MyReactNativeApplication extends Application {
                 Log.e("DebugServerHost", "Invalid URL: " + devUrl);
             }
 
-
             if (BuildConfig.DEBUG && devUrl != null && !devUrl.isEmpty()) {
                 // 开发模式下并且有 devUrl 时，从远程服务器加载
                 try {
@@ -147,7 +146,6 @@ public class MyReactNativeApplication extends Application {
                     instanceManager.getDevSupportManager().setPackagerLocationCustomizer(new DevSupportManager.PackagerLocationCustomizer() {
                         @Override
                         public void run(Runnable runnable) {
-
                             runnable.run();
                         }
                     });
@@ -169,9 +167,7 @@ public class MyReactNativeApplication extends Application {
                             Log.d("ReactNative", "React context initialized");
                         }
                     });
-
                     instanceManager.getDevSupportManager().getDevSettings();
-
 
                 } catch (Exception e) {
                     Log.e("MyReactNativeApplication", "createReactInstanceManager: ", e);

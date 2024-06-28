@@ -1,11 +1,7 @@
 package com.example.javaviewtest;
 
 import android.content.Intent;
-import android.content.res.Configuration;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -13,14 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.javaviewtest.cpp.MyCppWrapper;
 import com.example.javaviewtest.database.AppDatabase;
@@ -30,10 +19,7 @@ import com.example.javaviewtest.url.dao.HistoryDao;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 import com.yiwen.compose_views.ComposeActivity;
-import com.yiwen.java_view_other.ScanActivity;
 import com.yiwen.recyclerviewtest.HomeActivity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,7 +34,6 @@ import io.github.haoyiwen.test.core.router.URLRouter;
 import io.github.haoyiwen.test.core.storage.Storage;
 
 public class BigHomeActivity extends BaseActivity {
-    private final int OVERLAY_PERMISSION_REQ_CODE = 1;
     private String scanUrl;
     EditText url_edit;
     private AppDatabase db;
@@ -95,8 +80,6 @@ public class BigHomeActivity extends BaseActivity {
         myCppWrapper.printMessage();
         Log.d("BigHomeActivity", "==============");
 
-        EdgeToEdge.enable(this);
-
         // 初始化 Room 数据库
         db = AppDatabase.getDatabase(this);
         historyDao = db.historyDao();
@@ -130,29 +113,12 @@ public class BigHomeActivity extends BaseActivity {
         // 打印application context
         Log.d("BigHomeActivity", "onCreate: " + getApplicationContext());
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        if (currentNightMode == Configuration.UI_MODE_NIGHT_NO) {
-            // Night mode is not active, we're using the light theme
-            Log.d("BigHomeActivity", "onCreate: light theme");
-            setTheme(R.style.AppTheme);
-        } else if (currentNightMode == Configuration.UI_MODE_NIGHT_YES) {
-            // Night mode is active, we're using dark theme
-            Log.d("BigHomeActivity", "onCreate: dark theme");
-            setTheme(R.style.AppTheme_Dark);
-        }
-
         Button btn_jump_url = findViewById(R.id.btn_jump_url);
         btn_jump_url.setOnClickListener(v -> {
             checkHistoryItem(this.scanUrl, new HistoryCheckCallback() {
                 @Override
                 public void onResult(boolean exists) {
-                    if (!exists) {
+                    if (!exists && scanUrl != null && !scanUrl.isEmpty()){
                         String currentDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
                         History history = new History(scanUrl, "Scanned Item", currentDate);
                         executorService.execute(() -> historyDao.insert(history));
@@ -251,11 +217,6 @@ public class BigHomeActivity extends BaseActivity {
         Button btn_jump_h5 = findViewById(R.id.jump_h5);
         btn_jump_h5.setOnClickListener(v -> {
             URLRouter.openURL(this, "http://www.baidu.com");
-        });
-
-        Button openurl_rn = findViewById(R.id.openurl_rn);
-        openurl_rn.setOnClickListener(v -> {
-            URLRouter.openURL(this, "http://127.0.0.1:8081/index.bundle?platform=android&isRN=true&moduleName=splitRn_0736");
         });
     }
 

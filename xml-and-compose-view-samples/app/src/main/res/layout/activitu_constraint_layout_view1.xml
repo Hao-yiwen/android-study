@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:text="扫描二维码"
+                style="@style/MyButtonStyle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/url_edit_layout" />
@@ -85,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="跳转至ScrollViewActivity"
+                android:text="跳转至List页面"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_url_history" />
@@ -115,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="跳转至libs中的rnContainer"
+                android:text="跳转至rn_home"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_jump_thrid_aar" />
@@ -175,20 +176,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="通过openurl打开h5页面"
+                android:text="跳转至h5页面"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btn_jump_third_sdk" />
-
-            <Button
-                android:id="@+id/openurl_rn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="通过openurl打开rn页面"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/jump_h5" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

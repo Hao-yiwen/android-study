@@ -13,23 +13,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
+import io.github.haoyiwen.test.core.activity.BaseActivity;
+
+public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_home);
-        Toolbar toolbar = findViewById(R.id.toolbar_home);
-        toolbar.setTitle("Home");
-        setSupportActionBar(toolbar);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
         Button btn_recycle = findViewById(R.id.btn_recycle);
         btn_recycle.setOnClickListener(this);
 
@@ -41,7 +31,16 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btn_include = findViewById(R.id.btn_include);
         btn_include.setOnClickListener(this);
+    }
 
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_home;
+    }
+
+    @Override
+    protected String setTitle() {
+        return "ScrollviewActivity";
     }
 
     @Override
