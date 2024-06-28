@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.button.MaterialButton;
 
+import io.github.haoyiwen.third_sdk.mapview.MapsActivity;
+
 public class SDKHomeActivity extends AppCompatActivity {
 
     @Override
@@ -36,7 +38,7 @@ public class SDKHomeActivity extends AppCompatActivity {
         MaterialButton mapBtn = new MaterialButton(this);
         mapBtn.setText("打开地图");
         mapBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.MapsActivity.class);
+            Intent intent = new Intent(this, MapsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
