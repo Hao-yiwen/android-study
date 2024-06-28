@@ -75,7 +75,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             return insets;
         });
         // 这是 rgba
-        int statusBarColor = ContextCompat.getColor(this, R.color.md_theme_primary);
+        int themeResId = this.getResources().getIdentifier("md_theme_primary", "color", this.getPackageName());
+        int statusBarColor = ContextCompat.getColor(this, themeResId);
         Log.d("BaseActivity", "Status bar color: " + Integer.toHexString(statusBarColor));
         this.getWindow().setStatusBarColor(statusBarColor);
 

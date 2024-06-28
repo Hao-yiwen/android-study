@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.button.MaterialButton;
 
 import io.github.haoyiwen.test.core.activity.BaseActivity;
+import io.github.haoyiwen.third_sdk.mapview.MapsActivity;
 
 public class SDKHomeActivity extends BaseActivity {
 
@@ -32,14 +33,14 @@ public class SDKHomeActivity extends BaseActivity {
         MaterialButton mapBtn = new MaterialButton(this);
         mapBtn.setText("打开地图");
         mapBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(this, io.github.haoyiwen.third_sdk.MapsActivity.class);
+            Intent intent = new Intent(this, MapsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
         layout.addView(mapBtn);
 
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.topMargin = 40;
+        layoutParams.topMargin = (int) getResources().getDimension(R.dimen.margin_40);
         layoutParams.topToBottom = button.getId();
         layoutParams.leftToLeft = ConstraintLayout.LayoutParams.PARENT_ID;
         layoutParams.rightToRight = ConstraintLayout.LayoutParams.PARENT_ID;
