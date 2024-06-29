@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_home"
+        android:icon="@drawable/home"
+        android:title="首页" />
+    <item
+        android:id="@+id/nav_community"
+        android:icon="@drawable/community"
+        android:title="社区" />
+    <item
+        android:id="@+id/nav_message"
+        android:icon="@drawable/message"
+        android:title="消息" />
+    <item
+        android:id="@+id/nav_schedule"
+        android:icon="@drawable/schedule"
+        android:title="行程" />
+    <item
+        android:id="@+id/nav_user"
+        android:icon="@drawable/person"
+        android:title="我的" />
+
+</menu>
