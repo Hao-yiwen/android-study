@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="home_header_backaground_start">#2FA2FD</color>
+    <color name="home_header_backaground_end">#2284FA</color>
+    <color name="home_header_search_text">#323232</color>"
+</resources>

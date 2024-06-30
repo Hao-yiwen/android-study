@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools">
 
-<uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
-<application android:hardwareAccelerated="true">
-</application>
+    <application android:hardwareAccelerated="true">
+        <activity
+            android:name=".databinding.ObservableDataBindingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".databinding.ViewModelDataBindingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".databinding.DataBindingActivity"
+            android:exported="false" />
+    </application>
 
 </manifest>
-
