@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.yiwen.java_view_other.databinding.ActivityBigHomeBinding;
+import com.yiwen.java_view_other.databinding.DataBindingActivity;
 import com.yiwen.java_view_other.model.MessageEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,6 +55,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         binding.btnJumpLoading.setOnClickListener(this);
 
         binding.btnJumpEventbus.setOnClickListener(this);
+
+        binding.btnDataBinding.setOnClickListener(this);
     }
 
     @Override
@@ -82,6 +84,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, LoadingActivity.class);
         } else if(v.getId() == R.id.btn_jump_eventbus){
             intent.setClass(this, EventBusActivity.class);
+        } else if(v.getId() == R.id.btn_data_binding){
+            intent.setClass(this, DataBindingActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
