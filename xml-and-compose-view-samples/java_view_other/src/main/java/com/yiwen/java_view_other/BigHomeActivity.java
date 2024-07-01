@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.yiwen.java_view_other.databinding.ActivityBigHomeBinding;
 import com.yiwen.java_view_other.databinding.DataBindingActivity;
 import com.yiwen.java_view_other.model.MessageEvent;
+import com.yiwen.java_view_other.rxjava.RxJavaActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -57,6 +58,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         binding.btnJumpEventbus.setOnClickListener(this);
 
         binding.btnDataBinding.setOnClickListener(this);
+
+        binding.btnRxjava.setOnClickListener(this);
     }
 
     @Override
@@ -86,6 +89,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, EventBusActivity.class);
         } else if(v.getId() == R.id.btn_data_binding){
             intent.setClass(this, DataBindingActivity.class);
+        } else if(v.getId() == R.id.btn_rxjava){
+            intent.setClass(this, RxJavaActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

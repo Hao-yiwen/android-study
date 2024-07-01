@@ -6,6 +6,9 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".rxjava.RxJavaActivity"
+            android:exported="false" />
+        <activity
             android:name=".databinding.ObservableDataBindingActivity"
             android:exported="false" />
         <activity
