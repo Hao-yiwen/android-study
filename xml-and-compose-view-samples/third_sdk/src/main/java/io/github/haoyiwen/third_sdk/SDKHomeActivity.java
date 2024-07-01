@@ -56,4 +56,9 @@ public class SDKHomeActivity extends BaseActivity {
     protected String setTitle() {
         return "SDKHomeActivity";
     }
+
+    @Override
+    public boolean enableSlideClose() {
+        return false;
+    }
 }

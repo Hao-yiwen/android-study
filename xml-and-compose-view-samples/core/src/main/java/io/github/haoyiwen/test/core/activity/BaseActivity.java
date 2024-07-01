@@ -1,8 +1,13 @@
 package io.github.haoyiwen.test.core.activity;
 
 
+import static com.github.anzewei.parallaxbacklayout.ViewDragHelper.EDGE_LEFT;
+import static com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout.EDGE_MODE_DEFAULT;
+import static com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout.LAYOUT_COVER;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -25,11 +30,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -38,15 +45,21 @@ import androidx.core.view.WindowInsetsCompat;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
+import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout;
 
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import io.github.haoyiwen.test.core.R;
+import io.github.haoyiwen.test.core.listener.PermissionListener;
 import io.github.haoyiwen.test.core.storage.Storage;
 import io.github.haoyiwen.test.core.BuildConfig;
+import io.github.haoyiwen.test.core.util.UIUtils;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -59,6 +72,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     ConstraintLayout mainContainer;
 
     String appUrl = "";
+
+    long mPreTime = 0;
+
+    protected  Bundle savedInstanceState;
+
+    public PermissionListener mPermissionListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +122,42 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 获取appurl
         this.appUrl = getAppUrl(this);
+
+        // 开启侧滑&&点击两次退出按钮才能退出app
+        handlePressBack();
+
+        // 存储saveInstanceState
+        this.savedInstanceState = savedInstanceState;
+    }
+
+    private void handlePressBack() {
+        // 双击退出app
+        long currentTime = System.currentTimeMillis();
+        Context self = this;
+        this.getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                try {
+                    String bigHomeActivityClassName = "com.example.javaviewtest.BigHomeActivity";
+                    Class<?> bigHomeActivityClass = Class.forName(bigHomeActivityClassName);
+                    if (!enableSlideClose()) {
+                        return;
+                    } else if (bigHomeActivityClass.isInstance(self)) {
+                        if (currentTime - mPreTime > 2000) {
+                            Toast.makeText(self, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                            mPreTime = currentTime;
+                        } else {
+                            finish();
+                        }
+                    } else {
+                        finish();
+                    }
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                    finish();
+                }
+            }
+        });
     }
 
     private String getAppUrl(Context context) {
@@ -278,5 +333,48 @@ public abstract class BaseActivity extends AppCompatActivity {
             return null;
         }
         return json;
+    }
+
+    public boolean enableSlideClose() {
+        return true;
+    }
+
+    public void requestRuntimePermission(String[] permissions, PermissionListener permissionListener){
+        mPermissionListener = permissionListener;
+        List<String> permissionList = new ArrayList<>();
+        for (String permission : permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                permissionList.add(permission);
+            }
+        }
+
+        if (!permissionList.isEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionList.toArray(new String[permissionList.size()]), 1);
+        } else {
+            permissionListener.onGranted();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case 1:
+                if(grantResults.length > 0){
+                    List<String> deniedPermissions = new ArrayList<>();
+                    for (int i = 0; i < grantResults.length; i++) {
+                        int grantResult = grantResults[i];
+                        String permission = permissions[i];
+                        if (grantResult != PackageManager.PERMISSION_GRANTED) {
+                            deniedPermissions.add(permission);
+                        }
+                    }
+                    if (deniedPermissions.isEmpty()) {
+                        mPermissionListener.onGranted();
+                    } else {
+                        mPermissionListener.onDenied(deniedPermissions);
+                    }
+                }
+        }
     }
 }
