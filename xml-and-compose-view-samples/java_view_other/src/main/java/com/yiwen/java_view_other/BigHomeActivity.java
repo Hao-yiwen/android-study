@@ -60,6 +60,10 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
         binding.btnDataBinding.setOnClickListener(this);
 
         binding.btnRxjava.setOnClickListener(this);
+
+        binding.btnPermission.setOnClickListener(this);
+
+        binding.btnMHandler.setOnClickListener(this);
     }
 
     @Override
@@ -91,6 +95,10 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, DataBindingActivity.class);
         } else if(v.getId() == R.id.btn_rxjava){
             intent.setClass(this, RxJavaActivity.class);
+        } else if(v.getId() == R.id.btn_permission){
+            intent.setClass(this, PermissonTestActivity.class);
+        } else if(v.getId() == R.id.btn_mHandler){
+            intent.setClass(this, HandlerTestActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
