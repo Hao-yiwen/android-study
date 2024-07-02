@@ -55,11 +55,13 @@ import java.util.concurrent.ConcurrentHashMap;
 import io.github.haoyiwen.hybird.handler.WebViewHandler;
 import io.github.haoyiwen.react_native_container.handler.AppUrlHandler;
 import io.github.haoyiwen.react_native_container.handler.RNHandler;
+import io.github.haoyiwen.test.core.app.BaseApp;
 import io.github.haoyiwen.test.core.bus.EventBusManager;
 import io.github.haoyiwen.test.core.bus.events.URLEvent;
 import io.github.haoyiwen.test.core.router.URLHandler;
 
-public class MyReactNativeApplication extends Application {
+// todo 将rn逻辑和application分开，目前耦合极其严重
+public class MyReactNativeApplication extends BaseApp {
     private static MyReactNativeApplication instance;
     private ConcurrentHashMap<String, ReactInstanceManager> mReactInstanceManagers = new ConcurrentHashMap<>();
 

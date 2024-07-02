@@ -252,4 +252,9 @@ public class BigHomeActivity extends BaseActivity {
     }
 
     public native String stringFromJNI();
+
+    @Override
+    public boolean enableSlideClose() {
+        return false;
+    }
 }
