@@ -45,6 +45,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 import io.github.haoyiwen.test.core.R;
+import io.github.haoyiwen.test.core.databinding.ActivityBaseBinding;
 import io.github.haoyiwen.test.core.storage.Storage;
 import io.github.haoyiwen.test.core.BuildConfig;
 
@@ -60,6 +61,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     String appUrl = "";
 
+    public ActivityBaseBinding baseBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +70,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         storage = Storage.getInstance(this);
 
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_base);
+        baseBinding = ActivityBaseBinding.inflate(getLayoutInflater());
+        setContentView(baseBinding.getRoot());
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

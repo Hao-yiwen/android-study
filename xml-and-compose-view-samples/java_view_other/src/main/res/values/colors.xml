@@ -3,6 +3,9 @@
     <color name="pink">
         #FFC0CB
     </color>
+    <color name="transparent">
+        #00000000
+    </color>
     <color name="orange">
         #FFA500
     </color>
