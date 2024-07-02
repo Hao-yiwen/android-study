@@ -6,16 +6,17 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".RelativeLayoutActivity"
+            android:exported="false" />
+        <activity
             android:name=".PermissonTestActivity"
             android:exported="false" />
-
         <activity
             android:name=".HandlerTestActivity"
             android:exported="false" />
-
-        <activity android:name=".ElevationActivity"
+        <activity
+            android:name=".ElevationActivity"
             android:exported="false" />
-
         <activity
             android:name=".rxjava.RxJavaActivity"
             android:exported="false" />
