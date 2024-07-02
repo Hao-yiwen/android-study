@@ -40,9 +40,9 @@ dependencyResolutionManagement {
         jcenter()
         maven { url = uri("https://jitpack.io") }
         maven {
-            url =
-                uri("/Users/haoyiwen/Documents/android/android-study/my_flutter/build/host/outputs/repo")
-//            url = uri("/Users/yw.hao/Documents/android/android-study/my_flutter/build/host/outputs/repo")
+//            url =
+//                uri("/Users/haoyiwen/Documents/android/android-study/my_flutter/build/host/outputs/repo")
+            url = uri("/Users/yw.hao/Documents/android/android-study/my_flutter/build/host/outputs/repo")
         }
         maven {
             url = uri("$storageUrl/download.flutter.io")

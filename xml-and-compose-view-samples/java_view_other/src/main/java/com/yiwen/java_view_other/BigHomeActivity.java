@@ -4,13 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.yiwen.java_view_other.databinding.ActivityBigHomeBinding;
 import com.yiwen.java_view_other.databinding.DataBindingActivity;
 import com.yiwen.java_view_other.model.MessageEvent;
@@ -20,20 +13,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public class BigHomeActivity extends AppCompatActivity implements View.OnClickListener {
+import io.github.haoyiwen.test.core.activity.BaseActivity;
+
+public class BigHomeActivity extends BaseActivity implements View.OnClickListener {
     private ActivityBigHomeBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         binding = ActivityBigHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
         findViewById(R.id.btn_qr_code).setOnClickListener(this);
 
@@ -61,9 +50,21 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
 
         binding.btnRxjava.setOnClickListener(this);
 
+        binding.btnElvation.setOnClickListener(this);
+
         binding.btnPermission.setOnClickListener(this);
 
         binding.btnMHandler.setOnClickListener(this);
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_big_home;
+    }
+
+    @Override
+    protected String setTitle() {
+        return "BigHomeActivity";
     }
 
     @Override
@@ -99,6 +100,8 @@ public class BigHomeActivity extends AppCompatActivity implements View.OnClickLi
             intent.setClass(this, PermissonTestActivity.class);
         } else if(v.getId() == R.id.btn_mHandler){
             intent.setClass(this, HandlerTestActivity.class);
+        } else if(v.getId() == R.id.btn_elvation){
+            intent.setClass(this, ElevationActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

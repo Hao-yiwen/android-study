@@ -1,10 +1,5 @@
 package io.github.haoyiwen.test.core.activity;
 
-
-import static com.github.anzewei.parallaxbacklayout.ViewDragHelper.EDGE_LEFT;
-import static com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout.EDGE_MODE_DEFAULT;
-import static com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout.LAYOUT_COVER;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -45,8 +40,6 @@ import androidx.core.view.WindowInsetsCompat;
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
-import com.github.anzewei.parallaxbacklayout.widget.ParallaxBackLayout;
 
 import org.json.JSONObject;
 
