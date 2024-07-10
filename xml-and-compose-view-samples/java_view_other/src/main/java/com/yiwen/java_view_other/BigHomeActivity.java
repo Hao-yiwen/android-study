@@ -59,6 +59,7 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
 
         binding.btnRelativeLayout.setOnClickListener(this);
 
+        binding.btnStateview.setOnClickListener(this);
         binding.btnFragmentBinding.setOnClickListener(this);
     }
 
@@ -111,6 +112,8 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
             intent.setClass(this, RelativeLayoutActivity.class);
         } else if(v.getId() == R.id.btn_fragment_binding){
             intent.setClass(this, FragmentOfBindingActivity.class);
+        } else if(v.getId() == R.id.btn_stateview){
+            intent.setClass(this, StateViewActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

@@ -221,6 +221,12 @@ public class BigHomeActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("BigHomeActiviy", "============onResume");
+    }
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.activitu_constraint_layout_view1;
     }
