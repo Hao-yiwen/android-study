@@ -54,6 +54,14 @@
                 android:layout_marginTop="20dp"
                 android:text="quick_recycle" />
 
+            <Button
+                android:id="@+id/btn_viewpager"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:text="viewpager" />
+
 
         </LinearLayout>
     </ScrollView>
