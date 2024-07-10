@@ -7,6 +7,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
+        <activity
+            android:name=".viewpager.ViewPagerTestActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

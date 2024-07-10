@@ -26,6 +26,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         Button btn_quick_recycle = findViewById(R.id.btn_quick_recycle);
         btn_quick_recycle.setOnClickListener(this);
+
+        Button btn_viewpager = findViewById(R.id.btn_viewpager);
+        btn_viewpager.setOnClickListener(this);
     }
 
     @Override
@@ -35,7 +38,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected String setTitle() {
-        return "ScrollviewActivity";
+        return "列表首页";
     }
 
     @Override
@@ -58,6 +61,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             startActivity(intent);
         } else if (v.getId() == R.id.btn_quick_recycle) {
             Intent intent = new Intent(this, com.yiwen.recyclerviewtest.quickRecyclerView.QuickRecycleView.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btn_viewpager) {
+            Intent intent = new Intent(this, com.yiwen.recyclerviewtest.viewpager.ViewPagerTestActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
