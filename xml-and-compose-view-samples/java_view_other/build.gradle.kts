@@ -60,6 +60,8 @@ dependencies {
     implementation(project(":core"))
     // lottie
     implementation(libs.lottie.android)
+    // stateview nukc
+    implementation("com.github.nukc:StateView:v3.0.2")
 
     implementation("org.greenrobot:eventbus:3.3.1")
 

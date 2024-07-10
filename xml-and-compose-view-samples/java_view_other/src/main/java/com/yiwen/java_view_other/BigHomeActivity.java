@@ -57,6 +57,8 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
         binding.btnMHandler.setOnClickListener(this);
 
         binding.btnRelativeLayout.setOnClickListener(this);
+
+        binding.btnStateview.setOnClickListener(this);
     }
 
     @Override
@@ -106,6 +108,8 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
             intent.setClass(this, ElevationActivity.class);
         } else if(v.getId() == R.id.btn_relative_layout){
             intent.setClass(this, RelativeLayoutActivity.class);
+        } else if(v.getId() == R.id.btn_stateview){
+            intent.setClass(this, StateViewActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
