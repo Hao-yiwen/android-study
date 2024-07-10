@@ -8,6 +8,10 @@
         <activity
             android:name=".StateViewActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".fragmentOfBinding.FragmentOfBindingActivity"
+            android:exported="false" />
         <activity
             android:name=".RelativeLayoutActivity"
             android:exported="false" />

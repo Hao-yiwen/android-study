@@ -121,6 +121,11 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         // 存储saveInstanceState
         this.savedInstanceState = savedInstanceState;
+
+        initView();
+    }
+
+    public void initView() {
     }
 
     private void handlePressBack() {
