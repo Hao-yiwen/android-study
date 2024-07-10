@@ -150,6 +150,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.yiwen.recyclerviewtest.HomeActivity" />
         </activity>
+
+        <activity
+            android:name="com.yiwen.recyclerviewtest.quickRecyclerView.QuickRecycleView"
+            android:exported="false" />
         <!-- ========分割线=================       -->
         <activity
             android:name="io.github.haoyiwen.third_sdk.NavigateWXActivity"

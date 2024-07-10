@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
     implementation(project(":core"))
+    implementation("io.github.cymchad:BaseRecyclerViewAdapterHelper4:4.1.4")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

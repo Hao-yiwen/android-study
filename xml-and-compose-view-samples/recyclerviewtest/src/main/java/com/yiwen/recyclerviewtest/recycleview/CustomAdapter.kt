@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.yiwen.recyclerviewtest.R
+import org.w3c.dom.Text
 
 class CustomAdapter(private val dataSet: Array<String>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
@@ -21,7 +22,10 @@ class CustomAdapter(private val dataSet: Array<String>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_text_row_item, parent, false)
-
+        var layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.topMargin = 20
+        view.findViewById<TextView>(R.id.textView).background =
+            parent.context.getDrawable(R.color.red)
         return ViewHolder(view)
     }
 

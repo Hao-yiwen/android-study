@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import com.yiwen.java_view_other.databinding.ActivityBigHomeBinding;
 import com.yiwen.java_view_other.databinding.DataBindingActivity;
+import com.yiwen.java_view_other.fragmentOfBinding.FragmentOfBindingActivity;
 import com.yiwen.java_view_other.model.MessageEvent;
 import com.yiwen.java_view_other.rxjava.RxJavaActivity;
 
@@ -57,6 +58,8 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
         binding.btnMHandler.setOnClickListener(this);
 
         binding.btnRelativeLayout.setOnClickListener(this);
+
+        binding.btnFragmentBinding.setOnClickListener(this);
     }
 
     @Override
@@ -106,6 +109,8 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
             intent.setClass(this, ElevationActivity.class);
         } else if(v.getId() == R.id.btn_relative_layout){
             intent.setClass(this, RelativeLayoutActivity.class);
+        } else if(v.getId() == R.id.btn_fragment_binding){
+            intent.setClass(this, FragmentOfBindingActivity.class);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

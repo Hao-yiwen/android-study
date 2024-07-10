@@ -6,6 +6,9 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".fragmentOfBinding.FragmentOfBindingActivity"
+            android:exported="false" />
+        <activity
             android:name=".RelativeLayoutActivity"
             android:exported="false" />
         <activity
