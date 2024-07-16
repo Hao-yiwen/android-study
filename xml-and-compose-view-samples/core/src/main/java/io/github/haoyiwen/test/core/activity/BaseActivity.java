@@ -168,7 +168,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 String keyByValue = JsonUtils.getKeyByValue(jsonObject, moduleName);
                 if (keyByValue == null) {
-                    Toast.makeText(context, "className not found", Toast.LENGTH_LONG).show();
+//                    Toast.makeText(context, "className not found", Toast.LENGTH_LONG).show();
                     return null;
                 } else {
                     return "yiwen://app?moduleName=" + keyByValue;

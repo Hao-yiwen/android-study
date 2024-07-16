@@ -16,16 +16,16 @@ class CustomAdapter(private val dataSet: Array<String>) :
 
         init {
             textView = view.findViewById(R.id.textView)
+            var layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
+            layoutParams.topMargin = 20
+            // 设置为R.color.red
+            textView.setBackgroundColor(view.resources.getColor(R.color.red))
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_text_row_item, parent, false)
-        var layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
-        layoutParams.topMargin = 20
-        view.findViewById<TextView>(R.id.textView).background =
-            parent.context.getDrawable(R.color.red)
         return ViewHolder(view)
     }
 
