@@ -6,9 +6,11 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".delegate.DelegateActivity"
+            android:exported="false" />
+        <activity
             android:name=".StateViewActivity"
             android:exported="false" />
-
         <activity
             android:name=".fragmentOfBinding.FragmentOfBindingActivity"
             android:exported="false" />
