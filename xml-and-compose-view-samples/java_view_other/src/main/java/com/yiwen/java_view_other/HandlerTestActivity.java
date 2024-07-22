@@ -25,8 +25,8 @@ public class HandlerTestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         textView = findViewById(R.id.textView);
 
-        handler = MyReactNativeApplication.getMainHandler();
-        handler = new Handler(handler.getLooper()) {
+//        handler = MyReactNativeApplication.getMainHandler();
+        handler = new Handler(Looper.getMainLooper()){
             @Override
             public void handleMessage(android.os.Message msg) {
                 super.handleMessage(msg);

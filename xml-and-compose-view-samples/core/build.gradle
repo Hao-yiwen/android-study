@@ -21,12 +21,6 @@ android {
         multiDexEnabled true
     }
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -45,6 +39,8 @@ dependencies {
     implementation(libs.lottie.android)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.github.anzewei:parallaxbacklayout:1.1.9")
+    implementation 'com.orhanobut:logger:2.2.0'
+
     implementation 'com.orhanobut:logger:2.2.0'
 
     testImplementation libs.junit
