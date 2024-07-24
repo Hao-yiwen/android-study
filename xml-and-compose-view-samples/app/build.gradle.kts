@@ -16,7 +16,7 @@ plugins {
 
 android {
     namespace = "com.example.javaviewtest"
-    compileSdk = 34
+    compileSdk = rootProject.extra["compileSdkVersion"] as Int
 
     signingConfigs {
         create("release") {
@@ -29,10 +29,10 @@ android {
 
     defaultConfig {
         applicationId = "com.example.javaviewtest"
-        minSdk = 28
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = rootProject.extra["minSdkVersion"] as Int
+        targetSdk = rootProject.extra["targetSdkVersion"] as Int
+        versionCode = rootProject.extra["versionCode"] as Int
+        versionName = rootProject.ext["versionName"] as String
 
         externalNativeBuild {
             cmake {
@@ -85,7 +85,7 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    dataBinding{
+    dataBinding {
         enable = true
     }
 }

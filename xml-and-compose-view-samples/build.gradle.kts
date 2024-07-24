@@ -10,6 +10,13 @@ buildscript {
     dependencies {
         classpath("com.google.android.libraries.mapsplatform.secrets-gradle-plugin:secrets-gradle-plugin:2.0.1")
     }
-
 }
+
+// 使用 extra 定义扩展属性
+extra["buildToolsVersion"] = "30.0.3"
+extra["compileSdkVersion"] = 34
+extra["minSdkVersion"] = 28
+extra["targetSdkVersion"] = 34
+extra["versionCode"] = 1
+extra["versionName"] = "1.0"
 

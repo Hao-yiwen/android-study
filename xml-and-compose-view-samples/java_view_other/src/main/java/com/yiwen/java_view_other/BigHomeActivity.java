@@ -9,6 +9,7 @@ import com.yiwen.java_view_other.databinding.DataBindingActivity;
 import com.yiwen.java_view_other.delegate.DelegateActivity;
 import com.yiwen.java_view_other.fragmentOfBinding.FragmentOfBindingActivity;
 import com.yiwen.java_view_other.model.MessageEvent;
+import com.yiwen.java_view_other.moshiTest.MoshiGsonActivity;
 import com.yiwen.java_view_other.rxjava.RxJavaActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -63,6 +64,7 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
         binding.btnStateview.setOnClickListener(this);
         binding.btnFragmentBinding.setOnClickListener(this);
         binding.btnDelegate.setOnClickListener(this);
+        binding.tvGsonMoshi.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +120,9 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
             intent.setClass(this, StateViewActivity.class);
         } else if(v.getId() == R.id.btn_delegate){
             intent.setClass(this, DelegateActivity.class);
+        } else if(v.getId() == R.id.tv_gson_moshi){
+            intent.setClass(this, MoshiGsonActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

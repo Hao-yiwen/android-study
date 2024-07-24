@@ -6,6 +6,9 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".moshiTest.MoshiGsonActivity"
+            android:exported="false" />
+        <activity
             android:name=".delegate.DelegateActivity"
             android:exported="false" />
         <activity
