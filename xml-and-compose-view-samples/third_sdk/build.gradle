@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'io.github.haoyiwen.third_sdk'
-    compileSdk 34
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
         minSdk 24

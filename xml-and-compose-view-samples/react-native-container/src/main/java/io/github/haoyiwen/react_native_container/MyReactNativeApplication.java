@@ -34,6 +34,8 @@ import com.facebook.react.modules.debug.interfaces.DeveloperSettings;
 import com.facebook.react.packagerconnection.PackagerConnectionSettings;
 import com.facebook.react.packagerconnection.RequestHandler;
 import com.facebook.react.shell.MainReactPackage;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.reactnativecommunity.webview.RNCWebViewPackage;
 import com.swmansion.rnscreens.RNScreensPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
@@ -75,6 +77,7 @@ public class MyReactNativeApplication extends BaseApp {
         initializeFlipper(this);
         // url handler添加 eventbus响应者
         addHandlers();
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 
     public void addHandlers() {

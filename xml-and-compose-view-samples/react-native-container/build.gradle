@@ -60,6 +60,7 @@ dependencies {
     implementation("yw.reactnative:react-native-webview:0.0.2")
     implementation("yw.reactnative:react-native-screens:0.0.2")
     implementation("yw.reactnative:react-native-safe-area-context:0.0.2")
+    implementation 'com.orhanobut:logger:2.2.0'
 
     implementation(project(":core"))
     implementation(project(":hybird"))

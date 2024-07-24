@@ -4,10 +4,10 @@ plugins {
 
 android {
     namespace 'io.github.haoyiwen.test.core'
-    compileSdk 34
+    compileSdk rootProject.ext.compileSdkVersion
 
     defaultConfig {
-        minSdk 24
+        minSdk rootProject.ext.minSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.lottie.android)
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.github.anzewei:parallaxbacklayout:1.1.9")
+    implementation 'com.orhanobut:logger:2.2.0'
 
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit

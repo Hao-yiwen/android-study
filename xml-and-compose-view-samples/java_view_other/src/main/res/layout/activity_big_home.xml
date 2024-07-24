@@ -14,8 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="vertical"
-            android:gravity="center">
+            android:paddingBottom="40dp">
 
             <Button
                 android:id="@+id/btn_intent_filter"
@@ -164,8 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:textAllCaps="false"
                 android:text="elvation测试页面"
+                android:textAllCaps="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.544"
                 app:layout_constraintStart_toStartOf="parent"
@@ -231,8 +232,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:textAllCaps="false"
-                android:text="delegate测试页面" />
+                android:text="delegate测试页面"
+                android:textAllCaps="false" />
+
+            <TextView
+                android:id="@+id/tv_gson_moshi"
+                style="@style/TextButtonStyle"
+                android:layout_marginTop="40dp"
+                android:text="Moshi和gson测试页面" />
 
         </LinearLayout>
 

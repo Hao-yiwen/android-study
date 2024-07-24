@@ -4,10 +4,10 @@ plugins {
 
 android {
     namespace = "com.yiwen.java_view_other"
-    compileSdk = 34
+    compileSdk = rootProject.extra["compileSdkVersion"] as Int
 
     defaultConfig {
-        minSdk = 24
+        minSdk = rootProject.extra["minSdkVersion"] as Int
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -58,7 +58,10 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation(project(":core"))
-    // lottie
+    implementation("com.github.smuyyh:JsonViewer:1.0.7")
+    implementation("com.orhanobut:logger:2.2.0")
+    implementation("com.squareup.moshi:moshi:1.15.0")
+// lottie
     implementation(libs.lottie.android)
     // stateview nukc
     implementation("com.github.nukc:StateView:v3.0.2")
