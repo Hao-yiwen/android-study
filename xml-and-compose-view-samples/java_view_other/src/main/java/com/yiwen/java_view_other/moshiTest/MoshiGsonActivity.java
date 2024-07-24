@@ -1,5 +1,6 @@
 package com.yiwen.java_view_other.moshiTest;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -67,5 +68,18 @@ public class MoshiGsonActivity extends BaseActivity {
         tv_moshi.setBackgroundColor(getResources().getColor(R.color.pink));
 
 
+        CustomDrawableView cv = findViewById(R.id.cv_draw);
+        Logger.i("cv: " + cv);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200);
+        lp.setMargins(0, 40, 0, 0);
+        if(cv != null) {
+            cv.setBackgroundColor(Color.BLUE);
+            cv.setLayoutParams(lp);
+        }
+
+        View view = findViewById(R.id.view_only);
+        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200);
+        lp1.setMargins(0, 40, 0, 0);
+        view.setLayoutParams(lp1);
     }
 }
