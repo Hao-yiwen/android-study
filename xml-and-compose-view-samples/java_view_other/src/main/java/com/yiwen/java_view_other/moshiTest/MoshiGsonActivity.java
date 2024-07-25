@@ -1,11 +1,24 @@
 package com.yiwen.java_view_other.moshiTest;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.graphics.Color;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewParent;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -56,7 +69,7 @@ public class MoshiGsonActivity extends BaseActivity {
         }
         LinearLayout ll = (LinearLayout) tv_gson.getParent();
         ll.setOrientation(LinearLayout.VERTICAL);
-        ll.setGravity(Gravity.CENTER_VERTICAL);
+//        ll.setGravity(Gravity.CENTER_VERTICAL);
 
         Logger.i("Cat1Info" + cat1.toString());
         tv_moshi.setText("cat1: " + cat1.toString());
@@ -72,14 +85,57 @@ public class MoshiGsonActivity extends BaseActivity {
         Logger.i("cv: " + cv);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200);
         lp.setMargins(0, 40, 0, 0);
-        if(cv != null) {
+        if (cv != null) {
             cv.setBackgroundColor(Color.BLUE);
             cv.setLayoutParams(lp);
         }
 
         View view = findViewById(R.id.view_only);
-        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 200);
+        LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(200, 200);
         lp1.setMargins(0, 40, 0, 0);
         view.setLayoutParams(lp1);
+        // 在x轴移动
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationX", 0, 200);
+        animator.setDuration(2000);
+        animator.start();
+        // 在x轴和y轴同时移动
+        ObjectAnimator animatorY = ObjectAnimator.ofFloat(view, "translationY", 0, 200);
+        ObjectAnimator animatorVisible = ObjectAnimator.ofFloat(view, "alpha", 1, 0);
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(animator, animatorY, ObjectAnimator.ofFloat(view, "rotation", 0, 360), animatorVisible);
+        animatorSet.setInterpolator(new OvershootInterpolator());
+        animatorSet.setDuration(2000);
+        animator.setRepeatCount(ObjectAnimator.INFINITE);
+        animator.setRepeatMode(ObjectAnimator.RESTART);
+        animatorY.setRepeatMode(ObjectAnimator.REVERSE);
+        animatorY.setRepeatCount(ObjectAnimator.INFINITE);
+        animatorVisible.setRepeatCount(ObjectAnimator.RESTART);
+        animatorVisible.setRepeatMode(ObjectAnimator.RESTART);
+        animatorVisible.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                view.setAlpha(1);
+            }
+        });
+        animatorSet.start();
+        // xml定义视图动画
+        View view2 = findViewById(R.id.view_two);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.translate);
+        view2.startAnimation(animation);
+
+        View view3 = findViewById(R.id.view_three);
+        AnimatorSet animatorSet1 = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.rotation);
+        animatorSet1.setTarget(view3);
+        animatorSet1.start();
+
+        ImageView img1 = findViewById(R.id.iv_heart);
+        img1.setImageResource(R.drawable.anim_heart);
+        AnimatedVectorDrawable drawable = (AnimatedVectorDrawable) img1.getDrawable();
+        drawable.start();
+
+        ImageView img2 = findViewById(R.id.iv_shengdan);
+        img2.setImageResource(R.drawable.anim_shendan);
+        AnimatedVectorDrawable drawable1 = (AnimatedVectorDrawable) img2.getDrawable();
+        drawable1.start();
     }
 }

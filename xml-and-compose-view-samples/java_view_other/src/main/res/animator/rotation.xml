@@ -8,4 +8,13 @@
         android:valueFrom="0"
         android:valueTo="360"
         android:valueType="floatType" />
+
+    <objectAnimator
+        android:duration="2000"
+        android:propertyName="translationX"
+        android:repeatCount="infinite"
+        android:repeatMode="reverse"
+        android:valueFrom="0"
+        android:valueTo="200"
+        android:valueType="floatType" />
 </set>

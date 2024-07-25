@@ -29,4 +29,30 @@
         android:layout_height="200dp"
         android:background="@android:color/darker_gray" />
 
+    <View
+        android:id="@+id/view_two"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/holo_blue_bright" />
+
+    <View
+        android:id="@+id/view_three"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/holo_orange_dark" />
+
+    <ImageView
+        android:id="@+id/iv_heart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp" />
+
+    <ImageView
+        android:id="@+id/iv_shengdan"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"/>
+
 </LinearLayout>
