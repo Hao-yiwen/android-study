@@ -35,6 +35,7 @@ import java.io.IOException;
 import io.github.haoyiwen.test.core.activity.BaseActivity;
 
 public class MoshiGsonActivity extends BaseActivity {
+    ImageView img2;
 
     @Override
     protected int getLayoutResId() {
@@ -133,9 +134,27 @@ public class MoshiGsonActivity extends BaseActivity {
         AnimatedVectorDrawable drawable = (AnimatedVectorDrawable) img1.getDrawable();
         drawable.start();
 
-        ImageView img2 = findViewById(R.id.iv_shengdan);
+        img2 = findViewById(R.id.iv_shengdan);
         img2.setImageResource(R.drawable.anim_shendan);
+        img2.setPadding(20, 0, 0, 20);
         AnimatedVectorDrawable drawable1 = (AnimatedVectorDrawable) img2.getDrawable();
         drawable1.start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        img2.post(new Runnable() {
+            @Override
+            public void run() {
+                Logger.i("img2 position: " + img2.getLeft() + " " + img2.getTop() + " " + img2.getRight() + " " + img2.getBottom() + " " + img2.getX());
+                Logger.i("img2 measure: " + img2.getMeasuredHeight() + " " + img2.getMeasuredWidth() + " " + img2.getWidth() + " " + img2.getHeight());
+            }
+        });
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

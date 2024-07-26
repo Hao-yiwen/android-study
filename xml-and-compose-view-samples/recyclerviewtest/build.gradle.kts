@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(project(":core"))
     implementation("io.github.cymchad:BaseRecyclerViewAdapterHelper4:4.1.4")
+    implementation("com.orhanobut:logger:2.2.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

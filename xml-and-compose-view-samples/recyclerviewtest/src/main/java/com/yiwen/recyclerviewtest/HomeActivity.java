@@ -29,6 +29,9 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
         Button btn_viewpager = findViewById(R.id.btn_viewpager);
         btn_viewpager.setOnClickListener(this);
+
+        Button btn_simple_cursor = findViewById(R.id.btn_simple_cursor);
+        btn_simple_cursor.setOnClickListener(this);
     }
 
     @Override
@@ -65,6 +68,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             startActivity(intent);
         } else if (v.getId() == R.id.btn_viewpager) {
             Intent intent = new Intent(this, com.yiwen.recyclerviewtest.viewpager.ViewPagerTestActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else if (v.getId() == R.id.btn_simple_cursor) {
+            Intent intent = new Intent(this, com.yiwen.recyclerviewtest.SimpleCursorAdapterActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
