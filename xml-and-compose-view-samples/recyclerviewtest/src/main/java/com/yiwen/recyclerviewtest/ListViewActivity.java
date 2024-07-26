@@ -39,7 +39,7 @@ public class ListViewActivity extends AppCompatActivity implements AdapterView.O
         });
 
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_toolbar, ToolBarFragment.newInstance("ListView")).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_toolbar, ToolBarFragment.newInstance("ListView")).commit();
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);

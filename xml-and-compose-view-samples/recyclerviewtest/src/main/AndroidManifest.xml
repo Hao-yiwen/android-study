@@ -10,6 +10,10 @@
         <activity
             android:name=".viewpager.ViewPagerTestActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".SimpleCursorAdapterActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
