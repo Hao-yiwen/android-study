@@ -13,6 +13,10 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    aaptOptions {
+        noCompress("tflite", "lite")
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -43,6 +47,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -61,6 +66,7 @@ dependencies {
     implementation("com.github.smuyyh:JsonViewer:1.0.7")
     implementation("com.orhanobut:logger:2.2.0")
     implementation("com.squareup.moshi:moshi:1.15.0")
+    implementation("org.tensorflow:tensorflow-lite:2.5.0")
 // lottie
     implementation(libs.lottie.android)
     // stateview nukc
