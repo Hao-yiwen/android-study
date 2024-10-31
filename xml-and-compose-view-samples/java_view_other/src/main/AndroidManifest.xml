@@ -6,6 +6,9 @@
 
     <application android:hardwareAccelerated="true">
         <activity
+            android:name=".LLMActivity"
+            android:exported="false" />
+        <activity
             android:name=".moshiTest.MoshiGsonActivity"
             android:exported="false" />
         <activity

@@ -19,6 +19,16 @@
             android:paddingBottom="40dp">
 
             <Button
+                android:id="@+id/btn_intent_llm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:text="手写数字识别ml测试"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
                 android:id="@+id/btn_intent_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

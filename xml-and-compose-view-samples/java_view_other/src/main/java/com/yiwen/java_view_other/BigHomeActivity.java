@@ -65,6 +65,8 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
         binding.btnFragmentBinding.setOnClickListener(this);
         binding.btnDelegate.setOnClickListener(this);
         binding.tvGsonMoshi.setOnClickListener(this);
+
+        binding.btnIntentLlm.setOnClickListener(this);
     }
 
     @Override
@@ -122,6 +124,9 @@ public class BigHomeActivity extends BaseActivity implements View.OnClickListene
             intent.setClass(this, DelegateActivity.class);
         } else if(v.getId() == R.id.tv_gson_moshi){
             intent.setClass(this, MoshiGsonActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        } else if(v.getId() == R.id.btn_intent_llm){
+            intent.setClass(this, LLMActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
