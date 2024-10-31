@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.jetbrainsKotlinAndroid)
 }
 
 android {
@@ -11,10 +12,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-    }
-
-    aaptOptions {
-        noCompress("tflite", "lite")
     }
 
     buildTypes {
@@ -39,6 +36,9 @@ android {
     dataBinding{
         enable = true
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     implementation(libs.room.compiler)
+    implementation(libs.core.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -66,7 +67,6 @@ dependencies {
     implementation("com.github.smuyyh:JsonViewer:1.0.7")
     implementation("com.orhanobut:logger:2.2.0")
     implementation("com.squareup.moshi:moshi:1.15.0")
-    implementation("org.tensorflow:tensorflow-lite:2.5.0")
 // lottie
     implementation(libs.lottie.android)
     // stateview nukc
@@ -75,4 +75,11 @@ dependencies {
     implementation("org.greenrobot:eventbus:3.3.1")
 
     implementation(project(":react-native-container"))
+
+    implementation("com.github.divyanshub024:AndroidDraw:v0.1")
+
+    // Import the Task Vision Library dependency (NNAPI is included)
+    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
+    // Import the GPU delegate plugin Library for GPU inference
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.16.1")
 }

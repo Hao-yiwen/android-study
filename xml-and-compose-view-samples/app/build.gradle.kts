@@ -95,6 +95,14 @@ android {
 //        dir("libs")
 //    }
 //}
+configurations.all {
+    resolutionStrategy {
+        // 强制使用新版本的 JetBrains 注解
+        force("org.jetbrains:annotations:23.0.0")
+        // 排除旧版本的 IntelliJ 注解
+        exclude(group = "com.intellij", module = "annotations")
+    }
+}
 
 dependencies {
     implementation("com.example:chapter03:0.0.1")

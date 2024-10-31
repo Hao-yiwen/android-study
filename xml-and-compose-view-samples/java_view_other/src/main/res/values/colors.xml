@@ -11,4 +11,11 @@
     </color>
     <color name="text_button_default">#007AFF</color> <!-- 蓝色 -->
     <color name="text_button_pressed">#D1D1D6</color> <!-- 浅灰色 -->
+    <color name="toolbar_background">#EEEEEE</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="bottom_sheet_background">#EEEEEE</color>
+    <color name="bottom_sheet_text_color">@android:color/black</color>
+    <color name="icActive">#FFFFFFFF</color>
+    <color name="icFocused">#DDFFFFFF</color>
+    <color name="icPressed">#AAFFFFFF</color>
 </resources>
