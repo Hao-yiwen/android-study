@@ -37,7 +37,6 @@ dependencyResolutionManagement {
         }
         google()
         mavenCentral()
-        jcenter()
         maven { url = uri("https://jitpack.io") }
         maven {
             url = uri("../my_flutter/build/host/outputs/repo")
