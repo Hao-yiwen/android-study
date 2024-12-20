@@ -59,6 +59,17 @@ class DigitClassifierHelper(
         )
     }
 
+    fun saveBitmapToFile(bitmap: Bitmap, context: Context, filename: String) {
+        try {
+            context.openFileOutput(filename, Context.MODE_PRIVATE).use { fos ->
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos)
+            }
+            Log.d(TAG, "Saved bitmap to: ${context.getFileStreamPath(filename)}")
+        } catch (e: Exception) {
+            Log.e(TAG, "Error saving bitmap: ${e.message}")
+        }
+    }
+
     fun classify(originalBitmap: Bitmap) {
         if (digitClassifier == null) {
             setupDigitClassifier()
@@ -66,50 +77,67 @@ class DigitClassifierHelper(
 
         try {
             // 1. 缩放到 28x28
-            val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, 28, 28, true)
+//            val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, 28, 28, true)
+//
+//            // 2. 转换为反色灰度图，因为 MNIST 数据集是黑底白字
+//            val grayBitmap = Bitmap.createBitmap(28, 28, Bitmap.Config.ARGB_8888)
+//            val canvas = Canvas(grayBitmap)
+//            val paint = Paint().apply {
+//                colorFilter = ColorMatrixColorFilter(ColorMatrix().apply {
+//                    val matrix = floatArrayOf(
+//                        -0.299f, -0.587f, -0.114f, 0f, 255f,  // 反色并转灰度
+//                        -0.299f, -0.587f, -0.114f, 0f, 255f,
+//                        -0.299f, -0.587f, -0.114f, 0f, 255f,
+//                        0f, 0f, 0f, 1f, 0f
+//                    )
+//                    set(matrix)
+//                })
+//            }
+//            canvas.drawBitmap(scaledBitmap, 0f, 0f, paint)
+//
+//            // 保存灰度图
+//
+//            // 调试：保存处理后的图像进行检查
+//            Log.d(TAG, "Intermediate bitmap debug info:")
+//            val pixels = IntArray(28 * 28)
+//            grayBitmap.getPixels(pixels, 0, 28, 0, 0, 28, 28)
+//            val pixelValues = pixels.take(5).joinToString {
+//                String.format("R:%d G:%d B:%d",
+//                    Color.red(it), Color.green(it), Color.blue(it))
+//            }
+//            Log.d(TAG, "First 5 pixels: $pixelValues")
+//
+//            // 3. 转换为 TensorImage
+//            val tensorImage = TensorImage.fromBitmap(grayBitmap)
+//            Log.d(TAG, "Tensor shape before processing: ${tensorImage.tensorBuffer.shape.contentToString()}")
+//            Log.d(TAG, "Tensor values: ${tensorImage.tensorBuffer.floatArray.take(10)}")
+//
+//            // 4. 图像预处理
+//            val imageProcessor = ImageProcessor.Builder()
+//                .add(NormalizeOp(0f, 255f))  // 归一化到 [0,1]
+//                .build()
+//
+//            val processedImage = imageProcessor.process(tensorImage)
+//            Log.d(TAG, "Processed shape: ${processedImage.tensorBuffer.shape.contentToString()}")
+//            Log.d(TAG, "Processed values: ${processedImage.tensorBuffer.floatArray.take(10)}")
 
-            // 2. 转换为反色灰度图，因为 MNIST 数据集是黑底白字
-            val grayBitmap = Bitmap.createBitmap(28, 28, Bitmap.Config.ARGB_8888)
-            val canvas = Canvas(grayBitmap)
-            val paint = Paint().apply {
-                colorFilter = ColorMatrixColorFilter(ColorMatrix().apply {
-                    val matrix = floatArrayOf(
-                        -0.299f, -0.587f, -0.114f, 0f, 255f,  // 反色并转灰度
-                        -0.299f, -0.587f, -0.114f, 0f, 255f,
-                        -0.299f, -0.587f, -0.114f, 0f, 255f,
-                        0f, 0f, 0f, 1f, 0f
-                    )
-                    set(matrix)
-                })
+            if (digitClassifier == null) {
+                setupDigitClassifier()
             }
-            canvas.drawBitmap(scaledBitmap, 0f, 0f, paint)
 
-            // 调试：保存处理后的图像进行检查
-            Log.d(TAG, "Intermediate bitmap debug info:")
-            val pixels = IntArray(28 * 28)
-            grayBitmap.getPixels(pixels, 0, 28, 0, 0, 28, 28)
-            val pixelValues = pixels.take(5).joinToString {
-                String.format("R:%d G:%d B:%d",
-                    Color.red(it), Color.green(it), Color.blue(it))
-            }
-            Log.d(TAG, "First 5 pixels: $pixelValues")
-
-            // 3. 转换为 TensorImage
-            val tensorImage = TensorImage.fromBitmap(grayBitmap)
-            Log.d(TAG, "Tensor shape before processing: ${tensorImage.tensorBuffer.shape.contentToString()}")
-            Log.d(TAG, "Tensor values: ${tensorImage.tensorBuffer.floatArray.take(10)}")
-
-            // 4. 图像预处理
-            val imageProcessor = ImageProcessor.Builder()
-                .add(NormalizeOp(0f, 255f))  // 归一化到 [0,1]
-                .build()
-
-            val processedImage = imageProcessor.process(tensorImage)
-            Log.d(TAG, "Processed shape: ${processedImage.tensorBuffer.shape.contentToString()}")
-            Log.d(TAG, "Processed values: ${processedImage.tensorBuffer.floatArray.take(10)}")
-            // 5. 执行推理
+            // Inference time is the difference between the system time at the
+            // start and finish of the process
             var inferenceTime = SystemClock.uptimeMillis()
-            val results = digitClassifier?.classify(processedImage)
+
+            // Preprocess the image and convert it into a TensorImage for
+            // classification.
+            val tensorImage = TensorImage.fromBitmap(originalBitmap)
+
+            saveBitmapToFile(originalBitmap, context, "gray.png")
+
+            // 5. 执行推理
+//            var inferenceTime = SystemClock.uptimeMillis()
+            val results = digitClassifier?.classify(tensorImage)
             inferenceTime = SystemClock.uptimeMillis() - inferenceTime
 
             Log.d(TAG, "Raw results: $results")
@@ -123,8 +151,8 @@ class DigitClassifierHelper(
             digitClassifierListener?.onResults(results, inferenceTime)
 
             // 清理
-            scaledBitmap.recycle()
-            grayBitmap.recycle()
+//            scaledBitmap.recycle()
+//            grayBitmap.recycle()
 
         } catch (e: Exception) {
             Log.e(TAG, "Classification error", e)
