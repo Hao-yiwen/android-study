@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.AaptOptions
 import org.jetbrains.kotlin.serialization.builtins.main
 import org.jetbrains.kotlin.util.profile
 
@@ -25,6 +26,13 @@ android {
             keyAlias = project.property("MYAPP_RELEASE_KEY_ALIAS") as String
             keyPassword = project.property("MYAPP_RELEASE_KEY_PASSWORD") as String
         }
+    }
+
+
+    androidResources {
+        noCompress += "tflite"
+        // 或者多个格式
+        noCompress += listOf("tflite", "lite")
     }
 
     defaultConfig {

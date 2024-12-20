@@ -19,6 +19,7 @@ package com.yiwen.java_view_other.fragemnt
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -35,46 +36,16 @@ import org.tensorflow.lite.examples.digitclassification.fragments.Classification
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import java.util.Locale
 
-class DigitCanvasFragment : Fragment(),
-    DigitClassifierHelper.DigitClassifierListener {
+class DigitCanvasFragment : Fragment(), DigitClassifierHelper.DigitClassifierListener {
     private var _fragmentDigitCanvasBinding: FragmentDigitCanvasBinding? = null
     private val fragmentDigitCanvasBinding get() = _fragmentDigitCanvasBinding!!
-    private lateinit var digitClassifierHelper: DigitClassifierHelper
-    private lateinit var classificationResultAdapter:
-            ClassificationResultsAdapter
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _fragmentDigitCanvasBinding = FragmentDigitCanvasBinding.inflate(
-            inflater,
-            container, false
-        )
-        return fragmentDigitCanvasBinding.root
+    // 使用 lazy 替代 lateinit，确保安全初始化
+    private val classificationResultAdapter by lazy {
+        ClassificationResultsAdapter()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        digitClassifierHelper = DigitClassifierHelper(
-            context = requireContext(), digitClassifierListener = this
-        )
-        setupDigitCanvas()
-        setupClassificationResultAdapter()
-        // Attach listeners to UI control widgets
-        initBottomSheetControls()
-
-        fragmentDigitCanvasBinding.btnClear.setOnClickListener {
-            fragmentDigitCanvasBinding.digitCanvas.clearCanvas()
-            classificationResultAdapter.reset()
-        }
-    }
-
-    override fun onDestroyView() {
-        _fragmentDigitCanvasBinding = null
-        super.onDestroyView()
-    }
+    private var digitClassifierHelper: DigitClassifierHelper? = null
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupDigitCanvas() {
@@ -96,8 +67,35 @@ class DigitCanvasFragment : Fragment(),
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        try {
+            // 1. 先初始化 UI 组件
+            setupClassificationResultAdapter()
+            setupDigitCanvas()
+
+            // 2. 再初始化分类器
+            digitClassifierHelper = DigitClassifierHelper(
+                context = requireContext(),
+                digitClassifierListener = this
+            )
+
+            // 3. 最后设置控制器
+            initBottomSheetControls()
+            setupClearButton()
+        } catch (e: Exception) {
+            handleError("初始化失败: ${e.message}")
+        }
+    }
+
+    private fun setupClearButton() {
+        fragmentDigitCanvasBinding.btnClear.setOnClickListener {
+            fragmentDigitCanvasBinding.digitCanvas.clearCanvas()
+            classificationResultAdapter.reset()
+        }
+    }
+
     private fun setupClassificationResultAdapter() {
-        classificationResultAdapter = ClassificationResultsAdapter()
         with(fragmentDigitCanvasBinding.recyclerViewResults) {
             adapter = classificationResultAdapter
             layoutManager = LinearLayoutManager(requireContext())
@@ -110,61 +108,118 @@ class DigitCanvasFragment : Fragment(),
         }
     }
 
-    private fun initBottomSheetControls() {
-        // When clicked, lower classification score threshold floor
-        fragmentDigitCanvasBinding.bottomSheetLayout.thresholdMinus.setOnClickListener {
-            if (digitClassifierHelper.threshold >= 0.1) {
-                digitClassifierHelper.threshold -= 0.1f
-                updateControlsUi()
+    private fun classifyDrawing() {
+        try {
+            val bitmap = fragmentDigitCanvasBinding.digitCanvas.getBitmap()
+            digitClassifierHelper?.classify(bitmap)
+        } catch (e: Exception) {
+            handleError("分类失败: ${e.message}")
+        }
+    }
+
+    override fun onError(error: String) {
+        // 使用扩展函数简化错误处理
+        handleError(error)
+    }
+
+    private fun handleError(error: String) {
+        activity?.runOnUiThread {
+            Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
+            try {
+                classificationResultAdapter.reset()
+            } catch (e: Exception) {
+                Log.e(TAG, "Error resetting adapter: ${e.message}")
             }
         }
+    }
 
-        // When clicked, raise classification score threshold floor
-        fragmentDigitCanvasBinding.bottomSheetLayout.thresholdPlus.setOnClickListener {
-            if (digitClassifierHelper.threshold < 0.9) {
-                digitClassifierHelper.threshold += 0.1f
-                updateControlsUi()
+    override fun onResults(results: List<Classifications>?, inferenceTime: Long) {
+        activity?.runOnUiThread {
+            try {
+                classificationResultAdapter.updateResults(results)
+                fragmentDigitCanvasBinding.tvInferenceTime.text =
+                    getString(R.string.inference_time, inferenceTime.toString())
+            } catch (e: Exception) {
+                handleError("处理结果失败: ${e.message}")
             }
         }
+    }
 
-        // When clicked, reduce the number of objects that can be classified at a time
-        fragmentDigitCanvasBinding.bottomSheetLayout.maxResultsMinus.setOnClickListener {
-            if (digitClassifierHelper.maxResults > 1) {
-                digitClassifierHelper.maxResults--
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, increase the number of objects that can be classified at a time
-        fragmentDigitCanvasBinding.bottomSheetLayout.maxResultsPlus.setOnClickListener {
-            if (digitClassifierHelper.maxResults < 3) {
-                digitClassifierHelper.maxResults++
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, decrease the number of threads used for classification
-        fragmentDigitCanvasBinding.bottomSheetLayout.threadsMinus.setOnClickListener {
-            if (digitClassifierHelper.numThreads > 1) {
-                digitClassifierHelper.numThreads--
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, increase the number of threads used for classification
-        fragmentDigitCanvasBinding.bottomSheetLayout.threadsPlus.setOnClickListener {
-            if (digitClassifierHelper.numThreads < 4) {
-                digitClassifierHelper.numThreads++
-                updateControlsUi()
-            }
-        }
-
-        // When clicked, change the underlying hardware used for inference. Current options are CPU
-        // GPU, and NNAPI
-        fragmentDigitCanvasBinding.bottomSheetLayout.spinnerDelegate.setSelection(
-            0,
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _fragmentDigitCanvasBinding = FragmentDigitCanvasBinding.inflate(
+            inflater,
+            container,
             false
         )
+        return fragmentDigitCanvasBinding.root
+    }
+
+    override fun onDestroyView() {
+        _fragmentDigitCanvasBinding = null
+        super.onDestroyView()
+    }
+
+    private fun initBottomSheetControls() {
+        // 使用安全调用操作符 ?.
+        fragmentDigitCanvasBinding.bottomSheetLayout.thresholdMinus.setOnClickListener {
+            digitClassifierHelper?.let { classifier ->
+                if (classifier.threshold >= 0.1) {
+                    classifier.threshold -= 0.1f
+                    updateControlsUi()
+                }
+            }
+        }
+
+        fragmentDigitCanvasBinding.bottomSheetLayout.thresholdPlus.setOnClickListener {
+            digitClassifierHelper?.let { classifier ->
+                if (classifier.threshold < 0.9) {
+                    classifier.threshold += 0.1f
+                    updateControlsUi()
+                }
+            }
+        }
+
+        fragmentDigitCanvasBinding.bottomSheetLayout.maxResultsMinus.setOnClickListener {
+            digitClassifierHelper?.let { classifier ->
+                if (classifier.maxResults > 1) {
+                    classifier.maxResults--
+                    updateControlsUi()
+                }
+            }
+        }
+
+        fragmentDigitCanvasBinding.bottomSheetLayout.maxResultsPlus.setOnClickListener {
+            digitClassifierHelper?.let { classifier ->
+                if (classifier.maxResults < 3) {
+                    classifier.maxResults++
+                    updateControlsUi()
+                }
+            }
+        }
+
+        fragmentDigitCanvasBinding.bottomSheetLayout.threadsMinus.setOnClickListener {
+            digitClassifierHelper?.let { classifier ->
+                if (classifier.numThreads > 1) {
+                    classifier.numThreads--
+                    updateControlsUi()
+                }
+            }
+        }
+
+        fragmentDigitCanvasBinding.bottomSheetLayout.threadsPlus.setOnClickListener {
+            digitClassifierHelper?.let { classifier ->
+                if (classifier.numThreads < 4) {
+                    classifier.numThreads++
+                    updateControlsUi()
+                }
+            }
+        }
+
+        fragmentDigitCanvasBinding.bottomSheetLayout.spinnerDelegate.setSelection(0, false)
         fragmentDigitCanvasBinding.bottomSheetLayout.spinnerDelegate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -173,7 +228,7 @@ class DigitCanvasFragment : Fragment(),
                     position: Int,
                     id: Long
                 ) {
-                    digitClassifierHelper.currentDelegate = position
+                    digitClassifierHelper?.currentDelegate = position
                     updateControlsUi()
                 }
 
@@ -183,40 +238,18 @@ class DigitCanvasFragment : Fragment(),
             }
     }
 
-    // Update the values displayed in the bottom sheet. Reset classifier.
     private fun updateControlsUi() {
-        fragmentDigitCanvasBinding.bottomSheetLayout.maxResultsValue.text =
-            digitClassifierHelper.maxResults.toString()
-
-        fragmentDigitCanvasBinding.bottomSheetLayout.thresholdValue.text =
-            String.format(Locale.US, "%.2f", digitClassifierHelper.threshold)
-        fragmentDigitCanvasBinding.bottomSheetLayout.threadsValue.text =
-            digitClassifierHelper.numThreads.toString()
-        // Needs to be cleared instead of reinitialized because the GPU
-        // delegate needs to be initialized on the thread using it when applicable
-        digitClassifierHelper.clearDigitClassifier()
-    }
-
-    private fun classifyDrawing() {
-        val bitmap = fragmentDigitCanvasBinding.digitCanvas.getBitmap()
-        digitClassifierHelper.classify(bitmap)
-    }
-
-    override fun onError(error: String) {
-        activity?.runOnUiThread {
-            Toast.makeText(requireActivity(), error, Toast.LENGTH_SHORT).show()
-            classificationResultAdapter.reset()
+        digitClassifierHelper?.let { classifier ->
+            fragmentDigitCanvasBinding.bottomSheetLayout.apply {
+                maxResultsValue.text = classifier.maxResults.toString()
+                thresholdValue.text = String.format(Locale.US, "%.2f", classifier.threshold)
+                threadsValue.text = classifier.numThreads.toString()
+            }
+            classifier.clearDigitClassifier()
         }
     }
 
-    override fun onResults(
-        results: List<Classifications>?,
-        inferenceTime: Long
-    ) {
-        activity?.runOnUiThread {
-            classificationResultAdapter.updateResults(results)
-            fragmentDigitCanvasBinding.tvInferenceTime.text = requireActivity()
-                .getString(R.string.inference_time, inferenceTime.toString())
-        }
+    companion object {
+        private const val TAG = "DigitCanvasFragment"
     }
 }

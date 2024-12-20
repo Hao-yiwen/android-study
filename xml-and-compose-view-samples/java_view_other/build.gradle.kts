@@ -78,8 +78,23 @@ dependencies {
 
     implementation("com.github.divyanshub024:AndroidDraw:v0.1")
 
-    // Import the Task Vision Library dependency (NNAPI is included)
+//    implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")  // 使用最新版本
+//    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+//    implementation("org.tensorflow:tensorflow-lite:2.14.0")
+//
+//    implementation("org.tensorflow:tensorflow-lite-gpu:2.14.0")
+//    implementation("org.tensorflow:tensorflow-lite-task-vision-play-services:0.4.4")
+
     implementation("org.tensorflow:tensorflow-lite-task-vision:0.4.4")
-    // Import the GPU delegate plugin Library for GPU inference
-    implementation("org.tensorflow:tensorflow-lite-gpu:2.16.1")
+    implementation("org.tensorflow:tensorflow-lite-support:0.4.4")
+    implementation("org.tensorflow:tensorflow-lite:2.14.0")
+    implementation("org.tensorflow:tensorflow-lite-gpu:2.14.0")
+    implementation("org.tensorflow:tensorflow-lite-gpu-delegate-plugin:0.4.4")
+
+    // 图像处理
+    implementation("org.tensorflow:tensorflow-lite-task-vision-play-services:0.4.4")
+
+    // Import the Task Vision Library dependency (NNAPI is included)
+//    implementation 'org.tensorflow:tensorflow-lite-task-vision:0.4.0'
+//    // Import the GPU delegate plugin Library for GPU inference
 }
