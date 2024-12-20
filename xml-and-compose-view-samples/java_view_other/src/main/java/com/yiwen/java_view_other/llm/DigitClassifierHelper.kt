@@ -18,7 +18,11 @@ package org.tensorflow.lite.examples.digitclassification
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.Paint
 import android.os.SystemClock
 import android.util.Log
 import org.tensorflow.lite.gpu.CompatibilityList
@@ -26,9 +30,11 @@ import org.tensorflow.lite.support.common.ops.NormalizeOp
 import org.tensorflow.lite.support.image.ImageProcessor
 import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.image.ops.ResizeWithCropOrPadOp
+import org.tensorflow.lite.support.image.ops.TransformToGrayscaleOp
 import org.tensorflow.lite.task.core.BaseOptions
 import org.tensorflow.lite.task.vision.classifier.Classifications
 import org.tensorflow.lite.task.vision.classifier.ImageClassifier
+import java.nio.ByteBuffer
 
 class DigitClassifierHelper(
     var threshold: Float = 0.5f,
@@ -53,14 +59,93 @@ class DigitClassifierHelper(
         )
     }
 
+    fun classify(originalBitmap: Bitmap) {
+        if (digitClassifier == null) {
+            setupDigitClassifier()
+        }
+
+        try {
+            // 1. 缩放到 28x28
+            val scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, 28, 28, true)
+
+            // 2. 转换为反色灰度图，因为 MNIST 数据集是黑底白字
+            val grayBitmap = Bitmap.createBitmap(28, 28, Bitmap.Config.ARGB_8888)
+            val canvas = Canvas(grayBitmap)
+            val paint = Paint().apply {
+                colorFilter = ColorMatrixColorFilter(ColorMatrix().apply {
+                    val matrix = floatArrayOf(
+                        -0.299f, -0.587f, -0.114f, 0f, 255f,  // 反色并转灰度
+                        -0.299f, -0.587f, -0.114f, 0f, 255f,
+                        -0.299f, -0.587f, -0.114f, 0f, 255f,
+                        0f, 0f, 0f, 1f, 0f
+                    )
+                    set(matrix)
+                })
+            }
+            canvas.drawBitmap(scaledBitmap, 0f, 0f, paint)
+
+            // 调试：保存处理后的图像进行检查
+            Log.d(TAG, "Intermediate bitmap debug info:")
+            val pixels = IntArray(28 * 28)
+            grayBitmap.getPixels(pixels, 0, 28, 0, 0, 28, 28)
+            val pixelValues = pixels.take(5).joinToString {
+                String.format("R:%d G:%d B:%d",
+                    Color.red(it), Color.green(it), Color.blue(it))
+            }
+            Log.d(TAG, "First 5 pixels: $pixelValues")
+
+            // 3. 转换为 TensorImage
+            val tensorImage = TensorImage.fromBitmap(grayBitmap)
+            Log.d(TAG, "Tensor shape before processing: ${tensorImage.tensorBuffer.shape.contentToString()}")
+            Log.d(TAG, "Tensor values: ${tensorImage.tensorBuffer.floatArray.take(10)}")
+
+            // 4. 图像预处理
+            val imageProcessor = ImageProcessor.Builder()
+                .add(NormalizeOp(0f, 255f))  // 归一化到 [0,1]
+                .build()
+
+            val processedImage = imageProcessor.process(tensorImage)
+            Log.d(TAG, "Processed shape: ${processedImage.tensorBuffer.shape.contentToString()}")
+            Log.d(TAG, "Processed values: ${processedImage.tensorBuffer.floatArray.take(10)}")
+            // 5. 执行推理
+            var inferenceTime = SystemClock.uptimeMillis()
+            val results = digitClassifier?.classify(processedImage)
+            inferenceTime = SystemClock.uptimeMillis() - inferenceTime
+
+            Log.d(TAG, "Raw results: $results")
+            results?.forEach { classifications ->
+                Log.d(TAG, "Head index: ${classifications.headIndex}")
+                classifications.categories.forEach { category ->
+                    Log.d(TAG, "Label: ${category.label}, Score: ${category.score}")
+                }
+            }
+
+            digitClassifierListener?.onResults(results, inferenceTime)
+
+            // 清理
+            scaledBitmap.recycle()
+            grayBitmap.recycle()
+
+        } catch (e: Exception) {
+            Log.e(TAG, "Classification error", e)
+            e.printStackTrace()
+            digitClassifierListener?.onError("分类错误: ${e.message}")
+        }
+    }
+
     private fun setupDigitClassifier() {
         try {
+            // 检查模型文件
+            context.assets.open("mnist.tflite").use {
+                Log.d(TAG, "Model file size: ${it.available()} bytes")
+            }
+
             val optionsBuilder = ImageClassifier.ImageClassifierOptions.builder()
-                .setScoreThreshold(threshold)
-                .setMaxResults(maxResults)
+                .setScoreThreshold(0.1f)  // 降低阈值到 0.1
+                .setMaxResults(1)         // 增加返回结果数
 
             val baseOptionsBuilder = BaseOptions.builder()
-                .setNumThreads(numThreads)
+                .setNumThreads(2)
 
             when (currentDelegate) {
                 DELEGATE_CPU -> {
@@ -83,58 +168,12 @@ class DigitClassifierHelper(
                 "mnist.tflite",
                 optionsBuilder.build()
             )
-        } catch (e: IllegalStateException) {
-            digitClassifierListener?.onError("模型初始化失败: ${e.message}")
-            Log.e(TAG, "TFLite failed to load model with error: ${e.message}")
-        }
-    }
 
-    fun classify(originalBitmap: Bitmap) {
-        if (digitClassifier == null) {
-            setupDigitClassifier()
-        }
-
-        // 预处理图片为 MNIST 格式 (28x28)
-        val processedBitmap = Bitmap.createScaledBitmap(originalBitmap, 28, 28, true)
-
-        // 转换为灰度图
-        val pixels = IntArray(28 * 28)
-        processedBitmap.getPixels(pixels, 0, 28, 0, 0, 28, 28)
-        val grayBitmap = Bitmap.createBitmap(28, 28, Bitmap.Config.ARGB_8888)
-
-        for (i in pixels.indices) {
-            val pixel = pixels[i]
-            val gray = (Color.red(pixel) * 0.299f +
-                    Color.green(pixel) * 0.587f +
-                    Color.blue(pixel) * 0.114f).toInt()
-            pixels[i] = Color.rgb(gray, gray, gray)
-        }
-        grayBitmap.setPixels(pixels, 0, 28, 0, 0, 28, 28)
-
-        try {
-            var inferenceTime = SystemClock.uptimeMillis()
-
-            // 转换为 TensorImage 并添加 batch 维度
-            val tensorImage = TensorImage.fromBitmap(grayBitmap)
-
-            // 添加图像预处理
-            val imageProcessor = ImageProcessor.Builder()
-                .add(ResizeWithCropOrPadOp(28, 28))  // 确保尺寸
-                .add(NormalizeOp(0f, 255f))  // 归一化像素值
-                .build()
-
-            val processedImage = imageProcessor.process(tensorImage)
-
-            val results = digitClassifier?.classify(processedImage)
-            inferenceTime = SystemClock.uptimeMillis() - inferenceTime
-            digitClassifierListener?.onResults(results, inferenceTime)
-            Log.d(TAG, "Inference time: $inferenceTime ms")
-
+            Log.d(TAG, "Model loaded successfully")
         } catch (e: Exception) {
-            digitClassifierListener?.onError("分类错误: ${e.message}")
-        } finally {
-            processedBitmap.recycle()
-            grayBitmap.recycle()
+            Log.e(TAG, "Model setup error", e)
+            e.printStackTrace()
+            digitClassifierListener?.onError("模型初始化失败: ${e.message}")
         }
     }
 
